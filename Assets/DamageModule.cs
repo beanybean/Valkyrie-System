@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class DamageModule : MonoBehaviour {
 
-    public float PhAtk;
-    public float MaAtk;
-    public float PhDef;
-    public float MaDef;
-    public float Res;
-    public float Spd;
+    float PhAtk;
+    float MaAtk;
+    float PhDef;
+    float MaDef;
+    float Res;
+    float Spd;
 
-    void lowerAttribute(string attribute, float amount)
+    public void lowerAttribute(string attribute, float amount)
     {
         if (attribute == "PhAtk")
             PhAtk -= amount;
@@ -28,7 +28,7 @@ public class DamageModule : MonoBehaviour {
             Spd -= amount;
     }
 
-    void raiseAttribute(string attribute, float amount)
+    public void raiseAttribute(string attribute, float amount)
     {
         if (attribute == "PhAtk")
             PhAtk += amount;
@@ -44,7 +44,7 @@ public class DamageModule : MonoBehaviour {
             Spd += amount;
     }
 
-    float getAttribute(string attribute)
+    public float getAttribute(string attribute)
     {
         if (attribute == "PhAtk")
             return PhAtk;
@@ -60,7 +60,7 @@ public class DamageModule : MonoBehaviour {
             return Spd;
     }
 
-    void setAttribute(string attribute, float amount)
+    public void setAttribute(string attribute, float amount)
     {
         if (attribute == "PhAtk")
             PhAtk = amount;
