@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Attribute {PhysicalAttack, MagicalAttack, PhysicalDefense, MagicalDefense, Resistance, Speed };
 
 public class DamageModule : MonoBehaviour {
 
@@ -12,67 +13,105 @@ public class DamageModule : MonoBehaviour {
     float Res;
     float Spd;
 
-    public void lowerAttribute(string attribute, float amount)
+    public void lowerAttribute(Attribute attribute, float amount)
     {
-        if (attribute == "PhAtk")
-            PhAtk -= amount;
-        else if (attribute == "MaAtk")
-            MaAtk -= amount;
-        else if (attribute == "PhDef")
-            PhDef -= amount;
-        else if (attribute == "MaDef")
-            MaDef -= amount;
-        else if (attribute == "Res")
-            Res -= amount;
-        else
-            Spd -= amount;
+        switch (attribute)
+        {
+            case Attribute.PhysicalAttack:
+                PhAtk -= amount;
+                return;
+            case Attribute.MagicalAttack:
+                MaAtk -= amount;
+                return;
+            case Attribute.PhysicalDefense:
+                PhDef -= amount;
+                return;
+            case Attribute.MagicalDefense:
+                MaDef -= amount;
+                return;
+            case Attribute.Resistance:
+                Res -= amount;
+                return;
+            case Attribute.Speed:
+                Spd -= amount;
+                return;
+            default:
+                return;
+        }
     }
 
-    public void raiseAttribute(string attribute, float amount)
+    public void raiseAttribute(Attribute attribute, float amount)
     {
-        if (attribute == "PhAtk")
-            PhAtk += amount;
-        else if (attribute == "MaAtk")
-            MaAtk += amount;
-        else if (attribute == "PhDef")
-            PhDef += amount;
-        else if (attribute == "MaDef")
-            MaDef += amount;
-        else if (attribute == "Res")
-            Res += amount;
-        else
-            Spd += amount;
+        switch (attribute)
+        {
+            case Attribute.PhysicalAttack:
+                PhAtk += amount;
+                return;
+            case Attribute.MagicalAttack:
+                MaAtk += amount;
+                return;
+            case Attribute.PhysicalDefense:
+                PhDef += amount;
+                return;
+            case Attribute.MagicalDefense:
+                MaDef += amount;
+                return;
+            case Attribute.Resistance:
+                Res += amount;
+                return;
+            case Attribute.Speed:
+                Spd += amount;
+                return;
+            default:
+                return;
+        }
     }
 
-    public float getAttribute(string attribute)
+    public float getAttribute(Attribute attribute)
     {
-        if (attribute == "PhAtk")
-            return PhAtk;
-        else if (attribute == "MaAtk")
-            return MaAtk;
-        else if (attribute == "PhDef")
-            return PhDef;
-        else if (attribute == "MaDef")
-            return MaDef;
-        else if (attribute == "Res")
-            return Res;
-        else
-            return Spd;
+        switch (attribute)
+        {
+            case Attribute.PhysicalAttack:
+                return PhAtk;
+            case Attribute.MagicalAttack:
+                return MaAtk;
+            case Attribute.PhysicalDefense:
+                return PhDef;
+            case Attribute.MagicalDefense:
+                return MaDef;
+            case Attribute.Resistance:
+                return Res;
+            case Attribute.Speed:
+                return Spd;
+            default:
+                return -1f;
+        }
     }
 
-    public void setAttribute(string attribute, float amount)
+    public void setAttribute(Attribute attribute, float amount)
     {
-        if (attribute == "PhAtk")
-            PhAtk = amount;
-        else if (attribute == "MaAtk")
-            MaAtk = amount;
-        else if (attribute == "PhDef")
-            PhDef = amount;
-        else if (attribute == "MaDef")
-            MaDef = amount;
-        else if (attribute == "Res")
-            Res = amount;
-        else
-            Spd = amount;
+        switch (attribute)
+        {
+            case Attribute.PhysicalAttack:
+                PhAtk = amount;
+                return;
+            case Attribute.MagicalAttack:
+                MaAtk = amount;
+                return;
+            case Attribute.PhysicalDefense:
+                PhDef = amount;
+                return;
+            case Attribute.MagicalDefense:
+                MaDef = amount;
+                return;
+            case Attribute.Resistance:
+                Res = amount;
+                return;
+            case Attribute.Speed:
+                Spd = amount;
+                return;
+            default:
+                return;
+        }
     }
 }
