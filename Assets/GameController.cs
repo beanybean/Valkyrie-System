@@ -20,7 +20,7 @@ public struct Attack
 
 public class GameController : MonoBehaviour {
 
-    const float AtkPwr;
+    const float AtkPwr = 1.0f;
 
     AriaBehavior Aria;
     public Text DamageText;
