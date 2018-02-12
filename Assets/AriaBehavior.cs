@@ -5,17 +5,25 @@ using UnityEngine;
 
 public class AriaBehavior : MonoBehaviour {
 
+    const float defaultPhAtk = 50f;
+    const float defaultMaAtk = 50f;
+    const float defaultPhDef = 50f;
+    const float defaultMaDef = 50f;
+    const float defaultRes = 50f;
+    const float defaultSpd = 50f;
+    const Element defaultElement = Element.Earth;
+
     public DamageModule damageModule = new DamageModule();
 
 	// Use this for initialization
 	void Start () {
-        damageModule.setAttribute(Attribute.PhysicalAttack, 50.0f);
-        damageModule.setAttribute(Attribute.MagicalAttack, 50.0f);
-        damageModule.setAttribute(Attribute.PhysicalDefense, 50.0f);
-        damageModule.setAttribute(Attribute.MagicalDefense, 50.0f);
-        damageModule.setAttribute(Attribute.Resistance, 50.0f);
-        damageModule.setAttribute(Attribute.Speed, 50.0f);
-        damageModule.setWeakness(Element.Earth);
+        damageModule.setAttribute(Attribute.PhysicalAttack, defaultPhAtk);
+        damageModule.setAttribute(Attribute.MagicalAttack, defaultMaAtk);
+        damageModule.setAttribute(Attribute.PhysicalDefense, defaultPhDef);
+        damageModule.setAttribute(Attribute.MagicalDefense, defaultMaDef);
+        damageModule.setAttribute(Attribute.Resistance, defaultRes);
+        damageModule.setAttribute(Attribute.Speed, defaultSpd);
+        damageModule.setWeakness(defaultElement);
     }
 	
 	// Update is called once per frame
