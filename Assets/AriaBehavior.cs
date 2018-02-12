@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class AriaBehavior : MonoBehaviour {
 
-    public Text DamageText;
-    DamageModule damageModule = new DamageModule();
+    public DamageModule damageModule = new DamageModule();
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +15,7 @@ public class AriaBehavior : MonoBehaviour {
         damageModule.setAttribute(Attribute.MagicalDefense, 50.0f);
         damageModule.setAttribute(Attribute.Resistance, 50.0f);
         damageModule.setAttribute(Attribute.Speed, 50.0f);
+        damageModule.setWeakness(Element.Earth);
     }
 	
 	// Update is called once per frame
@@ -30,7 +30,6 @@ public class AriaBehavior : MonoBehaviour {
 
     void generateAttack()
     {
-        float AttackPower = 1.1f * (((100.0f * Mathf.Pow(damageModule.getAttribute(Attribute.PhysicalAttack), 2) + 70) + 16) / 16);
-        DamageText.text = AttackPower.ToString();
+        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 enum Action { Utility, Ultimate, NormalAttack, Special };
 
@@ -17,39 +18,25 @@ public struct Attack
     Action action;
 };
 
-public class LinkedList
-{
-    public Node head;
-
-    public void add(Node newNode)
-    {
-        if (head == null)
-            head = newNode;
-        else
-
-        {
-            Node current = head;
-            while (current.next != null)
-            {
-                current = current.next;
-            }
-            current.next = newNode;
-        }
-    }
-}
-
 public class GameController : MonoBehaviour {
 
-    LinkedList attackList;
+    const float AtkPwr;
 
+    AriaBehavior Aria;
+    public Text DamageText;
 
-	// Use this for initialization
-	void Start () {
-        attackList.head = null;
+    // Use this for initialization
+    void Start () {
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    void attack()
+    {
+        float PhysicalDamage = 1f * ((((1f * Mathf.Pow(Aria.damageModule.getAttribute(Attribute.PhysicalAttack), 2) + 70) * 16) + 16) / 16);
+        DamageText.text = PhysicalDamage.ToString();
+    }
 }

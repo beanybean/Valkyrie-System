@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Attribute {PhysicalAttack, MagicalAttack, PhysicalDefense, MagicalDefense, Resistance, Speed };
+public enum Element {Wind, Water, Earth, Lightning };
 
 public class DamageModule : MonoBehaviour {
 
@@ -12,6 +13,8 @@ public class DamageModule : MonoBehaviour {
     float MaDef;
     float Res;
     float Spd;
+    Element weakness;
+
 
     public void lowerAttribute(Attribute attribute, float amount)
     {
@@ -113,5 +116,15 @@ public class DamageModule : MonoBehaviour {
             default:
                 return;
         }
+    }
+
+    public void setWeakness(Element element)
+    {
+        weakness = element;
+    }
+
+    public Element getWeakness()
+    {
+        return weakness;
     }
 }
