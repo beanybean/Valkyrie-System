@@ -4,6 +4,15 @@ using UnityEngine;
 
 public enum Attribute {PhysicalAttack, MagicalAttack, PhysicalDefense, MagicalDefense, Resistance, Speed };
 public enum Element {Wind, Water, Earth, Lightning };
+public struct attackAtt
+{
+    //These are the attributes for a specific attack (Up, Left, Right, Down attacks)
+    float AtkSpd; //set value given to a specific attack representative of how fast will the character recharge after the attack: 0.5 - 1.75
+    float phPercent; //percentage of attack that is pysical
+    float maPercent; //percentage of attack that is magical
+    float atkPwr; //set value given to a specific attack representative of the attack's power: 0.6 - 2.8
+
+};
 
 public class DamageModule : MonoBehaviour {
 
@@ -15,6 +24,7 @@ public class DamageModule : MonoBehaviour {
     float Spd;
     Element weakness;
 
+    
 
     public void lowerAttribute(Attribute attribute, float amount)
     {
@@ -127,4 +137,6 @@ public class DamageModule : MonoBehaviour {
     {
         return weakness;
     }
+
+
 }
