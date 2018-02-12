@@ -36,8 +36,8 @@ public class AriaBehavior : MonoBehaviour {
 		
 	}
 
-    void generateAttack()
+    public void generateAttack()
     {
-        
+        GameController.attack(damageModule);
     }
 }

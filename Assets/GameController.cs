@@ -34,9 +34,9 @@ public class GameController : MonoBehaviour {
 		
 	}
 
-    void attack()
+    public void attack(DamageModule damageModule)
     {
-        float PhysicalDamage = 1f * ((((1f * Mathf.Pow(Aria.damageModule.getAttribute(Attribute.PhysicalAttack), 2) + 70) * 16) + 16) / 16);
+        float PhysicalDamage = 1f * ((((1f * Mathf.Pow(damageModule.getAttribute(Attribute.PhysicalAttack), 2) + 70) * 16) + 16) / 16);
         DamageText.text = PhysicalDamage.ToString();
     }
 }
