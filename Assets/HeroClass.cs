@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+public class HeroClass : MonoBehaviour {
 
-public class AriaBehavior : MonoBehaviour {
+    DamageModule damageModule = new DamageModule();
 
     const float defaultPhAtk = 50f;
     const float defaultMaAtk = 50f;
@@ -13,10 +15,10 @@ public class AriaBehavior : MonoBehaviour {
     const float defaultSpd = 50f;
     const Element defaultElement = Element.Earth;
 
-    public DamageModule damageModule = new DamageModule();
+    string CharacterName;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         damageModule.setAttribute(Attribute.PhysicalAttack, defaultPhAtk);
         damageModule.setAttribute(Attribute.MagicalAttack, defaultMaAtk);
         damageModule.setAttribute(Attribute.PhysicalDefense, defaultPhDef);
@@ -28,16 +30,36 @@ public class AriaBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //bool space = Input.GetKeyUp(KeyCode.Space);
-        //if (space)
-            //generateAttack();
-            
-            //transform.Translate(new Vector3(1f, 0, 0) * Time.deltaTime);
 		
 	}
 
-    public void generateAttack()
+    public void setName(string name)
     {
-        //GameController.attack(damageModule);
+        CharacterName = name;
+    }
+
+    public string getName()
+    {
+        return CharacterName;
+    }
+
+    public void utility(Text newText)
+    {
+        newText.text = CharacterName + " Utility";
+    }
+
+    public void ultimate(Text newText)
+    {
+        newText.text = CharacterName + " Ultimate";
+    }
+
+    public void normal(Text newText)
+    {
+        newText.text = CharacterName + " Normal";
+    }
+
+    public void special(Text newText)
+    {
+        newText.text = CharacterName + " Special";
     }
 }
