@@ -27,9 +27,6 @@ public class GameController : MonoBehaviour {
 
     public Text DamageText;
 
-    float horizontal;
-    float vertical;
-
     // Use this for initialization
     void Start () {
         hero0.setName("Aria");
@@ -54,18 +51,10 @@ public class GameController : MonoBehaviour {
         execute();
 	}
 
-    /*public void attack(DamageModule damageModule)
-    {
-        //float PhysicalDamage = 1f * ((((1f * Mathf.Pow(damageModule.getAttribute(Attribute.PhysicalAttack), 2) + 70) * 16) + 16) / 16);
-        //DamageText.text = PhysicalDamage.ToString();
-    }*/
-
     void resetSelectors()
     {
         heroSelector = Hero.Null;
         actionSelector = Action.Null;
-        horizontal = 0f;
-        vertical = 0f;
     }
 
     Direction getDirection()
