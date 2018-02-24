@@ -17,6 +17,11 @@ public class HeroClass{
 
     string CharacterName;
 
+    ActionAttributes myUtility = new ActionAttributes();
+    ActionAttributes myUltimate = new ActionAttributes();
+    ActionAttributes myNormal = new ActionAttributes();
+    ActionAttributes mySpecial = new ActionAttributes();
+
     // Use this for initialization
     public HeroClass () {
         damageModule.setAttribute(Attribute.PhysicalAttack, defaultPhAtk);
@@ -46,6 +51,9 @@ public class HeroClass{
     public void utility(Text newText)
     {
         newText.text = CharacterName + " Utility";
+        AttackAtt Utility;
+        //setAttackAtt(Utility, damageModule.getAttribute(Attribute.Speed),
+            //damageModule.getAttribute());
     }
 
     public void ultimate(Text newText)
@@ -61,5 +69,17 @@ public class HeroClass{
     public void special(Text newText)
     {
         newText.text = CharacterName + " Special";
+    }
+
+    public void setAtkAtt(AttackAtt attackName, float atkSpd, float phPercent, float maPercent, float atkPwr, int status, float chance, Ailment ailment)
+    {
+        //Function to specifically designate the values each hero will have to their individual attacks
+        attackName.AtkSpd = atkSpd;
+        attackName.phPercent = phPercent;
+        attackName.maPercent = maPercent;
+        attackName.atkPwr = atkPwr;
+        attackName.status = status;
+        attackName.chance = chance;
+        attackName.ailment = ailment;
     }
 }
