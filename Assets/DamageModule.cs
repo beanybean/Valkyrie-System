@@ -5,7 +5,7 @@ using UnityEngine;
 public enum Attribute {PhysicalAttack, MagicalAttack, PhysicalDefense, MagicalDefense, Resistance, Speed };
 public enum Element {Wind, Water, Earth, Lightning };
 
-public class DamageModule : MonoBehaviour {
+public class DamageModule{
 
     float PhAtk;
     float MaAtk;

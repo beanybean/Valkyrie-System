@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HeroClass : MonoBehaviour {
+public class HeroClass{
 
     DamageModule damageModule = new DamageModule();
 
@@ -18,7 +18,7 @@ public class HeroClass : MonoBehaviour {
     string CharacterName;
 
     // Use this for initialization
-    void Start () {
+    public HeroClass () {
         damageModule.setAttribute(Attribute.PhysicalAttack, defaultPhAtk);
         damageModule.setAttribute(Attribute.MagicalAttack, defaultMaAtk);
         damageModule.setAttribute(Attribute.PhysicalDefense, defaultPhDef);
