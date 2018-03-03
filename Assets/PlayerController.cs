@@ -5,24 +5,36 @@ using UnityEngine.UI;
 
 public enum Hero { Hero0, Hero1, Hero2, Hero3, Null };
 public enum Action { Utility, Ultimate, Normal, Special, Null };
-public enum Direction { UP, DOWN, LEFT, RIGHT, NONE };
+public enum Direction { DOWN, RIGHT, LEFT, UP, NONE };
 
-public class PlayerController{
-    Hero heroSelector;
-    Action actionSelector;
+public class PlayerController : MonoBehaviour{
+    private Hero heroSelector;
+    private Action actionSelector;
+    public Text HeroText;
 
-    HeroClass hero0 = new HeroClass(); // Aria
-    HeroClass hero1 = new HeroClass(); // Bayl
-    HeroClass hero2 = new HeroClass(); // Xain
-    HeroClass hero3 = new HeroClass(); // Yazir
+    // hero0 corresponds to Aria
+    // hero1 corresponds to Bayl
+    // hero2 corresponds to Xaine
+    // hero3 corresponds to Yazir
 
-    public PlayerController()
+    GameObject AriaObject;
+    GameObject BaylObject;
+    GameObject XaineObject;
+    GameObject YazirObject;
+    //AriaScript Aria = GetComponent<AriaScript>();
+
+    void Start()
     {
-        hero0.setName("Aria");
-        hero1.setName("Bayl");
-        hero2.setName("Xain");
-        hero3.setName("Yazir");
         resetSelectors();
+        AriaObject = GameObject.Find("Aria");
+        BaylObject = GameObject.Find("Bayl");
+        XaineObject = GameObject.Find("Xaine");
+        YazirObject = GameObject.Find("Yazir");
+    }
+
+    void Update()
+    {
+        getInput(HeroText);
     }
 
     public void getInput(Text DamageText)
@@ -34,9 +46,49 @@ public class PlayerController{
             DamageText.text = "";
             return;
         }
-        Direction direction = getDirection();
-        select(direction);
-        execute(DamageText);
+        if (heroSelector == Hero.Null)
+            heroSelector = selectHero(getDirection());
+        else if (actionSelector == Action.Null)
+            actionSelector = selectAction(getDirection());
+        if (heroSelector != Hero.Null && actionSelector != Action.Null)
+        {
+            Test(HeroText);
+            resetSelectors();
+        }
+    }
+
+    Hero selectHero(Direction direction)
+    {
+        switch(direction)
+        {
+            case Direction.DOWN:
+                return Hero.Hero0;
+            case Direction.RIGHT:
+                return Hero.Hero1;
+            case Direction.LEFT:
+                return Hero.Hero2;
+            case Direction.UP:
+                return Hero.Hero3;
+            default:
+                return Hero.Null;
+        }
+    }
+
+    Action selectAction(Direction direction)
+    {
+        switch(direction)
+        {
+            case Direction.DOWN:
+                return Action.Utility;
+            case Direction.RIGHT:
+                return Action.Ultimate;
+            case Direction.LEFT:
+                return Action.Normal;
+            case Direction.UP:
+                return Action.Special;
+            default:
+                return Action.Null;
+        }
     }
 
     void resetSelectors()
@@ -59,97 +111,107 @@ public class PlayerController{
             return Direction.NONE;
     }
 
-    void select(Direction direction)
+    void Test(Text text)
     {
-        if (direction == Direction.NONE)
-            return;
-        else if (heroSelector == Hero.Null)
-        {
-            switch (direction)
-            {
-                case Direction.DOWN:
-                    heroSelector = Hero.Hero0;
-                    return;
-                case Direction.RIGHT:
-                    heroSelector = Hero.Hero1;
-                    return;
-                case Direction.LEFT:
-                    heroSelector = Hero.Hero2;
-                    return;
-                case Direction.UP:
-                    heroSelector = Hero.Hero3;
-                    return;
-                default:
-                    return;
-            }
-        }
-        else if (heroSelector != Hero.Null && actionSelector == Action.Null)
-        {
-            switch (direction)
-            {
-                case Direction.DOWN:
-                    actionSelector = Action.Utility;
-                    return;
-                case Direction.RIGHT:
-                    actionSelector = Action.Ultimate;
-                    return;
-                case Direction.LEFT:
-                    actionSelector = Action.Normal;
-                    return;
-                case Direction.UP:
-                    actionSelector = Action.Special;
-                    return;
-                default:
-                    return;
-            }
-        }
-        else
-            return;
-    }
-
-    void execute(Text DamageText)
-    {
-        if (heroSelector == Hero.Null || actionSelector == Action.Null)
-            return;
-        else if (heroSelector == Hero.Hero0)
-        {
-            doAction(hero0, DamageText);
-        }
+        if (heroSelector == Hero.Hero0)
+            hero0Action(text);
         else if (heroSelector == Hero.Hero1)
-        {
-            doAction(hero1, DamageText);
-        }
+            hero1Action(text);
         else if (heroSelector == Hero.Hero2)
-        {
-            doAction(hero2, DamageText);
-        }
+            hero2Action(text);
         else if (heroSelector == Hero.Hero3)
-        {
-            doAction(hero3, DamageText);
-        }
-        else
-            return;
+            hero3Action(text);
+        else return;
     }
 
-    void doAction(HeroClass hero, Text DamageText)
+    void hero0Action(Text text)
     {
         if (actionSelector == Action.Null)
             return;
         else if (actionSelector == Action.Utility)
         {
-            hero.utility(DamageText);
+            AriaObject.GetComponent<AriaScript>().Utility(text);
         }
         else if (actionSelector == Action.Ultimate)
         {
-            hero.ultimate(DamageText);
+            AriaObject.GetComponent<AriaScript>().Ultimate(text);
         }
         else if (actionSelector == Action.Normal)
         {
-            hero.normal(DamageText);
+            AriaObject.GetComponent<AriaScript>().Normal(text);
         }
         else if (actionSelector == Action.Special)
         {
-            hero.special(DamageText);
+            AriaObject.GetComponent<AriaScript>().Special(text);
+        }
+        resetSelectors();
+    }
+
+    void hero1Action(Text text)
+    {
+        if (actionSelector == Action.Null)
+            return;
+        else if (actionSelector == Action.Utility)
+        {
+            BaylObject.GetComponent<BaylScript>().Utility(text);
+        }
+        else if (actionSelector == Action.Ultimate)
+        {
+            BaylObject.GetComponent<BaylScript>().Ultimate(text);
+        }
+        else if (actionSelector == Action.Normal)
+        {
+            BaylObject.GetComponent<BaylScript>().Normal(text);
+        }
+        else if (actionSelector == Action.Special)
+        {
+            BaylObject.GetComponent<BaylScript>().Special(text);
+        }
+        resetSelectors();
+    }
+
+    void hero2Action(Text text)
+    {
+        if (actionSelector == Action.Null)
+            return;
+        else if (actionSelector == Action.Utility)
+        {
+            XaineObject.GetComponent<XaineScript>().Utility(text);
+        }
+        else if (actionSelector == Action.Ultimate)
+        {
+            XaineObject.GetComponent<XaineScript>().Ultimate(text);
+        }
+        else if (actionSelector == Action.Normal)
+        {
+            XaineObject.GetComponent<XaineScript>().Normal(text);
+        }
+        else if (actionSelector == Action.Special)
+        {
+            XaineObject.GetComponent<XaineScript>().Special(text);
+        }
+        resetSelectors();
+    }
+
+    void hero3Action(Text text)
+    {
+        if (actionSelector == Action.Null)
+            return;
+        else if (actionSelector == Action.Utility)
+        {
+            YazirObject.GetComponent<YazirScript>().Utility(text);
+        }
+        else if (actionSelector == Action.Ultimate)
+        {
+            YazirObject.GetComponent<YazirScript>().Ultimate(text);
+        }
+        else if (actionSelector == Action.Normal)
+        {
+            YazirObject.GetComponent<YazirScript>().Normal(text);
+        }
+        else if (actionSelector == Action.Special)
+        {
+            YazirObject.GetComponent<YazirScript>().Special(text);
         }
         resetSelectors();
     }

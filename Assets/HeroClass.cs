@@ -22,8 +22,8 @@ public class HeroClass{
     ActionAttributes myNormal = new ActionAttributes();
     ActionAttributes mySpecial = new ActionAttributes();
 
-    // Use this for initialization
-    public HeroClass () {
+    public HeroClass ()
+    {
         damageModule.setAttribute(Attribute.PhysicalAttack, defaultPhAtk);
         damageModule.setAttribute(Attribute.MagicalAttack, defaultMaAtk);
         damageModule.setAttribute(Attribute.PhysicalDefense, defaultPhDef);
@@ -33,10 +33,16 @@ public class HeroClass{
         damageModule.setWeakness(defaultElement);
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	public HeroClass(float PA, float MA, float PD, float MD, float R, float S, Element E )
+    {
+        damageModule.setAttribute(Attribute.PhysicalAttack, PA);
+        damageModule.setAttribute(Attribute.MagicalAttack, MA);
+        damageModule.setAttribute(Attribute.PhysicalDefense, PD);
+        damageModule.setAttribute(Attribute.MagicalDefense, MD);
+        damageModule.setAttribute(Attribute.Resistance, R);
+        damageModule.setAttribute(Attribute.Speed, S);
+        damageModule.setWeakness(E);
+    }
 
     public void setName(string name)
     {
@@ -51,7 +57,7 @@ public class HeroClass{
     public void utility(Text newText)
     {
         newText.text = CharacterName + " Utility";
-        AttackAtt Utility;
+        //AttackAtt Utility;
         //setAttackAtt(Utility, damageModule.getAttribute(Attribute.Speed),
             //damageModule.getAttribute());
     }

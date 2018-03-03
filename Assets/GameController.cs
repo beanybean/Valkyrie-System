@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
     public Text DamageText;
-    PlayerController player1 = new PlayerController();
+    //PlayerController player1 = new PlayerController();
 
     // Use this for initialization
     void Start () {
@@ -15,6 +15,6 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        player1.getInput(DamageText);
+        //player1.getInput(DamageText);
 	}
 }
