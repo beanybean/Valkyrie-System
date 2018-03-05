@@ -1,0 +1,124 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum Ailment { empower, haste, mired, vulnerable, slow, minor_slow, weaken, NONE };
+
+public struct AttackAtt
+{
+    //These are the attributes for a specific attack (Up, Left, Right, Down attacks)
+    public float AtkSpd; //set value given to a specific attack representative of how fast will the character recharge after the attack: 0.5 - 1.75
+    public float phPercent; //percentage of attack that is pysical, range of 0-1
+    public float maPercent; //percentage of attack that is magical, range of 0-1
+    public float atkPwr; //set value given to a specific attack representative of the attack's power: 0.6 - 2.8
+    public int status;//This is used to see if an attack has a status effect or not. 1 is yes, 0 is not
+    public float chance; //This number is to see what are the chances of dealing a status ailments
+    public Ailment ailment;//what ailment will this attack cause
+};
+
+public class CharacterAttributes : MonoBehaviour
+{
+    AttackAtt AriaUtility;
+    AttackAtt AriaUltimate;
+    AttackAtt AriaNormal;
+    AttackAtt AriaSpecial;
+
+    AttackAtt BaylUtility;
+    AttackAtt BaylUltimate;
+    AttackAtt BaylNormal;
+    AttackAtt BaylSpecial;
+
+    AttackAtt XaineUtility;
+    AttackAtt XaineUltimate;
+    AttackAtt XaineNormal;
+    AttackAtt XaineSpecial;
+
+    AttackAtt YazirUtility;
+    AttackAtt YazirUltimate;
+    AttackAtt YazirNormal;
+    AttackAtt YazirSpecial;
+
+    AttackAtt zeroDamage;
+                    
+
+    void Start()
+    {
+        setAtkAtt(AriaUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(AriaUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(AriaNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(AriaSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
+
+        setAtkAtt(BaylUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(BaylUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(BaylNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(BaylSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
+
+        setAtkAtt(XaineUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(XaineUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(XaineNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(XaineSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
+
+        setAtkAtt(YazirUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(YazirUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(YazirNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(YazirSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
+
+        setAtkAtt(zeroDamage, 1.0f, 1.0f, 0.0f, 0.0f, 0, 0.0f, Ailment.NONE);
+    }
+
+    public AttackAtt getAttackAtt(string name)
+    {
+        switch(name)
+        {
+            case "AriaUtility":
+                return AriaUtility;
+            case "AriaUltimate":
+                return AriaUltimate;
+            case "AriaNormal":
+                return AriaNormal;
+            case "AriaSpecial":
+                return AriaSpecial;
+
+            case "BaylUtility":
+                return BaylUtility;
+            case "BaylUltimate":
+                return BaylUltimate;
+            case "BaylNormal":
+                return BaylNormal;
+            case "BaylSpecial":
+                return BaylSpecial;
+
+            case "XaineUtility":
+                return XaineUtility;
+            case "XaineUltimate":
+                return XaineUltimate;
+            case "XaineNormal":
+                return XaineNormal;
+            case "XaineSpecial":
+                return XaineSpecial;
+
+            case "YazirUtility":
+                return YazirUtility;
+            case "YazirUltimate":
+                return YazirUltimate;
+            case "YazirNormal":
+                return YazirNormal;
+            case "YazirSpecial":
+                return YazirSpecial;
+            default:
+                return zeroDamage;
+        }
+    }
+
+    void setAtkAtt(AttackAtt attackName, float atkSpd, float phPercent, float maPercent, float atkPwr, int status, float chance, Ailment ailment)
+    {
+        //Function to specifically designate the values each hero will have to their individual attacks
+        attackName.AtkSpd = atkSpd;
+        attackName.phPercent = phPercent;
+        attackName.maPercent = maPercent;
+        attackName.atkPwr = atkPwr;
+        attackName.status = status;
+        attackName.chance = chance;
+        attackName.ailment = ailment;
+    }
+}

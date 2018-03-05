@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public enum Hero { Hero0, Hero1, Hero2, Hero3, Null };
 public enum Action { Utility, Ultimate, Normal, Special, Null };
-public enum Direction { DOWN, RIGHT, LEFT, UP, NONE };
+public enum Direction { DOWN, RIGHT, LEFT, UP, DESELECT, NONE };
 
 public class PlayerController : MonoBehaviour{
     private Hero heroSelector;
     private Action actionSelector;
     public Text HeroText;
+    public CharacterAttributes characterAttributes;
 
     // hero0 corresponds to Aria
     // hero1 corresponds to Bayl
@@ -39,17 +40,17 @@ public class PlayerController : MonoBehaviour{
 
     public void getInput(Text DamageText)
     {
-        bool cancel = Input.GetButtonUp("Deselect");
-        if (cancel)
+        Direction direction = getDirection();
+        if (direction == Direction.DESELECT)
         {
             resetSelectors();
             DamageText.text = "";
             return;
         }
         if (heroSelector == Hero.Null)
-            heroSelector = selectHero(getDirection());
+            heroSelector = selectHero(direction);
         else if (actionSelector == Action.Null)
-            actionSelector = selectAction(getDirection());
+            actionSelector = selectAction(direction);
         if (heroSelector != Hero.Null && actionSelector != Action.Null)
         {
             Test(HeroText);
@@ -107,6 +108,8 @@ public class PlayerController : MonoBehaviour{
             return Direction.LEFT;
         else if (Input.GetButtonUp("Up"))
             return Direction.UP;
+        else if (Input.GetButtonUp("Deselect"))
+            return Direction.DESELECT;
         else
             return Direction.NONE;
     }

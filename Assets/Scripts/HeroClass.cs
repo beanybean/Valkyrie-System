@@ -17,10 +17,10 @@ public class HeroClass{
 
     string CharacterName;
 
-    ActionAttributes myUtility = new ActionAttributes();
-    ActionAttributes myUltimate = new ActionAttributes();
-    ActionAttributes myNormal = new ActionAttributes();
-    ActionAttributes mySpecial = new ActionAttributes();
+    AttackAtt myUtility = new AttackAtt();
+    AttackAtt myUltimate = new AttackAtt();
+    AttackAtt myNormal = new AttackAtt();
+    AttackAtt mySpecial = new AttackAtt();
 
     public HeroClass ()
     {
