@@ -30,6 +30,9 @@ public class HealthBar
 
     public void takeDamage(float damage)
     {
-        health -= damage;
+        if (health - damage > 0)
+            health -= damage;
+        else
+            health = 0;
     }
 }

@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class HeroClass
 {
     DamageModule damageModule = new DamageModule();
+    ActionPoints actionPoints = new ActionPoints();
+
+    const float POINTS_RATE = 1;
+    const float SPEED_MODIFIER = 0.01f;
+    const float ATTACK_SPEED = 1.0f;
 
     const float defaultPhAtk = 50f;
     const float defaultMaAtk = 50f;
@@ -69,7 +74,7 @@ public class HeroClass
         newText.text = CharacterName + " Special";
     }
 
-    public void setAtkAtt(AttackAtt attackName, float atkSpd, float phPercent, float maPercent, float atkPwr, int status, float chance, Ailment ailment)
+    public void setAtkAtt(ref AttackAtt attackName, float atkSpd, float phPercent, float maPercent, float atkPwr, int status, float chance, Ailment ailment)
     {
         //Function to specifically designate the values each hero will have to their individual attacks
         attackName.AtkSpd = atkSpd;
@@ -84,5 +89,16 @@ public class HeroClass
     public DamageModule getDamageModule()
     {
         return damageModule;
+    }
+
+    public ActionPoints getActionPoints()
+    {
+        return actionPoints;
+    }
+
+    public void addPoints()
+    {
+        float points = POINTS_RATE * (damageModule.getAttribute(Attribute.Speed)) * SPEED_MODIFIER * ATTACK_SPEED;
+        actionPoints.addPoints(points);
     }
 }

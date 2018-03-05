@@ -113,7 +113,7 @@ public class CharacterAttributes : MonoBehaviour
         }
     }
 
-    void setAtkAtt(ref AttackAtt attackName, float atkSpd, float phPercent, float maPercent, float atkPwr, int status, float chance, Ailment ailment)
+    public void setAtkAtt(ref AttackAtt attackName, float atkSpd, float phPercent, float maPercent, float atkPwr, int status, float chance, Ailment ailment)
     {
         //Function to specifically designate the values each hero will have to their individual attacks
         attackName.AtkSpd = atkSpd;

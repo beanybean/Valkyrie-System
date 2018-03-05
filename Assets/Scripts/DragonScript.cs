@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DragonScript : MonoBehaviour {
-    const float DRAGON_HEALTH = 10000.0f;
+    const float DRAGON_HEALTH = 1000.0f;
     const float defaultPhAtk = 100.0f;
     const float defaultMaAtk = 100.0f;
     const float defaultPhDef = 50.0f;

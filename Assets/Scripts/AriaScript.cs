@@ -69,7 +69,7 @@ public class AriaScript : MonoBehaviour
     {
         heroClass.setName("Aria");
         attributes = GameObject.Find("CharacterAttributes");
-        myUtility = attributes.GetComponent<CharacterAttributes>().getAttackAtt("AriaUtility");
+        myUtility = attributes.GetComponent<CharacterAttributes>().getAttackAtt("XaineUtility");
         myUltimate = attributes.GetComponent<CharacterAttributes>().getAttackAtt("AriaUltimate");
         myNormal = attributes.GetComponent<CharacterAttributes>().getAttackAtt("AriaNormal");
         mySpecial = attributes.GetComponent<CharacterAttributes>().getAttackAtt("AriaSpecial");
@@ -78,6 +78,7 @@ public class AriaScript : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
+        heroClass.addPoints();
+        myText.text = heroClass.getActionPoints().getPoints().ToString() + " / " + heroClass.getActionPoints().getCap().ToString();
 	}
 }

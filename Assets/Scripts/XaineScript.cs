@@ -69,10 +69,14 @@ public class XaineScript : MonoBehaviour
     {
         heroClass.setName("Xaine");
         attributes = GameObject.Find("CharacterAttributes");
-        myUtility = attributes.GetComponent<CharacterAttributes>().getAttackAtt("XaineUtility");
+        /*myUtility = attributes.GetComponent<CharacterAttributes>().getAttackAtt("XaineUtility");
         myUltimate = attributes.GetComponent<CharacterAttributes>().getAttackAtt("XaineUltimate");
         myNormal = attributes.GetComponent<CharacterAttributes>().getAttackAtt("XaineNormal");
-        mySpecial = attributes.GetComponent<CharacterAttributes>().getAttackAtt("XaineSpecial");
+        mySpecial = attributes.GetComponent<CharacterAttributes>().getAttackAtt("XaineSpecial");*/
+        heroClass.setAtkAtt(ref myUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
+        heroClass.setAtkAtt(ref myUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        heroClass.setAtkAtt(ref myNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        heroClass.setAtkAtt(ref mySpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
         GameController = GameObject.Find("GameController");
     }
 
