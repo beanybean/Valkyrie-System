@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour{
     GameObject BaylObject;
     GameObject XaineObject;
     GameObject YazirObject;
-    //AriaScript Aria = GetComponent<AriaScript>();
 
     void Start()
     {

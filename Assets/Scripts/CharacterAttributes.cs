@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum Ailment { empower, haste, mired, vulnerable, slow, minor_slow, weaken, NONE };
 
@@ -39,31 +40,33 @@ public class CharacterAttributes : MonoBehaviour
     AttackAtt YazirSpecial;
 
     AttackAtt zeroDamage;
-                    
 
+    public Text test;
     void Start()
     {
-        setAtkAtt(AriaUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(AriaUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(AriaNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(AriaSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref AriaUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref AriaUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref AriaNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref AriaSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
 
-        setAtkAtt(BaylUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(BaylUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(BaylNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(BaylSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref BaylUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref BaylUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref BaylNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref BaylSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
 
-        setAtkAtt(XaineUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(XaineUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(XaineNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(XaineSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref XaineUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref XaineUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref XaineNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref XaineSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
 
-        setAtkAtt(YazirUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(YazirUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(YazirNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(YazirSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref YazirUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref YazirUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref YazirNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref YazirSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
 
-        setAtkAtt(zeroDamage, 1.0f, 1.0f, 0.0f, 0.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref zeroDamage, 1.0f, 1.0f, 0.0f, 0.0f, 0, 0.0f, Ailment.NONE);
+
+        test.text = XaineNormal.AtkSpd.ToString();
     }
 
     public AttackAtt getAttackAtt(string name)
@@ -110,7 +113,7 @@ public class CharacterAttributes : MonoBehaviour
         }
     }
 
-    void setAtkAtt(AttackAtt attackName, float atkSpd, float phPercent, float maPercent, float atkPwr, int status, float chance, Ailment ailment)
+    void setAtkAtt(ref AttackAtt attackName, float atkSpd, float phPercent, float maPercent, float atkPwr, int status, float chance, Ailment ailment)
     {
         //Function to specifically designate the values each hero will have to their individual attacks
         attackName.AtkSpd = atkSpd;

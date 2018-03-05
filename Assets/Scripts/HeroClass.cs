@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HeroClass{
-
+public class HeroClass
+{
     DamageModule damageModule = new DamageModule();
 
     const float defaultPhAtk = 50f;
@@ -16,11 +16,6 @@ public class HeroClass{
     const Element defaultElement = Element.Earth;
 
     string CharacterName;
-
-    AttackAtt myUtility = new AttackAtt();
-    AttackAtt myUltimate = new AttackAtt();
-    AttackAtt myNormal = new AttackAtt();
-    AttackAtt mySpecial = new AttackAtt();
 
     public HeroClass ()
     {
@@ -57,9 +52,6 @@ public class HeroClass{
     public void utility(Text newText)
     {
         newText.text = CharacterName + " Utility";
-        //AttackAtt Utility;
-        //setAttackAtt(Utility, damageModule.getAttribute(Attribute.Speed),
-            //damageModule.getAttribute());
     }
 
     public void ultimate(Text newText)
@@ -87,5 +79,10 @@ public class HeroClass{
         attackName.status = status;
         attackName.chance = chance;
         attackName.ailment = ailment;
+    }
+
+    public DamageModule getDamageModule()
+    {
+        return damageModule;
     }
 }

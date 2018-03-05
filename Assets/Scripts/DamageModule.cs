@@ -5,7 +5,14 @@ using UnityEngine;
 public enum Attribute {PhysicalAttack, MagicalAttack, PhysicalDefense, MagicalDefense, Resistance, Speed };
 public enum Element {Wind, Water, Earth, Lightning };
 
-public class DamageModule{
+struct Attack
+{
+    internal float phDamage;
+    internal float maDamage;
+}
+
+public class DamageModule
+{
 
     float PhAtk;
     float MaAtk;
@@ -126,5 +133,69 @@ public class DamageModule{
     public Element getWeakness()
     {
         return weakness;
+    }
+
+    public float phAttackDamage(AttackAtt attackName, float affinity)
+    {
+        float atkPwr = attackName.atkPwr;
+        float phPercent = attackName.phPercent;
+        float phAtkSqrt = PhAtk * PhAtk;
+
+        float damage = atkPwr * (((phPercent * phAtkSqrt + 70) + 16) / 16);
+        damage *= affinity;
+
+        return damage;
+    }
+
+    public float maAttackDamage(AttackAtt attackName, float affinity)
+    {
+        float atkPwr = attackName.atkPwr;
+        float maPercent = attackName.maPercent;
+        float maAtkSqrt = MaAtk * MaAtk;
+
+        float damage = atkPwr * (((maPercent * maAtkSqrt + 70) + 16) / 16);
+        damage *= affinity;
+
+        return damage;
+    }
+
+    /*public float phAttackDamage(AttackAtt attackName, float affinity, float phAtk)
+    {
+        float atkPwr = attackName.atkPwr;
+        float phPercent = attackName.phPercent;
+        float phAtkSqrt = phAtk * phAtk;
+
+        float damage = atkPwr * (((phPercent * phAtkSqrt + 70) + 16) / 16);
+        damage *= affinity;
+
+        return damage;
+    }
+
+    public float maAttackDamage(AttackAtt attackName, float affinity, float maAtk)
+    {
+        float atkPwr = attackName.atkPwr;
+        float maPercent = attackName.maPercent;
+        float maAtkSqrt = maAtk * maAtk;
+
+        float damage = atkPwr * (((maPercent * maAtkSqrt + 70) + 16) / 16);
+        damage *= affinity;
+
+        return damage;
+    }*/
+
+    public float phDamageReduction(float phDamage, float phDefense)
+    {
+        float dmgReduction = (1 - phDefense / 128);
+        float damage = phDamage * dmgReduction;
+
+        return damage;
+    }
+
+    public float maDamageReduction(float maDamage, float maDefense)
+    {
+        float dmgReduction = (1 - maDefense / 128);
+        float damage = maDamage * dmgReduction;
+
+        return damage;
     }
 }
