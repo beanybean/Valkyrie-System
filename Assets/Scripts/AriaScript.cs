@@ -12,7 +12,11 @@ public class AriaScript : MonoBehaviour
     const float defaultRes = 50f;
     const float defaultSpd = 50f;
     const Element defaultElement = Element.Wind;
-    public Text myText;
+    [SerializeField]
+    private Text myText;
+
+    [SerializeField]
+    private Image actionMeter;
 
     HeroClass heroClass = new HeroClass(defaultPhAtk, defaultMaAtk, defaultPhDef,
         defaultMaDef, defaultRes, defaultSpd, defaultElement);
@@ -27,43 +31,28 @@ public class AriaScript : MonoBehaviour
 
     public void Utility(Text newText)
     {
-        newText.text = heroClass.getName() + " Utility";
-        Attack attack;
-        attack.phDamage = heroClass.getDamageModule().phAttackDamage(myUtility, 1.0f);
-        attack.maDamage = heroClass.getDamageModule().maAttackDamage(myUtility, 1.0f);
-        myText.text = (attack.phDamage + attack.maDamage).ToString() + " damage!";
-        GameController.GetComponent<GameController>().AttackQueue.Enqueue(attack);
+        if (heroClass.getActionPoints().isReady())
+            attackCommand(newText, " Utility", myUtility);
     }
 
     public void Ultimate(Text newText)
     {
-        newText.text = heroClass.getName() + " Ultimate";
-        Attack attack;
-        attack.phDamage = heroClass.getDamageModule().phAttackDamage(myUltimate, 1.0f);
-        attack.maDamage = heroClass.getDamageModule().maAttackDamage(myUltimate, 1.0f);
-        myText.text = (attack.phDamage + attack.maDamage).ToString() + " damage!";
-        GameController.GetComponent<GameController>().AttackQueue.Enqueue(attack);
+        if (heroClass.getActionPoints().isReady())
+            attackCommand(newText, " Ultimate", myUltimate);
     }
 
     public void Normal(Text newText)
     {
-        newText.text = heroClass.getName() + " Normal";
-        Attack attack;
-        attack.phDamage = heroClass.getDamageModule().phAttackDamage(myNormal, 1.0f);
-        attack.maDamage = heroClass.getDamageModule().maAttackDamage(myNormal, 1.0f);
-        myText.text = (attack.phDamage + attack.maDamage).ToString() + " damage!";
-        GameController.GetComponent<GameController>().AttackQueue.Enqueue(attack);
+        if (heroClass.getActionPoints().isReady())
+            attackCommand(newText, " Normal", myNormal);
     }
 
     public void Special(Text newText)
     {
-        newText.text = heroClass.getName() + " Special";
-        Attack attack;
-        attack.phDamage = heroClass.getDamageModule().phAttackDamage(mySpecial, 1.0f);
-        attack.maDamage = heroClass.getDamageModule().maAttackDamage(mySpecial, 1.0f);
-        myText.text = (attack.phDamage + attack.maDamage).ToString() + " damage!";
-        GameController.GetComponent<GameController>().AttackQueue.Enqueue(attack);
+        if (heroClass.getActionPoints().isReady())
+            attackCommand(newText, " Special", mySpecial);
     }
+
     // Use this for initialization
     void Start ()
     {
@@ -79,6 +68,17 @@ public class AriaScript : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         heroClass.addPoints();
-        myText.text = heroClass.getActionPoints().getPoints().ToString() + " / " + heroClass.getActionPoints().getCap().ToString();
+        heroClass.displayUpdates(myText, actionMeter);
 	}
+
+    void attackCommand(Text newText, string attackName, AttackAtt myAttack)
+    {
+        newText.text = heroClass.getName() + attackName;
+        Attack attack;
+        attack.phDamage = heroClass.getDamageModule().phAttackDamage(myAttack, 1.0f);
+        attack.maDamage = heroClass.getDamageModule().maAttackDamage(myAttack, 1.0f);
+        heroClass.displayDamage(myText, attack.phDamage, attack.maDamage);
+        GameController.GetComponent<GameController>().AttackQueue.Enqueue(attack);
+        heroClass.getActionPoints().usePoints();
+    }
 }

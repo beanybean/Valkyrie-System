@@ -101,4 +101,15 @@ public class HeroClass
         float points = POINTS_RATE * (damageModule.getAttribute(Attribute.Speed)) * SPEED_MODIFIER * ATTACK_SPEED;
         actionPoints.addPoints(points);
     }
+
+    public void displayUpdates(Text myText, Image actionMeter)
+    {
+        //myText.text = actionPoints.getPoints().ToString() + " / " + actionPoints.getCap().ToString();
+        actionPoints.getMeter(actionMeter);
+    }
+
+    public void displayDamage(Text myText, float phDamage, float maDamage)
+    {
+        myText.text = (phDamage + maDamage).ToString() + " damage!";
+    }
 }

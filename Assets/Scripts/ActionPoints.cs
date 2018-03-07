@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ActionPoints
 {
@@ -9,7 +10,7 @@ public class ActionPoints
 
     public ActionPoints()
     {
-        actionPoints = 0;
+        actionPoints = POINTS_CAP;
     }
 
     public void addPoints(float points)
@@ -41,5 +42,21 @@ public class ActionPoints
             return true;
         else
             return false;
+    }
+
+    public float getMeter()
+    {
+        return actionPoints / POINTS_CAP;
+    }
+
+    public void getMeter(Image meter)
+    {
+        meter.fillAmount = getMeter();
+    }
+
+    public void usePoints()
+    {
+        if (isReady())
+            actionPoints = 0;
     }
 }
