@@ -13,6 +13,11 @@ public class ActionPoints
         actionPoints = POINTS_CAP;
     }
 
+    public ActionPoints(float points)
+    {
+        actionPoints = points;
+    }
+
     public void addPoints(float points)
     {
         if (actionPoints + points < POINTS_CAP)
