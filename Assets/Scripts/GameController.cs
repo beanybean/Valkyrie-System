@@ -7,6 +7,9 @@ public class GameController : MonoBehaviour {
     GameObject Dragon;
     public Queue AttackQueue = new Queue();
 
+    [SerializeField]
+    private Text test;
+
     void Awake()
     {
         QualitySettings.vSyncCount = 0;
@@ -26,4 +29,9 @@ public class GameController : MonoBehaviour {
         }
         //player1.getInput(DamageText);
 	}
+
+    public void gameOver()
+    {
+        test.text = "GAME OVER";
+    }
 }

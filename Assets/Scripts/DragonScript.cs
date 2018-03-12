@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DragonScript : MonoBehaviour {
+    const int TIMER_MAX = 3;
     const float POINTS_RATE = 1;
     const float SPEED_MODIFIER = 0.01f;
     const float ATTACK_SPEED = 1.0f;
-    const float DRAGON_HEALTH = 1000.0f;
+    const float DRAGON_HEALTH = 10000.0f;
     const float defaultPhAtk = 100.0f;
     const float defaultMaAtk = 100.0f;
     const float defaultPhDef = 50.0f;
@@ -16,6 +17,7 @@ public class DragonScript : MonoBehaviour {
     const float defaultSpd = 10.0f;
     const Element defaultElement = Element.Water;
     HealthBar healthBar = new HealthBar(DRAGON_HEALTH);
+    int timerCount = 0;
 
     [SerializeField]
     private Text dragonText;
@@ -24,6 +26,8 @@ public class DragonScript : MonoBehaviour {
     private Image doomsdayTimer;
     DamageModule damageModule = new DamageModule();
     ActionPoints actionPoints = new ActionPoints(0);
+
+    GameObject GameController;
 
     public void takeDamage(float phDamage, float maDamage)
     {
@@ -42,6 +46,7 @@ public class DragonScript : MonoBehaviour {
         damageModule.setAttribute(Attribute.Resistance, defaultRes);
         damageModule.setAttribute(Attribute.Speed, defaultSpd);
         damageModule.setWeakness(defaultElement);
+        GameController = GameObject.Find("GameController");
     }
 	
 	// Update is called once per frame
@@ -50,7 +55,11 @@ public class DragonScript : MonoBehaviour {
         addPoints();
         if (actionPoints.isReady())
         {
-            powerUp();
+            ++timerCount;
+            if (timerCount == TIMER_MAX)
+                GameController.GetComponent<GameController>().gameOver();
+            else
+                powerUp();
         }
 	}
 
@@ -65,4 +74,25 @@ public class DragonScript : MonoBehaviour {
     {
         actionPoints.usePoints();
     }
+
+    void tailWhip()
+    {
+
+    }
+
+    void fireball()
+    {
+
+    }
+
+    void earthquake()
+    {
+
+    }
+
+    void haze()
+    {
+
+    }
+
 }

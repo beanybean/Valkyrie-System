@@ -81,6 +81,7 @@ public class YazirScript : MonoBehaviour
         attack.maDamage = heroClass.getDamageModule().maAttackDamage(myAttack, 1.0f);
         heroClass.displayDamage(myText, attack.phDamage, attack.maDamage);
         GameController.GetComponent<GameController>().AttackQueue.Enqueue(attack);
+        heroClass.setAttackSpeed(myAttack);
         heroClass.getActionPoints().usePoints();
     }
 }

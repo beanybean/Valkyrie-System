@@ -11,7 +11,8 @@ public class HeroClass
     const float POINTS_RATE = 1;
     const float SPEED_MODIFIER = 0.01f;
     const float ATTACK_SPEED = 1.0f;
-
+    const float METER_OFFSET_X = 100;
+    const float METER_OFFSET_Y = -100;
     const float defaultPhAtk = 50f;
     const float defaultMaAtk = 50f;
     const float defaultPhDef = 50f;
@@ -19,6 +20,8 @@ public class HeroClass
     const float defaultRes = 50f;
     const float defaultSpd = 50f;
     const Element defaultElement = Element.Earth;
+
+    float attackSpeed;
 
     string CharacterName;
 
@@ -31,6 +34,7 @@ public class HeroClass
         damageModule.setAttribute(Attribute.Resistance, defaultRes);
         damageModule.setAttribute(Attribute.Speed, defaultSpd);
         damageModule.setWeakness(defaultElement);
+        attackSpeed = ATTACK_SPEED;
     }
 	
 	public HeroClass(float PA, float MA, float PD, float MD, float R, float S, Element E )
@@ -42,6 +46,7 @@ public class HeroClass
         damageModule.setAttribute(Attribute.Resistance, R);
         damageModule.setAttribute(Attribute.Speed, S);
         damageModule.setWeakness(E);
+        attackSpeed = ATTACK_SPEED;
     }
 
     public void setName(string name)
@@ -98,8 +103,13 @@ public class HeroClass
 
     public void addPoints()
     {
-        float points = POINTS_RATE * (damageModule.getAttribute(Attribute.Speed)) * SPEED_MODIFIER * ATTACK_SPEED;
+        float points = POINTS_RATE * (damageModule.getAttribute(Attribute.Speed)) * SPEED_MODIFIER * attackSpeed;
         actionPoints.addPoints(points);
+    }
+
+    public void positionMeter(ref Image actionMeter, Vector2 myPosition)
+    {
+        actionMeter.rectTransform.position.Set(myPosition.x + METER_OFFSET_X, myPosition.y + METER_OFFSET_Y, 0);
     }
 
     public void displayUpdates(Text myText, Image actionMeter)
@@ -111,5 +121,10 @@ public class HeroClass
     public void displayDamage(Text myText, float phDamage, float maDamage)
     {
         myText.text = (phDamage + maDamage).ToString() + " damage!";
+    }
+
+    public void setAttackSpeed(AttackAtt myAttack)
+    {
+        attackSpeed = myAttack.AtkSpd;
     }
 }

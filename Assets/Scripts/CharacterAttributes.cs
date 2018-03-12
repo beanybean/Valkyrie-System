@@ -40,33 +40,30 @@ public class CharacterAttributes : MonoBehaviour
     AttackAtt YazirSpecial;
 
     AttackAtt zeroDamage;
-
-    public Text test;
+    
     void Start()
     {
         setAtkAtt(ref AriaUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(ref AriaUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(ref AriaNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref AriaUltimate, 0.6f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref AriaNormal, 1.75f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
         setAtkAtt(ref AriaSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
 
         setAtkAtt(ref BaylUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(ref BaylUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(ref BaylNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref BaylUltimate, 0.5f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref BaylNormal, 1.2f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
         setAtkAtt(ref BaylSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
 
         setAtkAtt(ref XaineUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(ref XaineUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(ref XaineNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref XaineUltimate, 0.6f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref XaineNormal, 1.5f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
         setAtkAtt(ref XaineSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
 
         setAtkAtt(ref YazirUtility, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(ref YazirUltimate, 0.8f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
-        setAtkAtt(ref YazirNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref YazirUltimate, 0.6f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref YazirNormal, 1.3f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
         setAtkAtt(ref YazirSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
 
         setAtkAtt(ref zeroDamage, 1.0f, 1.0f, 0.0f, 0.0f, 0, 0.0f, Ailment.NONE);
-
-        test.text = XaineNormal.AtkSpd.ToString();
     }
 
     public AttackAtt getAttackAtt(string name)
