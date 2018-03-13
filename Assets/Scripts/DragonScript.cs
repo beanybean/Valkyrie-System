@@ -8,7 +8,7 @@ public class DragonScript : MonoBehaviour {
     const float POINTS_RATE = 1;
     const float SPEED_MODIFIER = 0.01f;
     const float ATTACK_SPEED = 1.0f;
-    const float DRAGON_HEALTH = 10000.0f;
+    const float DRAGON_HEALTH = 5000.0f;
     const float defaultPhAtk = 100.0f;
     const float defaultMaAtk = 100.0f;
     const float defaultPhDef = 50.0f;
@@ -47,19 +47,23 @@ public class DragonScript : MonoBehaviour {
         damageModule.setAttribute(Attribute.Speed, defaultSpd);
         damageModule.setWeakness(defaultElement);
         GameController = GameObject.Find("GameController");
+        setTimerColor(doomsdayTimer);
     }
 	
 	// Update is called once per frame
 	void Update () {
         dragonText.text = healthBar.getHealth().ToString() + " / " + DRAGON_HEALTH.ToString();
         addPoints();
-        if (actionPoints.isReady())
+        if (timerCount == TIMER_MAX)
+            GameController.GetComponent<GameController>().gameOver();
+        else if (actionPoints.isReady())
         {
             ++timerCount;
-            if (timerCount == TIMER_MAX)
-                GameController.GetComponent<GameController>().gameOver();
-            else
+            if (timerCount < TIMER_MAX)
+            {
                 powerUp();
+                setTimerColor(doomsdayTimer);
+            }
         }
 	}
 
@@ -70,9 +74,26 @@ public class DragonScript : MonoBehaviour {
         actionPoints.getMeter(doomsdayTimer);
     }
 
+    void setTimerColor(Image image)
+    {
+        switch(timerCount)
+        {
+            case 0:
+                image.GetComponent<Image>().color = new Color32(0, 255, 0, 255);
+                return;
+            case 1:
+                image.GetComponent<Image>().color = new Color32(255, 255, 0, 255);
+                return;
+            case 2:
+                image.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
+                return;
+        }
+    }
+
     void powerUp()
     {
         actionPoints.usePoints();
+        actionPoints.getMeter(doomsdayTimer);
     }
 
     void tailWhip()

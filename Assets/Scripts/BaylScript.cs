@@ -74,13 +74,6 @@ public class BaylScript : MonoBehaviour
 
     void attackCommand(Text newText, string attackName, AttackAtt myAttack)
     {
-        newText.text = heroClass.getName() + attackName;
-        Attack attack;
-        attack.phDamage = heroClass.getDamageModule().phAttackDamage(myAttack, 1.0f);
-        attack.maDamage = heroClass.getDamageModule().maAttackDamage(myAttack, 1.0f);
-        heroClass.displayDamage(myText, attack.phDamage, attack.maDamage);
-        GameController.GetComponent<GameController>().AttackQueue.Enqueue(attack);
-        heroClass.setAttackSpeed(myAttack);
-        heroClass.getActionPoints().usePoints();
+        heroClass.attackCommand(GameController, myText, newText, attackName, myAttack);
     }
 }
