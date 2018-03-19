@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
     GameObject Dragon;
+    GameObject Player;
     public Queue AttackQueue = new Queue();
+    public Queue EnemyQueue = new Queue();
 
     [SerializeField]
     private Text test;
@@ -18,6 +20,7 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Dragon = GameObject.Find("Dragon");
+        Player = GameObject.Find("PlayerController");
     }
 	
 	// Update is called once per frame
@@ -27,7 +30,11 @@ public class GameController : MonoBehaviour {
             Attack currentAttack = (Attack)AttackQueue.Dequeue();
             Dragon.GetComponent<DragonScript>().takeDamage(currentAttack.phDamage, currentAttack.maDamage);
         }
-        //player1.getInput(DamageText);
+        if (EnemyQueue.Count > 0)
+        {
+            EnemyAttack currentAttack = (EnemyAttack)EnemyQueue.Dequeue();
+            Player.GetComponent<PlayerController>().attackPlayer(currentAttack);
+        }
 	}
 
     public void gameOver()

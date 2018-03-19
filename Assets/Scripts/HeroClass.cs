@@ -118,6 +118,13 @@ public class HeroClass
         actionPoints.getMeter(actionMeter);
     }
 
+    public void displayUpdates(Text myText, Image actionMeter, HealthBar healthBar)
+    {
+        //myText.text = actionPoints.getPoints().ToString() + " / " + actionPoints.getCap().ToString();
+        actionPoints.getMeter(actionMeter);
+        myText.text = healthBar.getHealthString();
+    }
+
     public void displayDamage(Text myText, float phDamage, float maDamage)
     {
         myText.text = (phDamage + maDamage).ToString() + " damage!";
@@ -134,7 +141,7 @@ public class HeroClass
         Attack attack;
         attack.phDamage = getDamageModule().phAttackDamage(myAttack, 1.0f);
         attack.maDamage = getDamageModule().maAttackDamage(myAttack, 1.0f);
-        displayDamage(myText, attack.phDamage, attack.maDamage);
+        //displayDamage(myText, attack.phDamage, attack.maDamage);
         GameController.GetComponent<GameController>().AttackQueue.Enqueue(attack);
         setAttackSpeed(myAttack);
         getActionPoints().usePoints();

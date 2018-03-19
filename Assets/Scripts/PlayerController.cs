@@ -13,11 +13,6 @@ public class PlayerController : MonoBehaviour{
     public Text HeroText;
     public CharacterAttributes characterAttributes;
 
-    // hero0 corresponds to Aria
-    // hero1 corresponds to Bayl
-    // hero2 corresponds to Xaine
-    // hero3 corresponds to Yazir
-
     GameObject AriaObject;
     GameObject BaylObject;
     GameObject XaineObject;
@@ -216,5 +211,10 @@ public class PlayerController : MonoBehaviour{
             YazirObject.GetComponent<YazirScript>().Special(text);
         }
         resetSelectors();
+    }
+
+    public void attackPlayer(EnemyAttack attack)
+    {
+        AriaObject.GetComponent<AriaScript>().takeDamage(attack.phDamage, attack.maDamage);
     }
 }

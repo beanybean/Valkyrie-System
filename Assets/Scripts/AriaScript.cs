@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class AriaScript : MonoBehaviour
 {
+    const float DEFAULT_HEALTH = 1000f;
     const float defaultPhAtk = 50f;
     const float defaultMaAtk = 50f;
     const float defaultPhDef = 50f;
@@ -20,6 +21,8 @@ public class AriaScript : MonoBehaviour
 
     HeroClass heroClass = new HeroClass(defaultPhAtk, defaultMaAtk, defaultPhDef,
         defaultMaDef, defaultRes, defaultSpd, defaultElement);
+
+    HealthBar healthBar = new HealthBar(DEFAULT_HEALTH);
 
     AttackAtt myUtility;
     AttackAtt myUltimate;
@@ -58,7 +61,7 @@ public class AriaScript : MonoBehaviour
     {
         heroClass.setName("Aria");
         attributes = GameObject.Find("CharacterAttributes");
-        myUtility = attributes.GetComponent<CharacterAttributes>().getAttackAtt("XaineUtility");
+        myUtility = attributes.GetComponent<CharacterAttributes>().getAttackAtt("AriaUtility");
         myUltimate = attributes.GetComponent<CharacterAttributes>().getAttackAtt("AriaUltimate");
         myNormal = attributes.GetComponent<CharacterAttributes>().getAttackAtt("AriaNormal");
         mySpecial = attributes.GetComponent<CharacterAttributes>().getAttackAtt("AriaSpecial");
@@ -68,11 +71,19 @@ public class AriaScript : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         heroClass.addPoints();
-        heroClass.displayUpdates(myText, actionMeter);
+        heroClass.displayUpdates(myText, actionMeter, healthBar);
 	}
 
     void attackCommand(Text newText, string attackName, AttackAtt myAttack)
     {
         heroClass.attackCommand(GameController, myText, newText, attackName, myAttack);
+    }
+
+    public void takeDamage(float phDamage, float maDamage)
+    {
+        float totalDamage = 0;
+        totalDamage += heroClass.getDamageModule().phDamageReduction(phDamage, heroClass.getDamageModule().getAttribute(Attribute.PhysicalDefense));
+        totalDamage += heroClass.getDamageModule().maDamageReduction(maDamage, heroClass.getDamageModule().getAttribute(Attribute.MagicalDefense));
+        healthBar.takeDamage(totalDamage);
     }
 }

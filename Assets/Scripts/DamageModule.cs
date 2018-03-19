@@ -4,11 +4,20 @@ using UnityEngine;
 
 public enum Attribute {PhysicalAttack, MagicalAttack, PhysicalDefense, MagicalDefense, Resistance, Speed };
 public enum Element {Wind, Water, Earth, Lightning };
+public enum Target {Aria, Bayl, Xaine, Yazir, None};
 
-struct Attack
+public struct Attack
 {
     internal float phDamage;
     internal float maDamage;
+}
+
+public struct EnemyAttack
+{
+    internal float phDamage;
+    internal float maDamage;
+    internal Target[] targets;
+    internal int targetNumber;
 }
 
 public class DamageModule
