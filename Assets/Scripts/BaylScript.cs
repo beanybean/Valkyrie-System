@@ -76,4 +76,9 @@ public class BaylScript : MonoBehaviour
     {
         heroClass.attackCommand(GameController, myText, newText, attackName, myAttack);
     }
+
+    public void takeDamage(float phDamage, float maDamage)
+    {
+        heroClass.takeDamage(phDamage, maDamage);
+    }
 }

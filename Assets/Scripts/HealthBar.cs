@@ -33,7 +33,7 @@ public class HealthBar
 
     public string getHealthString()
     {
-        return health.ToString() + '/' + maxHealth.ToString();
+        return (Mathf.RoundToInt(health)).ToString(); // + '/' + maxHealth.ToString();
     }
 
     public void takeDamage(float damage)

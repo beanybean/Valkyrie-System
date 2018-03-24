@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class AriaScript : MonoBehaviour
 {
-    const float DEFAULT_HEALTH = 1000f;
     const float defaultPhAtk = 50f;
     const float defaultMaAtk = 50f;
     const float defaultPhDef = 50f;
@@ -21,8 +20,6 @@ public class AriaScript : MonoBehaviour
 
     HeroClass heroClass = new HeroClass(defaultPhAtk, defaultMaAtk, defaultPhDef,
         defaultMaDef, defaultRes, defaultSpd, defaultElement);
-
-    HealthBar healthBar = new HealthBar(DEFAULT_HEALTH);
 
     AttackAtt myUtility;
     AttackAtt myUltimate;
@@ -71,7 +68,7 @@ public class AriaScript : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         heroClass.addPoints();
-        heroClass.displayUpdates(myText, actionMeter, healthBar);
+        heroClass.displayUpdates(myText, actionMeter);
 	}
 
     void attackCommand(Text newText, string attackName, AttackAtt myAttack)
@@ -81,9 +78,14 @@ public class AriaScript : MonoBehaviour
 
     public void takeDamage(float phDamage, float maDamage)
     {
+        heroClass.takeDamage(phDamage, maDamage);
+    }
+
+    /*public void takeDamage(float phDamage, float maDamage)
+    {
         float totalDamage = 0;
         totalDamage += heroClass.getDamageModule().phDamageReduction(phDamage, heroClass.getDamageModule().getAttribute(Attribute.PhysicalDefense));
         totalDamage += heroClass.getDamageModule().maDamageReduction(maDamage, heroClass.getDamageModule().getAttribute(Attribute.MagicalDefense));
         healthBar.takeDamage(totalDamage);
-    }
+    }*/
 }

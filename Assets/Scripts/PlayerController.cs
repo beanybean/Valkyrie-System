@@ -215,6 +215,31 @@ public class PlayerController : MonoBehaviour{
 
     public void attackPlayer(EnemyAttack attack)
     {
-        AriaObject.GetComponent<AriaScript>().takeDamage(attack.phDamage, attack.maDamage);
+        //AriaObject.GetComponent<AriaScript>().takeDamage(attack.phDamage, attack.maDamage);
+        for (int i = 0; i < attack.targetNumber; ++i)
+        {
+            attackTarget(attack.targets[i], attack.phDamage, attack.maDamage);
+        }
+    }
+
+    void attackTarget(Target target, float phDamage, float maDamage)
+    {
+        switch(target)
+        {
+            case Target.Aria:
+                AriaObject.GetComponent<AriaScript>().takeDamage(phDamage, maDamage);
+                return;
+            case Target.Bayl:
+                BaylObject.GetComponent<BaylScript>().takeDamage(phDamage, maDamage);
+                return;
+            case Target.Xaine:
+                XaineObject.GetComponent<XaineScript>().takeDamage(phDamage, maDamage);
+                return;
+            case Target.Yazir:
+                YazirObject.GetComponent<YazirScript>().takeDamage(phDamage, maDamage);
+                return;
+            default:
+                return;
+        }
     }
 }

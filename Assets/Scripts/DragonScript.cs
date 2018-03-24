@@ -70,7 +70,7 @@ public class DragonScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        dragonText.text = healthBar.getHealth().ToString() + " / " + DRAGON_HEALTH.ToString();
+        dragonText.text = healthBar.getHealthString();
         addPoints();
         if (actionPoints2.isReady())
         {
@@ -127,8 +127,8 @@ public class DragonScript : MonoBehaviour {
     {
         int targetNumber = 1;
         Target[] targets = new Target[targetNumber];
-        targets[0] = Target.Aria;
-        attackCommand(myTailSwipe, targets, 1);
+        targets[0] = getRandomTarget();
+        attackCommand(myTailSwipe, targets, targetNumber);
     }
 
     void fireball()
@@ -156,5 +156,20 @@ public class DragonScript : MonoBehaviour {
             attack.targets[i] = targets[i];
         attack.targetNumber = targetNumber;
         GameController.GetComponent<GameController>().EnemyQueue.Enqueue(attack);
+    }
+
+    Target getRandomTarget()
+    {
+        float number = Random.Range(1, 100);
+        if (number <= 30)
+            return Target.Xaine;
+        else if (number > 30 && number <= 55)
+            return Target.Yazir;
+        else if (number > 55 && number <= 80)
+            return Target.Aria;
+        else if (number > 80 && number <= 100)
+            return Target.Bayl;
+        else
+            return Target.None;
     }
 }

@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class HeroClass
 {
+    const float DEFAULT_HEALTH = 1000f;
     DamageModule damageModule = new DamageModule();
     ActionPoints actionPoints = new ActionPoints();
+    HealthBar healthBar = new HealthBar(DEFAULT_HEALTH);
 
     const float POINTS_RATE = 1;
     const float SPEED_MODIFIER = 0.01f;
@@ -116,6 +118,7 @@ public class HeroClass
     {
         //myText.text = actionPoints.getPoints().ToString() + " / " + actionPoints.getCap().ToString();
         actionPoints.getMeter(actionMeter);
+        myText.text = healthBar.getHealthString();
     }
 
     public void displayUpdates(Text myText, Image actionMeter, HealthBar healthBar)
@@ -145,5 +148,13 @@ public class HeroClass
         GameController.GetComponent<GameController>().AttackQueue.Enqueue(attack);
         setAttackSpeed(myAttack);
         getActionPoints().usePoints();
+    }
+
+    public void takeDamage(float phDamage, float maDamage)
+    {
+        float totalDamage = 0;
+        totalDamage += getDamageModule().phDamageReduction(phDamage, getDamageModule().getAttribute(Attribute.PhysicalDefense));
+        totalDamage += getDamageModule().maDamageReduction(maDamage, getDamageModule().getAttribute(Attribute.MagicalDefense));
+        healthBar.takeDamage(totalDamage);
     }
 }
