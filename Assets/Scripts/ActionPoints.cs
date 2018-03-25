@@ -7,6 +7,7 @@ public class ActionPoints
 {
     const float POINTS_CAP = 100;
     float actionPoints;
+    bool knockout = false;
 
     public ActionPoints()
     {
@@ -63,5 +64,16 @@ public class ActionPoints
     {
         if (isReady())
             actionPoints = 0;
+    }
+
+    public void KO()
+    {
+        actionPoints = 0;
+        knockout = true;
+    }
+
+    public bool isKO()
+    {
+        return knockout;
     }
 }

@@ -8,10 +8,10 @@ public class DragonScript : MonoBehaviour {
     const float POINTS_RATE = 1;
     const float SPEED_MODIFIER = 0.01f;
     const float ATTACK_SPEED = 1.0f;
-    const float DRAGON_HEALTH = 5000.0f;
+    const float DRAGON_HEALTH = 4000.0f;
     const float DOOMSDAY_SPEED = 10.0f;
-    const float defaultPhAtk = 100.0f;
-    const float defaultMaAtk = 100.0f;
+    const float defaultPhAtk = 50.0f;
+    const float defaultMaAtk = 50.0f;
     const float defaultPhDef = 50.0f;
     const float defaultMaDef = 50.0f;
     const float defaultRes = 50.0f;
@@ -72,7 +72,7 @@ public class DragonScript : MonoBehaviour {
     void Update() {
         dragonText.text = healthBar.getHealthString();
         addPoints();
-        if (actionPoints2.isReady())
+        if (actionPoints2.isReady() && !gameOver())
         {
             tailSwipe();
             actionPoints2.usePoints();
@@ -171,5 +171,10 @@ public class DragonScript : MonoBehaviour {
             return Target.Bayl;
         else
             return Target.None;
+    }
+
+    public bool gameOver()
+    {
+        return timerCount == TIMER_MAX;
     }
 }

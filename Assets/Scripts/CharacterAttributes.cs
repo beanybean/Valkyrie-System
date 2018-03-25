@@ -68,7 +68,7 @@ public class CharacterAttributes : MonoBehaviour
         setAtkAtt(ref YazirNormal, 1.3f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
         setAtkAtt(ref YazirSpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
 
-        setAtkAtt(ref DragonTailSwipe, 0.7f, 0.0f, 1.0f, 0.8f, 0, 0.0f, Ailment.NONE);
+        setAtkAtt(ref DragonTailSwipe, 0.7f, 1.0f, 0.0f, 0.8f, 0, 0.0f, Ailment.NONE);
         setAtkAtt(ref DragonFireball, 0.6f, 0.5f, 0.5f, 2.0f, 0, 0.0f, Ailment.NONE);
         setAtkAtt(ref DragonEarthquake, 1.3f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
         setAtkAtt(ref DragonHaze, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.mired);

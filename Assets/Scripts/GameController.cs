@@ -25,20 +25,33 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (AttackQueue.Count > 0)
+        if (Dragon.GetComponent<DragonScript>().gameOver())
         {
-            Attack currentAttack = (Attack)AttackQueue.Dequeue();
-            Dragon.GetComponent<DragonScript>().takeDamage(currentAttack.phDamage, currentAttack.maDamage);
+            killAll();
+            gameOver();
         }
-        if (EnemyQueue.Count > 0)
+        else
         {
-            EnemyAttack currentAttack = (EnemyAttack)EnemyQueue.Dequeue();
-            Player.GetComponent<PlayerController>().attackPlayer(currentAttack);
+            if (AttackQueue.Count > 0)
+            {
+                Attack currentAttack = (Attack)AttackQueue.Dequeue();
+                Dragon.GetComponent<DragonScript>().takeDamage(currentAttack.phDamage, currentAttack.maDamage);
+            }
+            if (EnemyQueue.Count > 0)
+            {
+                EnemyAttack currentAttack = (EnemyAttack)EnemyQueue.Dequeue();
+                Player.GetComponent<PlayerController>().attackPlayer(currentAttack);
+            }
         }
 	}
 
     public void gameOver()
     {
         test.text = "GAME OVER";
+    }
+
+    void killAll()
+    {
+        Player.GetComponent<PlayerController>().killAll();
     }
 }

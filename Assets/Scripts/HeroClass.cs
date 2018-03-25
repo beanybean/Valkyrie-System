@@ -9,6 +9,7 @@ public class HeroClass
     DamageModule damageModule = new DamageModule();
     ActionPoints actionPoints = new ActionPoints();
     HealthBar healthBar = new HealthBar(DEFAULT_HEALTH);
+    bool GAME_OVER = false;
 
     const float POINTS_RATE = 1;
     const float SPEED_MODIFIER = 0.01f;
@@ -103,10 +104,15 @@ public class HeroClass
         return actionPoints;
     }
 
-    public void addPoints()
+    public void addPoints(Image actionMeter)
     {
-        float points = POINTS_RATE * (damageModule.getAttribute(Attribute.Speed)) * SPEED_MODIFIER * attackSpeed;
-        actionPoints.addPoints(points);
+        if (!GAME_OVER)
+        {
+            float points = POINTS_RATE * (damageModule.getAttribute(Attribute.Speed)) * SPEED_MODIFIER * attackSpeed;
+            actionPoints.addPoints(points);
+            if (actionPoints.isKO() && actionPoints.isReady())
+                revive(actionMeter);
+        }
     }
 
     public void positionMeter(ref Image actionMeter, Vector2 myPosition)
@@ -150,11 +156,37 @@ public class HeroClass
         getActionPoints().usePoints();
     }
 
-    public void takeDamage(float phDamage, float maDamage)
+    public void takeDamage(Image actionMeter, float phDamage, float maDamage)
     {
-        float totalDamage = 0;
+        float totalDamage = phDamage + maDamage;
         totalDamage += getDamageModule().phDamageReduction(phDamage, getDamageModule().getAttribute(Attribute.PhysicalDefense));
         totalDamage += getDamageModule().maDamageReduction(maDamage, getDamageModule().getAttribute(Attribute.MagicalDefense));
         healthBar.takeDamage(totalDamage);
+        if (healthBar.getHealth() == 0)
+        {
+            actionPoints.KO();
+            actionMeter.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
+            attackSpeed = 0.5f;
+        }
+    }
+
+    public bool isAlive()
+    {
+        return healthBar.isAlive();
+    }
+
+    void revive(Image actionMeter)
+    {
+        actionMeter.GetComponent<Image>().color = new Color32(8, 188, 214, 255);
+        healthBar.fill();
+    }
+
+    public void kill(Image actionMeter, Text myText)
+    {
+        GAME_OVER = true;
+        actionPoints.KO();
+        actionPoints.getMeter(actionMeter);
+        healthBar.KO();
+        myText.text = healthBar.getHealthString();
     }
 }

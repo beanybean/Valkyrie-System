@@ -242,4 +242,12 @@ public class PlayerController : MonoBehaviour{
                 return;
         }
     }
+
+    public void killAll()
+    {
+        AriaObject.GetComponent<AriaScript>().kill();
+        BaylObject.GetComponent<BaylScript>().kill();
+        XaineObject.GetComponent<XaineScript>().kill();
+        YazirObject.GetComponent<YazirScript>().kill();
+    }
 }

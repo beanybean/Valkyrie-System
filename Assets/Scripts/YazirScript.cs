@@ -32,25 +32,25 @@ public class YazirScript : MonoBehaviour
 
     public void Utility(Text newText)
     {
-        if (heroClass.getActionPoints().isReady())
+        if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
             attackCommand(newText, " Utility", myUtility);
     }
 
     public void Ultimate(Text newText)
     {
-        if (heroClass.getActionPoints().isReady())
+        if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
             attackCommand(newText, " Ultimate", myUltimate);
     }
 
     public void Normal(Text newText)
     {
-        if (heroClass.getActionPoints().isReady())
+        if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
             attackCommand(newText, " Normal", myNormal);
     }
 
     public void Special(Text newText)
     {
-        if (heroClass.getActionPoints().isReady())
+        if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
             attackCommand(newText, " Special", mySpecial);
     }
 
@@ -69,7 +69,7 @@ public class YazirScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        heroClass.addPoints();
+        heroClass.addPoints(actionMeter);
         heroClass.displayUpdates(myText, actionMeter);
     }
 
@@ -80,6 +80,11 @@ public class YazirScript : MonoBehaviour
 
     public void takeDamage(float phDamage, float maDamage)
     {
-        heroClass.takeDamage(phDamage, maDamage);
+        heroClass.takeDamage(actionMeter, phDamage, maDamage);
+    }
+
+    public void kill()
+    {
+        heroClass.kill(actionMeter, myText);
     }
 }

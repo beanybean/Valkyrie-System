@@ -43,4 +43,19 @@ public class HealthBar
         else
             health = 0;
     }
+
+    public bool isAlive()
+    {
+        return health > 0;
+    }
+
+    public void fill()
+    {
+        health = maxHealth;
+    }
+
+    public void KO()
+    {
+        health = 0;
+    }
 }
