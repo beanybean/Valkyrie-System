@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
     GameObject Dragon;
@@ -47,7 +48,8 @@ public class GameController : MonoBehaviour {
 
     public void gameOver()
     {
-        test.text = "GAME OVER";
+        //test.text = "GAME OVER";
+        SceneManager.LoadScene("GameOver");
     }
 
     void killAll()
