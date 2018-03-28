@@ -9,7 +9,7 @@ public class DragonScript : MonoBehaviour {
     const float SPEED_MODIFIER = 0.01f;
     const float ATTACK_SPEED = 1.0f;
     const float DRAGON_HEALTH = 4000.0f;
-    const float DOOMSDAY_SPEED = 100.0f;
+    const float DOOMSDAY_SPEED = 10.0f;
     const float defaultPhAtk = 50.0f;
     const float defaultMaAtk = 50.0f;
     const float defaultPhDef = 50.0f;
@@ -176,5 +176,10 @@ public class DragonScript : MonoBehaviour {
     public bool gameOver()
     {
         return timerCount == TIMER_MAX;
+    }
+
+    public bool win()
+    {
+        return !healthBar.isAlive();
     }
 }

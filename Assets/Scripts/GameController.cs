@@ -31,6 +31,10 @@ public class GameController : MonoBehaviour {
             killAll();
             gameOver();
         }
+        else if (Dragon.GetComponent<DragonScript>().win())
+        {
+            SceneManager.LoadScene("Win");
+        }
         else
         {
             if (AttackQueue.Count > 0)
