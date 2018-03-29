@@ -18,6 +18,9 @@ public class AriaScript : MonoBehaviour
     [SerializeField]
     private Image actionMeter;
 
+    [SerializeField]
+    private Image health;
+
     HeroClass heroClass = new HeroClass(defaultPhAtk, defaultMaAtk, defaultPhDef,
         defaultMaDef, defaultRes, defaultSpd, defaultElement);
 
@@ -28,6 +31,7 @@ public class AriaScript : MonoBehaviour
 
     GameObject attributes;
     GameObject GameController;
+    GameObject Self;
 
     public void Utility(Text newText)
     {
@@ -63,6 +67,11 @@ public class AriaScript : MonoBehaviour
         myNormal = attributes.GetComponent<CharacterAttributes>().getAttackAtt("AriaNormal");
         mySpecial = attributes.GetComponent<CharacterAttributes>().getAttackAtt("AriaSpecial");
         GameController = GameObject.Find("GameController");
+
+        Self = GameObject.Find("Aria");
+        heroClass.setUIPosition(Self, actionMeter, ref myText, health);
+        //actionMeter.transform.position = Self.GetComponent<Transform>().position;
+        //actionMeter.transform.position = new Vector2(Screen.width * 0.75f, Screen.height * 0.1f);
     }
 	
 	// Update is called once per frame
@@ -78,7 +87,7 @@ public class AriaScript : MonoBehaviour
 
     public void takeDamage(float phDamage, float maDamage)
     {
-        heroClass.takeDamage(actionMeter, phDamage, maDamage);
+        heroClass.takeDamage(actionMeter, phDamage, maDamage, health);
     }
 
     public void kill()

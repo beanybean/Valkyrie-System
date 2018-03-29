@@ -156,12 +156,12 @@ public class HeroClass
         getActionPoints().usePoints();
     }
 
-    public void takeDamage(Image actionMeter, float phDamage, float maDamage)
+    public void takeDamage(Image actionMeter, float phDamage, float maDamage, Image health)
     {
         float totalDamage = phDamage + maDamage;
         totalDamage += getDamageModule().phDamageReduction(phDamage, getDamageModule().getAttribute(Attribute.PhysicalDefense));
         totalDamage += getDamageModule().maDamageReduction(maDamage, getDamageModule().getAttribute(Attribute.MagicalDefense));
-        healthBar.takeDamage(totalDamage);
+        healthBar.takeDamage(totalDamage, health);
         if (healthBar.getHealth() == 0)
         {
             actionPoints.KO();
@@ -188,5 +188,22 @@ public class HeroClass
         actionPoints.getMeter(actionMeter);
         healthBar.KO();
         myText.text = healthBar.getHealthString();
+    }
+
+    public void setUIPosition(GameObject Self, Image actionMeter, ref Text text, Image health)
+    {
+        Vector2 selfPosition = Self.GetComponent<Transform>().position;
+        text.transform.position = selfPosition; // new Vector2(selfPosition.x, selfPosition.y);
+        actionMeter.rectTransform.sizeDelta = new Vector2(0.3f, 1.0f);
+        actionMeter.transform.position = new Vector2(selfPosition.x + 1.6f, selfPosition.y - 1f);
+        setHealthBar(Self, health);
+    }
+
+    public void setHealthBar(GameObject Self, Image health)
+    {
+        Vector2 selfPosition = Self.GetComponent<Transform>().position;
+        health.rectTransform.sizeDelta = new Vector2(0.3f, healthBar.getMaxHealth() / 500f);
+        health.transform.position = new Vector2(selfPosition.x + 1.3f, selfPosition.y);  //new Vector2();
+        health.color = new Color(0, 255, 0, 255);
     }
 }

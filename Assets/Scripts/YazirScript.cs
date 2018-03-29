@@ -19,6 +19,9 @@ public class YazirScript : MonoBehaviour
     [SerializeField]
     private Image actionMeter;
 
+    [SerializeField]
+    private Image health;
+
     HeroClass heroClass = new HeroClass(defaultPhAtk, defaultMaAtk, defaultPhDef,
         defaultMaDef, defaultRes, defaultSpd, defaultElement);
 
@@ -29,6 +32,7 @@ public class YazirScript : MonoBehaviour
 
     GameObject attributes;
     GameObject GameController;
+    GameObject Self;
 
     public void Utility(Text newText)
     {
@@ -64,6 +68,10 @@ public class YazirScript : MonoBehaviour
         myNormal = attributes.GetComponent<CharacterAttributes>().getAttackAtt("YazirNormal");
         mySpecial = attributes.GetComponent<CharacterAttributes>().getAttackAtt("YazirSpecial");
         GameController = GameObject.Find("GameController");
+
+        Self = GameObject.Find("Yazir");
+        heroClass.setUIPosition(Self, actionMeter, ref myText, health);
+        //actionMeter.transform.position = Self.GetComponent<Transform>().position;
     }
 
     // Update is called once per frame
@@ -80,7 +88,7 @@ public class YazirScript : MonoBehaviour
 
     public void takeDamage(float phDamage, float maDamage)
     {
-        heroClass.takeDamage(actionMeter, phDamage, maDamage);
+        heroClass.takeDamage(actionMeter, phDamage, maDamage, health);
     }
 
     public void kill()

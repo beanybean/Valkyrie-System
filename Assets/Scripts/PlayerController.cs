@@ -18,13 +18,24 @@ public class PlayerController : MonoBehaviour{
     GameObject XaineObject;
     GameObject YazirObject;
 
-    void Start()
+    void Awake()
     {
-        resetSelectors();
         AriaObject = GameObject.Find("Aria");
         BaylObject = GameObject.Find("Bayl");
         XaineObject = GameObject.Find("Xaine");
         YazirObject = GameObject.Find("Yazir");
+        Vector2 centerPosition = new Vector2(3.2f, -1f);
+        float xOffset = 3f;
+        float yOffset = 1.5f;
+        AriaObject.transform.position = new Vector2(centerPosition.x, centerPosition.y - yOffset);
+        BaylObject.transform.position = new Vector2(centerPosition.x + xOffset, centerPosition.y);
+        XaineObject.transform.position = new Vector2(centerPosition.x - xOffset, centerPosition.y);
+        YazirObject.transform.position = new Vector2(centerPosition.x, centerPosition.y + yOffset);
+    }
+
+    void Start()
+    {
+        resetSelectors();
     }
 
     void Update()

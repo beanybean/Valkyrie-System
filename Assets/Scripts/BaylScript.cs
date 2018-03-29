@@ -18,6 +18,9 @@ public class BaylScript : MonoBehaviour
     [SerializeField]
     private Image actionMeter;
 
+    [SerializeField]
+    private Image health;
+
     HeroClass heroClass = new HeroClass(defaultPhAtk, defaultMaAtk, defaultPhDef,
         defaultMaDef, defaultRes, defaultSpd, defaultElement);
 
@@ -28,6 +31,7 @@ public class BaylScript : MonoBehaviour
 
     GameObject attributes;
     GameObject GameController;
+    GameObject Self;
 
     public void Utility(Text newText)
     {
@@ -63,6 +67,11 @@ public class BaylScript : MonoBehaviour
         myNormal = attributes.GetComponent<CharacterAttributes>().getAttackAtt("BaylNormal");
         mySpecial = attributes.GetComponent<CharacterAttributes>().getAttackAtt("BaylSpecial");
         GameController = GameObject.Find("GameController");
+
+        Self = GameObject.Find("Bayl");
+        heroClass.setUIPosition(Self, actionMeter, ref myText, health);
+        //actionMeter.transform.position = Self.GetComponent<Transform>().position;
+        //actionMeter.transform.position = new Vector2(Screen.width * 0.96f, Screen.height * 0.25f);
     }
 
     // Update is called once per frame
@@ -79,7 +88,7 @@ public class BaylScript : MonoBehaviour
 
     public void takeDamage(float phDamage, float maDamage)
     {
-        heroClass.takeDamage(actionMeter, phDamage, maDamage);
+        heroClass.takeDamage(actionMeter, phDamage, maDamage, health);
     }
 
     public void kill()

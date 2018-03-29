@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBar
 {
@@ -44,6 +45,15 @@ public class HealthBar
             health = 0;
     }
 
+    public void takeDamage(float damage, Image healthImage)
+    {
+        if (health - damage > 0)
+            health -= damage;
+        else
+            health = 0;
+        healthImage.fillAmount = health / maxHealth;
+    }
+
     public bool isAlive()
     {
         return health > 0;
@@ -57,5 +67,10 @@ public class HealthBar
     public void KO()
     {
         health = 0;
+    }
+
+    public float getMaxHealth()
+    {
+        return maxHealth;
     }
 }

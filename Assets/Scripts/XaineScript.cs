@@ -18,6 +18,9 @@ public class XaineScript : MonoBehaviour
     [SerializeField]
     private Image actionMeter;
 
+    [SerializeField]
+    private Image health;
+
     HeroClass heroClass = new HeroClass(defaultPhAtk, defaultMaAtk, defaultPhDef,
         defaultMaDef, defaultRes, defaultSpd, defaultElement);
 
@@ -28,6 +31,7 @@ public class XaineScript : MonoBehaviour
 
     GameObject attributes;
     GameObject GameController;
+    GameObject Self;
 
     public void Utility(Text newText)
     {
@@ -67,6 +71,11 @@ public class XaineScript : MonoBehaviour
         heroClass.setAtkAtt(ref myNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
         heroClass.setAtkAtt(ref mySpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
         GameController = GameObject.Find("GameController");
+
+        Self = GameObject.Find("Xaine");
+        heroClass.setUIPosition(Self, actionMeter, ref myText, health);
+        //actionMeter.transform.position = Self.GetComponent<Transform>().position;
+        //actionMeter.transform.position = new Vector2(Screen.width * 0.65f, Screen.height * 0.25f);
     }
 
     // Update is called once per frame
@@ -83,7 +92,7 @@ public class XaineScript : MonoBehaviour
 
     public void takeDamage(float phDamage, float maDamage)
     {
-        heroClass.takeDamage(actionMeter, phDamage, maDamage);
+        heroClass.takeDamage(actionMeter, phDamage, maDamage, health);
     }
 
     public void kill()

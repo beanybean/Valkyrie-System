@@ -61,11 +61,11 @@ public class DragonScript : MonoBehaviour {
         damageModule.setWeakness(defaultElement);
         GameController = GameObject.Find("GameController");
         attributes = GameObject.Find("CharacterAttributes");
-        setTimerColor(doomsdayTimer);
         myTailSwipe = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonTailSwipe");
         myFireball = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonFireball");
         myEarthquake = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonEarthquake");
         myHaze = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonHaze");
+        setDoomsdayTimer(doomsdayTimer);
     }
 
     // Update is called once per frame
@@ -181,5 +181,11 @@ public class DragonScript : MonoBehaviour {
     public bool win()
     {
         return !healthBar.isAlive();
+    }
+
+    void setDoomsdayTimer(Image doomsdayTimer)
+    {
+        doomsdayTimer.rectTransform.sizeDelta = new Vector2(0.75f * Screen.width, 0.05f * Screen.height);
+        setTimerColor(doomsdayTimer);
     }
 }
