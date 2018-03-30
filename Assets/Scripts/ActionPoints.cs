@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ActionPoints
 {
-    const float POINTS_CAP = 100;
+    const float POINTS_CAP = 100f;
     float actionPoints;
     bool knockout = false;
 
@@ -24,7 +24,8 @@ public class ActionPoints
         if (actionPoints + points < POINTS_CAP)
             actionPoints += points;
         else
-            actionPoints = 100;
+            actionPoints = 100f;
+
     }
 
     public void add1Point()
@@ -66,14 +67,36 @@ public class ActionPoints
             actionPoints = 0;
     }
 
-    public void KO()
+    public void KO(Image meter)
     {
         actionPoints = 0;
+        setHeroColor(meter);
         knockout = true;
     }
 
     public bool isKO()
     {
         return knockout;
+    }
+
+    public void revive(Image meter)
+    {
+        knockout = false;
+        setHeroColor(meter);
+    }
+
+    public void setHeroColor(Image meter)
+    {
+        if (knockout)
+            meter.color = new Color(255, 0, 0, 255);
+        else if (actionPoints < POINTS_CAP)
+            meter.color = new Color(255, 255, 0, 255);
+        else if (isReady())
+            meter.color = new Color(0, 255, 255, 255);
+    }
+
+    public void setDoomsdayColor(Image meter, int count)
+    {
+
     }
 }

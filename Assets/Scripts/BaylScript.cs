@@ -70,14 +70,12 @@ public class BaylScript : MonoBehaviour
 
         Self = GameObject.Find("Bayl");
         heroClass.setUIPosition(Self, actionMeter, ref myText, health);
-        //actionMeter.transform.position = Self.GetComponent<Transform>().position;
-        //actionMeter.transform.position = new Vector2(Screen.width * 0.96f, Screen.height * 0.25f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        heroClass.addPoints(actionMeter);
+        heroClass.addPoints(actionMeter, health);
         heroClass.displayUpdates(myText, actionMeter);
     }
 

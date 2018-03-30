@@ -70,13 +70,11 @@ public class AriaScript : MonoBehaviour
 
         Self = GameObject.Find("Aria");
         heroClass.setUIPosition(Self, actionMeter, ref myText, health);
-        //actionMeter.transform.position = Self.GetComponent<Transform>().position;
-        //actionMeter.transform.position = new Vector2(Screen.width * 0.75f, Screen.height * 0.1f);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        heroClass.addPoints(actionMeter);
+        heroClass.addPoints(actionMeter, health);
         heroClass.displayUpdates(myText, actionMeter);
 	}
 

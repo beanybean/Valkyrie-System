@@ -52,6 +52,7 @@ public class HealthBar
         else
             health = 0;
         healthImage.fillAmount = health / maxHealth;
+        setColor(healthImage);
     }
 
     public bool isAlive()
@@ -59,9 +60,11 @@ public class HealthBar
         return health > 0;
     }
 
-    public void fill()
+    public void fill(Image healthImage)
     {
         health = maxHealth;
+        setColor(healthImage);
+        healthImage.fillAmount = health / maxHealth;
     }
 
     public void KO()
@@ -72,5 +75,15 @@ public class HealthBar
     public float getMaxHealth()
     {
         return maxHealth;
+    }
+
+    void setColor(Image healthImage)
+    {
+        if (health / maxHealth > 0.5f)
+            healthImage.color = new Color(0, 255, 0, 255);
+        else if (health / maxHealth > 0.25 && health / maxHealth < 0.5)
+            healthImage.color = new Color(255, 255, 0, 255);
+        else if (health / maxHealth < 0.25)
+            healthImage.color = new Color(255, 0, 0, 255);
     }
 }

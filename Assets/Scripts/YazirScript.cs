@@ -71,13 +71,12 @@ public class YazirScript : MonoBehaviour
 
         Self = GameObject.Find("Yazir");
         heroClass.setUIPosition(Self, actionMeter, ref myText, health);
-        //actionMeter.transform.position = Self.GetComponent<Transform>().position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        heroClass.addPoints(actionMeter);
+        heroClass.addPoints(actionMeter, health);
         heroClass.displayUpdates(myText, actionMeter);
     }
 
