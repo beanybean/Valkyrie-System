@@ -35,19 +35,23 @@ public class DragonScript : MonoBehaviour {
     [SerializeField]
     private Image attackTimer;
 
+    [SerializeField]
+    private Image health;
+
     DamageModule damageModule = new DamageModule();
     ActionPoints actionPoints = new ActionPoints(0);
     ActionPoints actionPoints2 = new ActionPoints(0);
 
     GameObject GameController;
     GameObject attributes;
+    GameObject Self;
 
     public void takeDamage(float phDamage, float maDamage)
     {
         float totalDamage = 0;
         totalDamage += damageModule.phDamageReduction(phDamage, damageModule.getAttribute(Attribute.PhysicalDefense));
         totalDamage += damageModule.maDamageReduction(maDamage, damageModule.getAttribute(Attribute.MagicalDefense));
-        healthBar.takeDamage(totalDamage);
+        healthBar.takeDamage(totalDamage, health);
     }
 
 	// Use this for initialization
@@ -61,11 +65,13 @@ public class DragonScript : MonoBehaviour {
         damageModule.setWeakness(defaultElement);
         GameController = GameObject.Find("GameController");
         attributes = GameObject.Find("CharacterAttributes");
+        Self = GameObject.Find("Dragon");
         myTailSwipe = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonTailSwipe");
         myFireball = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonFireball");
         myEarthquake = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonEarthquake");
         myHaze = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonHaze");
         setDoomsdayTimer(doomsdayTimer);
+        setHealthBar(Self, health);
     }
 
     // Update is called once per frame
@@ -187,5 +193,13 @@ public class DragonScript : MonoBehaviour {
     {
         doomsdayTimer.rectTransform.sizeDelta = new Vector2(0.75f * Screen.width, 0.05f * Screen.height);
         setTimerColor(doomsdayTimer);
+    }
+
+    void setHealthBar(GameObject Self, Image health)
+    {
+        Vector2 selfPosition = Self.GetComponent<Transform>().position;
+        health.rectTransform.sizeDelta = new Vector2(healthBar.getMaxHealth() / 600f, 0.3f);
+        health.transform.position = new Vector2(selfPosition.x + 0f, selfPosition.y - 1.2f);
+        health.color = new Color(0, 255, 0, 255);
     }
 }
