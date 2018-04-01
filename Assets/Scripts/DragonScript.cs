@@ -79,6 +79,7 @@ public class DragonScript : MonoBehaviour {
         setDoomsdayTimer(doomsdayTimer);
         setHealthBar(Self, health);
         nextAttack = getRandomAttack();
+        setPositions();
     }
 
     // Update is called once per frame
@@ -103,6 +104,12 @@ public class DragonScript : MonoBehaviour {
             }
         }
 	}
+
+    void setPositions()
+    {
+        Self.transform.position = new Vector2(-5f, -2f);
+        health.transform.position = new Vector2(Self.transform.position.x + 0f, Self.transform.position.y - 1.2f);
+    }
 
     void addPoints()
     {
