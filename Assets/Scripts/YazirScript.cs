@@ -33,15 +33,19 @@ public class YazirScript : MonoBehaviour
     GameObject attributes;
     GameObject GameController;
     GameObject Self;
+    GameObject PlayerController;
 
     bool ailed = false;
     float startAil;
     float ailTimer = 1000f;
 
+    bool utility = false;
+
     public void Utility(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
-            attackCommand(newText, " Utility", myUtility);
+            strength();
+            //attackCommand(newText, " Utility", myUtility);
     }
 
     public void Ultimate(Text newText)
@@ -75,6 +79,7 @@ public class YazirScript : MonoBehaviour
 
         Self = GameObject.Find("Yazir");
         heroClass.setUIPosition(Self, actionMeter, ref myText, health);
+        PlayerController = GameObject.Find("PlayerController");
     }
 
     // Update is called once per frame
@@ -89,6 +94,16 @@ public class YazirScript : MonoBehaviour
                 ailed = false;
                 heroClass.restoreStats();
             }
+        }
+        checkUtilityOver();
+    }
+
+    void checkUtilityOver()
+    {
+        if (utility && heroClass.getActionPoints().isReady())
+        {
+            utility = false;
+            PlayerController.GetComponent<PlayerController>().restoreStrength();
         }
     }
 
@@ -128,5 +143,21 @@ public class YazirScript : MonoBehaviour
     public void kill()
     {
         heroClass.kill(actionMeter, myText);
+    }
+
+    public void heal()
+    {
+        heroClass.healHalf(health);
+    }
+
+    public HeroClass getHeroClass()
+    {
+        return heroClass;
+    }
+
+    void strength()
+    {
+        PlayerController.GetComponent<PlayerController>().raiseStrength();
+        heroClass.getActionPoints().usePoints();
     }
 }

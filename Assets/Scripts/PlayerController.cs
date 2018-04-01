@@ -282,4 +282,46 @@ public class PlayerController : MonoBehaviour{
         XaineObject.GetComponent<XaineScript>().kill();
         YazirObject.GetComponent<YazirScript>().kill();
     }
+
+    public void heal()
+    {
+        AriaObject.GetComponent<AriaScript>().heal();
+        BaylObject.GetComponent<BaylScript>().heal();
+        XaineObject.GetComponent<XaineScript>().heal();
+        YazirObject.GetComponent<YazirScript>().heal();
+    }
+
+    public void raiseSpeed()
+    {
+        float amount = 20f;
+        AriaObject.GetComponent<AriaScript>().getHeroClass().getDamageModule().raiseAttribute(Attribute.Speed, amount);
+        BaylObject.GetComponent<BaylScript>().getHeroClass().getDamageModule().raiseAttribute(Attribute.Speed, amount);
+        XaineObject.GetComponent<XaineScript>().getHeroClass().getDamageModule().raiseAttribute(Attribute.Speed, amount);
+        YazirObject.GetComponent<YazirScript>().getHeroClass().getDamageModule().raiseAttribute(Attribute.Speed, amount);
+    }
+
+    public void raiseStrength()
+    {
+        float amount = 20f;
+        AriaObject.GetComponent<AriaScript>().getHeroClass().getDamageModule().raiseAttribute(Attribute.PhysicalAttack, amount);
+        BaylObject.GetComponent<BaylScript>().getHeroClass().getDamageModule().raiseAttribute(Attribute.PhysicalAttack, amount);
+        XaineObject.GetComponent<XaineScript>().getHeroClass().getDamageModule().raiseAttribute(Attribute.PhysicalAttack, amount);
+        YazirObject.GetComponent<YazirScript>().getHeroClass().getDamageModule().raiseAttribute(Attribute.PhysicalAttack, amount);
+    }
+
+    public void restoreSpeed()
+    {
+        AriaObject.GetComponent<AriaScript>().getHeroClass().restoreSpeed();
+        BaylObject.GetComponent<BaylScript>().getHeroClass().restoreSpeed();
+        XaineObject.GetComponent<XaineScript>().getHeroClass().restoreSpeed();
+        YazirObject.GetComponent<YazirScript>().getHeroClass().restoreSpeed();
+    }
+
+    public void restoreStrength()
+    {
+        AriaObject.GetComponent<AriaScript>().getHeroClass().restoreStrength();
+        BaylObject.GetComponent<BaylScript>().getHeroClass().restoreStrength();
+        XaineObject.GetComponent<XaineScript>().getHeroClass().restoreStrength();
+        YazirObject.GetComponent<YazirScript>().getHeroClass().restoreStrength();
+    }
 }

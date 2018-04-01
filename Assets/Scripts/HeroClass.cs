@@ -237,4 +237,19 @@ public class HeroClass
         damageModule.setAttribute(Attribute.Speed, defaultSpd);
         damageModule.setWeakness(defaultElement);
     }
+
+    public void healHalf(Image health)
+    {
+        healthBar.fillHalf(health);
+    }
+
+    public void restoreSpeed()
+    {
+        damageModule.setAttribute(Attribute.Speed, defaultSpd);
+    }
+
+    public void restoreStrength()
+    {
+        damageModule.setAttribute(Attribute.PhysicalAttack, defaultPhAtk);
+    }
 }

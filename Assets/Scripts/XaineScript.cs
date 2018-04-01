@@ -21,6 +21,9 @@ public class XaineScript : MonoBehaviour
     [SerializeField]
     private Image health;
 
+    [SerializeField]
+    private Text nextAttack;
+
     HeroClass heroClass = new HeroClass(defaultPhAtk, defaultMaAtk, defaultPhDef,
         defaultMaDef, defaultRes, defaultSpd, defaultElement);
 
@@ -32,15 +35,19 @@ public class XaineScript : MonoBehaviour
     GameObject attributes;
     GameObject GameController;
     GameObject Self;
+    GameObject PlayerController;
 
     bool ailed = false;
     float startAil;
     float ailTimer = 1000f;
 
+    bool utility = false;
+
     public void Utility(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
-            attackCommand(newText, " Utility", myUtility);
+            scryingShield();
+            //attackCommand(newText, " Utility", myUtility);
     }
 
     public void Ultimate(Text newText)
@@ -75,9 +82,11 @@ public class XaineScript : MonoBehaviour
         heroClass.setAtkAtt(ref myNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
         heroClass.setAtkAtt(ref mySpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
         GameController = GameObject.Find("GameController");
+        clearNextAttack();
 
         Self = GameObject.Find("Xaine");
         heroClass.setUIPosition(Self, actionMeter, ref myText, health);
+        PlayerController = GameObject.Find("PlayerController");
     }
 
     // Update is called once per frame
@@ -92,6 +101,16 @@ public class XaineScript : MonoBehaviour
                 ailed = false;
                 heroClass.restoreStats();
             }
+        }
+        checkUtilityOver();
+    }
+
+    void checkUtilityOver()
+    {
+        if (utility && heroClass.getActionPoints().isReady())
+        {
+            utility = false;
+            clearNextAttack();
         }
     }
 
@@ -131,5 +150,49 @@ public class XaineScript : MonoBehaviour
     public void kill()
     {
         heroClass.kill(actionMeter, myText);
+    }
+
+    public void heal()
+    {
+        heroClass.healHalf(health);
+    }
+
+    public HeroClass getHeroClass()
+    {
+        return heroClass;
+    }
+
+    void clearNextAttack()
+    {
+        nextAttack.text = "";
+    }
+
+    void scryingShield()
+    {
+        utility = true;
+        heroClass.getActionPoints().usePoints();
+        DragonAttack attack = GameController.GetComponent<GameController>().getNextAttack();
+        displayNextAttack(attack);
+    }
+
+    void displayNextAttack(DragonAttack attack)
+    {
+        switch(attack)
+        {
+            case DragonAttack.TailSwipe:
+                nextAttack.text = "Tail Swipe:\nCounter with Earth";
+                return;
+            case DragonAttack.Fireball:
+                nextAttack.text = "Fireball:\nCounter with Water";
+                return;
+            case DragonAttack.Earthquake:
+                nextAttack.text = "Earthquake:\nCounter with Lightning";
+                return;
+            case DragonAttack.SnotBomb:
+                nextAttack.text = "Snot Bomb:\nCounter with Wind";
+                return;
+            default:
+                return;
+        }
     }
 }

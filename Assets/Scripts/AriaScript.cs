@@ -32,15 +32,19 @@ public class AriaScript : MonoBehaviour
     GameObject attributes;
     GameObject GameController;
     GameObject Self;
+    GameObject PlayerController;
 
     bool ailed = false;
     float startAil;
     float ailTimer = 1000f;
 
+    bool utility = false;
+
     public void Utility(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
-            attackCommand(newText, " Utility", myUtility);
+            hastingWind();
+            //attackCommand(newText, " Utility", myUtility);
     }
 
     public void Ultimate(Text newText)
@@ -74,6 +78,7 @@ public class AriaScript : MonoBehaviour
 
         Self = GameObject.Find("Aria");
         heroClass.setUIPosition(Self, actionMeter, ref myText, health);
+        PlayerController = GameObject.Find("PlayerController");
     }
 	
 	// Update is called once per frame
@@ -88,7 +93,17 @@ public class AriaScript : MonoBehaviour
                 heroClass.restoreStats();
             }
         }
+        checkUtilityOver();
 	}
+
+    void checkUtilityOver()
+    {
+        if (utility && heroClass.getActionPoints().isReady())
+        {
+            utility = false;
+            PlayerController.GetComponent<PlayerController>().restoreSpeed();
+        }
+    }
 
     void attackCommand(Text newText, string attackName, AttackAtt myAttack)
     {
@@ -128,11 +143,20 @@ public class AriaScript : MonoBehaviour
         heroClass.kill(actionMeter, myText);
     }
 
-    /*public void takeDamage(float phDamage, float maDamage)
+    public void heal()
     {
-        float totalDamage = 0;
-        totalDamage += heroClass.getDamageModule().phDamageReduction(phDamage, heroClass.getDamageModule().getAttribute(Attribute.PhysicalDefense));
-        totalDamage += heroClass.getDamageModule().maDamageReduction(maDamage, heroClass.getDamageModule().getAttribute(Attribute.MagicalDefense));
-        healthBar.takeDamage(totalDamage);
-    }*/
+        heroClass.healHalf(health);
+    }
+
+    void hastingWind()
+    {
+        PlayerController.GetComponent<PlayerController>().raiseSpeed();
+        heroClass.getActionPoints().usePoints();
+        utility = true;
+    }
+
+    public HeroClass getHeroClass()
+    {
+        return heroClass;
+    }
 }

@@ -70,4 +70,9 @@ public class GameController : MonoBehaviour {
             Player.GetComponent<PlayerController>().attackPlayer(currentAttack);
         }
     }
+
+    public DragonAttack getNextAttack()
+    {
+        return Dragon.GetComponent<DragonScript>().getNextAttack();
+    }
 }

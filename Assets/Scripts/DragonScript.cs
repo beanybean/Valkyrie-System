@@ -15,10 +15,10 @@ public class DragonScript : MonoBehaviour {
     const float DOOMSDAY_SPEED = 10.0f;
     const float defaultPhAtk = 50.0f;
     const float defaultMaAtk = 50.0f;
-    const float defaultPhDef = 50.0f;
-    const float defaultMaDef = 50.0f;
+    const float defaultPhDef = 80.0f;
+    const float defaultMaDef = 80.0f;
     const float defaultRes = 50.0f;
-    const float defaultSpd = 50.0f;
+    const float defaultSpd = 20.0f;
     const float REACTION_PAUSE = 3000f;
     const float EARTHQUAKE_PAUSE = 500f;
     const Element defaultElement = Element.Water;
@@ -50,6 +50,8 @@ public class DragonScript : MonoBehaviour {
     GameObject attributes;
     GameObject Self;
 
+    DragonAttack nextAttack;
+
     public void takeDamage(float phDamage, float maDamage)
     {
         float totalDamage = 0;
@@ -76,6 +78,7 @@ public class DragonScript : MonoBehaviour {
         mySnotbomb = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonHaze");
         setDoomsdayTimer(doomsdayTimer);
         setHealthBar(Self, health);
+        nextAttack = getRandomAttack();
     }
 
     // Update is called once per frame
@@ -84,9 +87,9 @@ public class DragonScript : MonoBehaviour {
         addPoints();
         if (actionPoints2.isReady() && !gameOver())
         {
-            DragonAttack attack = getRandomAttack();
-            doRandomAttack(attack);
+            doRandomAttack(nextAttack);
             actionPoints2.usePoints();
+            nextAttack = getRandomAttack();
         }
         if (timerCount == TIMER_MAX)
             GameController.GetComponent<GameController>().gameOver();
@@ -310,5 +313,10 @@ public class DragonScript : MonoBehaviour {
             return DragonAttack.SnotBomb;
         else
             return DragonAttack.None;
+    }
+
+    public DragonAttack getNextAttack()
+    {
+        return nextAttack;
     }
 }

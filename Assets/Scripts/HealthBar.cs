@@ -67,6 +67,20 @@ public class HealthBar
         healthImage.fillAmount = health / maxHealth;
     }
 
+    public void fillHalf(Image healthImage)
+    {
+        if (isAlive())
+        {
+            float fillAmount = maxHealth / 2;
+            if (health + fillAmount > maxHealth)
+                health = maxHealth;
+            else
+                health += fillAmount;
+            setColor(healthImage);
+            healthImage.fillAmount = health / maxHealth;
+        }
+    }
+
     public void KO()
     {
         health = 0;

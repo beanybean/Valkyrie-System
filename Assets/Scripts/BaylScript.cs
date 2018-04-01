@@ -32,6 +32,7 @@ public class BaylScript : MonoBehaviour
     GameObject attributes;
     GameObject GameController;
     GameObject Self;
+    GameObject PlayerController;
 
     bool ailed = false;
     float startAil;
@@ -40,7 +41,8 @@ public class BaylScript : MonoBehaviour
     public void Utility(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
-            attackCommand(newText, " Utility", myUtility);
+            healingRain();
+            //attackCommand(newText, " Utility", myUtility);
     }
 
     public void Ultimate(Text newText)
@@ -74,6 +76,7 @@ public class BaylScript : MonoBehaviour
 
         Self = GameObject.Find("Bayl");
         heroClass.setUIPosition(Self, actionMeter, ref myText, health);
+        PlayerController = GameObject.Find("PlayerController");
     }
 
     // Update is called once per frame
@@ -127,5 +130,21 @@ public class BaylScript : MonoBehaviour
     public void kill()
     {
         heroClass.kill(actionMeter, myText);
+    }
+
+    public void heal()
+    {
+        heroClass.healHalf(health);
+    }
+
+    public void healingRain()
+    {
+        PlayerController.GetComponent<PlayerController>().heal();
+        heroClass.getActionPoints().usePoints();
+    }
+
+    public HeroClass getHeroClass()
+    {
+        return heroClass;
     }
 }
