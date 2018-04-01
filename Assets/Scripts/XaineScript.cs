@@ -85,6 +85,14 @@ public class XaineScript : MonoBehaviour
     {
         heroClass.addPoints(actionMeter, health);
         heroClass.displayUpdates(myText, actionMeter);
+        if (ailed)
+        {
+            if (Time.time - startAil > ailTimer)
+            {
+                ailed = false;
+                heroClass.restoreStats();
+            }
+        }
     }
 
     void attackCommand(Text newText, string attackName, AttackAtt myAttack)

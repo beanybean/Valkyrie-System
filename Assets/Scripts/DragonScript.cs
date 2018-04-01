@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum FireDirection {AY, XB, XY, XA, NONE };
+public enum DragonAttack { TailSwipe, Fireball, Earthquake, SnotBomb, None };
 
 public class DragonScript : MonoBehaviour {
     const int TIMER_MAX = 3;
@@ -28,7 +29,6 @@ public class DragonScript : MonoBehaviour {
     AttackAtt myFireball;
     AttackAtt myEarthquake;
     AttackAtt mySnotbomb;
-
 
     [SerializeField]
     private Text dragonText;
@@ -84,7 +84,8 @@ public class DragonScript : MonoBehaviour {
         addPoints();
         if (actionPoints2.isReady() && !gameOver())
         {
-            snotbomb();
+            DragonAttack attack = getRandomAttack();
+            doRandomAttack(attack);
             actionPoints2.usePoints();
         }
         if (timerCount == TIMER_MAX)
@@ -188,7 +189,7 @@ public class DragonScript : MonoBehaviour {
         Target[] targets = new Target[targetNumber];
         for (int i = 0; i < targetNumber; ++i)
             targets[i] = getRandomTarget();
-        attackCommand(myTailSwipe, targets, targetNumber, DragonAttack.SnotBomb);
+        attackCommand(mySnotbomb, targets, targetNumber, DragonAttack.SnotBomb);
     }
 
     void attackCommand(AttackAtt myAttack, Target[] targets, int targetNumber, DragonAttack attackName)
@@ -273,5 +274,41 @@ public class DragonScript : MonoBehaviour {
             return 5;
         else
             return 0;
+    }
+
+    void doRandomAttack(DragonAttack attack)
+    {
+        switch(attack)
+        {
+            case DragonAttack.TailSwipe:
+                tailSwipe();
+                return;
+            case DragonAttack.Fireball:
+                fireball();
+                return;
+            case DragonAttack.Earthquake:
+                earthquake();
+                return;
+            case DragonAttack.SnotBomb:
+                snotbomb();
+                return;
+            default:
+                return;
+        }
+    }
+
+    DragonAttack getRandomAttack()
+    {
+        float number = Random.Range(1, 100);
+        if (number <= 30)
+            return DragonAttack.TailSwipe;
+        else if (number > 30 && number <= 60)
+            return DragonAttack.Fireball;
+        else if (number > 60 && number <= 85)
+            return DragonAttack.Earthquake;
+        else if (number > 85 && number <= 100)
+            return DragonAttack.SnotBomb;
+        else
+            return DragonAttack.None;
     }
 }

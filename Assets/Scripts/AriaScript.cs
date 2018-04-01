@@ -83,7 +83,10 @@ public class AriaScript : MonoBehaviour
         if (ailed)
         {
             if (Time.time - startAil > ailTimer)
+            {
+                ailed = false;
                 heroClass.restoreStats();
+            }
         }
 	}
 

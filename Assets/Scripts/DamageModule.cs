@@ -5,7 +5,6 @@ using UnityEngine;
 public enum Attribute {PhysicalAttack, MagicalAttack, PhysicalDefense, MagicalDefense, Resistance, Speed };
 public enum Element {Wind, Water, Earth, Lightning, Fire, None };
 public enum Target {Aria, Bayl, Xaine, Yazir, None};
-public enum DragonAttack {TailSwipe, Fireball, Earthquake, SnotBomb };
 
 public struct Attack
 {
