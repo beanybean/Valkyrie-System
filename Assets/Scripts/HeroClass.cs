@@ -16,13 +16,13 @@ public class HeroClass
     const float ATTACK_SPEED = 1.0f;
     const float METER_OFFSET_X = 100;
     const float METER_OFFSET_Y = -100;
-    const float defaultPhAtk = 50f;
-    const float defaultMaAtk = 50f;
-    const float defaultPhDef = 50f;
-    const float defaultMaDef = 50f;
-    const float defaultRes = 50f;
-    const float defaultSpd = 50f;
-    const Element defaultElement = Element.Earth;
+    float defaultPhAtk = 50f;
+    float defaultMaAtk = 50f;
+    float defaultPhDef = 50f;
+    float defaultMaDef = 50f;
+    float defaultRes = 50f;
+    float defaultSpd = 50f;
+    Element defaultElement = Element.Earth;
 
     float attackSpeed;
 
@@ -42,6 +42,13 @@ public class HeroClass
 	
 	public HeroClass(float PA, float MA, float PD, float MD, float R, float S, Element E )
     {
+        defaultPhAtk = PA;
+        defaultMaAtk = MA;
+        defaultPhDef = PD;
+        defaultMaDef = MD;
+        defaultRes = R;
+        defaultSpd = S;
+        defaultElement = E;
         damageModule.setAttribute(Attribute.PhysicalAttack, PA);
         damageModule.setAttribute(Attribute.MagicalAttack, MA);
         damageModule.setAttribute(Attribute.PhysicalDefense, PD);
@@ -212,5 +219,22 @@ public class HeroClass
         text.transform.position = selfPosition;
         actionMeter.rectTransform.sizeDelta = new Vector2(0.2f, 0.8f);
         actionMeter.transform.position = new Vector2(selfPosition.x + 1.2f, selfPosition.y - 0.8f);
+    }
+
+    public bool getChance(float chance)
+    {
+        float number = Random.Range(1, 100);
+        return number < 100 * chance;
+    }
+
+    public void restoreStats()
+    {
+        damageModule.setAttribute(Attribute.PhysicalAttack, defaultPhAtk);
+        damageModule.setAttribute(Attribute.MagicalAttack, defaultMaAtk);
+        damageModule.setAttribute(Attribute.PhysicalDefense, defaultPhDef);
+        damageModule.setAttribute(Attribute.MagicalDefense, defaultMaDef);
+        damageModule.setAttribute(Attribute.Resistance, defaultRes);
+        damageModule.setAttribute(Attribute.Speed, defaultSpd);
+        damageModule.setWeakness(defaultElement);
     }
 }

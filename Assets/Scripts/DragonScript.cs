@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum FireDirection {AY, XB, XY, XA, NONE };
+
 public class DragonScript : MonoBehaviour {
     const int TIMER_MAX = 3;
     const float POINTS_RATE = 1;
@@ -16,6 +18,8 @@ public class DragonScript : MonoBehaviour {
     const float defaultMaDef = 50.0f;
     const float defaultRes = 50.0f;
     const float defaultSpd = 50.0f;
+    const float REACTION_PAUSE = 3000f;
+    const float EARTHQUAKE_PAUSE = 500f;
     const Element defaultElement = Element.Water;
     HealthBar healthBar = new HealthBar(DRAGON_HEALTH);
     int timerCount = 0;
@@ -23,7 +27,7 @@ public class DragonScript : MonoBehaviour {
     AttackAtt myTailSwipe;
     AttackAtt myFireball;
     AttackAtt myEarthquake;
-    AttackAtt myHaze;
+    AttackAtt mySnotbomb;
 
 
     [SerializeField]
@@ -69,7 +73,7 @@ public class DragonScript : MonoBehaviour {
         myTailSwipe = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonTailSwipe");
         myFireball = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonFireball");
         myEarthquake = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonEarthquake");
-        myHaze = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonHaze");
+        mySnotbomb = attributes.GetComponent<CharacterAttributes>().getAttackAtt("DragonHaze");
         setDoomsdayTimer(doomsdayTimer);
         setHealthBar(Self, health);
     }
@@ -80,7 +84,7 @@ public class DragonScript : MonoBehaviour {
         addPoints();
         if (actionPoints2.isReady() && !gameOver())
         {
-            tailSwipe();
+            snotbomb();
             actionPoints2.usePoints();
         }
         if (timerCount == TIMER_MAX)
@@ -133,34 +137,72 @@ public class DragonScript : MonoBehaviour {
     {
         int targetNumber = 1;
         Target[] targets = new Target[targetNumber];
-        targets[0] = getRandomTarget();
-        attackCommand(myTailSwipe, targets, targetNumber);
+        for (int i = 0; i < targetNumber; ++i)
+            targets[i] = getRandomTarget();
+        attackCommand(myTailSwipe, targets, targetNumber, DragonAttack.TailSwipe);
     }
 
     void fireball()
     {
-
+        int targetNumber = 2;
+        Target[] targets = new Target[targetNumber];
+        FireDirection direction = getFireDirection();
+        switch(direction)
+        {
+            case FireDirection.AY:
+                targets[0] = Target.Aria;
+                targets[1] = Target.Yazir;
+                break;
+            case FireDirection.XA:
+                targets[0] = Target.Xaine;
+                targets[1] = Target.Aria;
+                break;
+            case FireDirection.XB:
+                targets[0] = Target.Xaine;
+                targets[1] = Target.Bayl;
+                break;
+            case FireDirection.XY:
+                targets[0] = Target.Xaine;
+                targets[1] = Target.Yazir;
+                break;
+            default:
+                break;
+        }
+        attackCommand(myFireball, targets, targetNumber, DragonAttack.Fireball);
     }
 
     void earthquake()
     {
-
+        int targetNumber = getEarthquakeNumber();
+        Target[] targets = new Target[targetNumber];
+        for (int i = 0; i < targetNumber; ++i)
+        {
+            targets[i] = getRandomTarget();
+        }
+        attackCommand(myEarthquake, targets, targetNumber, DragonAttack.Earthquake);
     }
 
-    void haze()
+    void snotbomb()
     {
-
+        int targetNumber = 1;
+        Target[] targets = new Target[targetNumber];
+        for (int i = 0; i < targetNumber; ++i)
+            targets[i] = getRandomTarget();
+        attackCommand(myTailSwipe, targets, targetNumber, DragonAttack.SnotBomb);
     }
 
-    void attackCommand(AttackAtt myAttack, Target[] targets, int targetNumber)
+    void attackCommand(AttackAtt myAttack, Target[] targets, int targetNumber, DragonAttack attackName)
     {
         EnemyAttack attack;
         attack.phDamage = damageModule.phAttackDamage(myAttack, 1.0f);
         attack.maDamage = damageModule.maAttackDamage(myAttack, 1.0f);
-        attack.targets = new Target[4];
+        attack.attackName = attackName;
+        attack.targetNumber = targetNumber;
+        attack.targets = new Target[targetNumber];
+        attack.ailment = myAttack.ailment;
+        attack.ailChance = myAttack.chance;
         for (int i = 0; i < targetNumber; ++i)
             attack.targets[i] = targets[i];
-        attack.targetNumber = targetNumber;
         GameController.GetComponent<GameController>().EnemyQueue.Enqueue(attack);
     }
 
@@ -201,5 +243,35 @@ public class DragonScript : MonoBehaviour {
         health.rectTransform.sizeDelta = new Vector2(healthBar.getMaxHealth() / 600f, 0.3f);
         health.transform.position = new Vector2(selfPosition.x + 0f, selfPosition.y - 1.2f);
         health.color = new Color(0, 255, 0, 255);
+    }
+
+    FireDirection getFireDirection()
+    {
+        float number = Random.Range(1, 100);
+        if (number <= 25)
+            return FireDirection.AY;
+        else if (number > 25 && number <= 50)
+            return FireDirection.XA;
+        else if (number > 50 && number <= 75)
+            return FireDirection.XB;
+        else if (number > 75 && number <= 100)
+            return FireDirection.XY;
+        else
+            return FireDirection.NONE;
+    }
+
+    int getEarthquakeNumber()
+    {
+        float number = Random.Range(1, 100);
+        if (number <= 33)
+            return 2;
+        else if (number > 33 && number <= 66)
+            return 3;
+        else if (number > 66 && number <= 90)
+            return 4;
+        else if (number > 90 && number <= 100)
+            return 5;
+        else
+            return 0;
     }
 }

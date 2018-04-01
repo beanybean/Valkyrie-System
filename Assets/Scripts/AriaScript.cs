@@ -33,6 +33,10 @@ public class AriaScript : MonoBehaviour
     GameObject GameController;
     GameObject Self;
 
+    bool ailed = false;
+    float startAil;
+    float ailTimer = 1000f;
+
     public void Utility(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
@@ -76,6 +80,11 @@ public class AriaScript : MonoBehaviour
 	void Update () {
         heroClass.addPoints(actionMeter, health);
         heroClass.displayUpdates(myText, actionMeter);
+        if (ailed)
+        {
+            if (Time.time - startAil > ailTimer)
+                heroClass.restoreStats();
+        }
 	}
 
     void attackCommand(Text newText, string attackName, AttackAtt myAttack)
@@ -86,6 +95,29 @@ public class AriaScript : MonoBehaviour
     public void takeDamage(float phDamage, float maDamage)
     {
         heroClass.takeDamage(actionMeter, phDamage, maDamage, health);
+    }
+
+    public void statusEffect(Ailment ailment, float ailmentChance)
+    {
+        bool ail = heroClass.getChance(ailmentChance);
+        if (ail)
+        {
+            ailed = true;
+            startAil = Time.time;
+            setAilment(ailment);
+        }
+    }
+
+    void setAilment(Ailment ailment)
+    {
+        switch (ailment)
+        {
+            case Ailment.mired:
+                heroClass.getDamageModule().lowerAttribute(Attribute.Speed, 10);
+                return;
+            default:
+                return;
+        }
     }
 
     public void kill()

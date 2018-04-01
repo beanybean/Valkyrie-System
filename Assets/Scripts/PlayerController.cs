@@ -226,28 +226,49 @@ public class PlayerController : MonoBehaviour{
 
     public void attackPlayer(EnemyAttack attack)
     {
-        //AriaObject.GetComponent<AriaScript>().takeDamage(attack.phDamage, attack.maDamage);
         for (int i = 0; i < attack.targetNumber; ++i)
         {
-            attackTarget(attack.targets[i], attack.phDamage, attack.maDamage);
+            attackTarget(attack.targets[i], attack);
         }
     }
 
-    void attackTarget(Target target, float phDamage, float maDamage)
+    public void attackPlayerWithDelay(EnemyAttack attack)
+    {
+        float delay = 0.5f;
+        float start = Time.time;
+        int counter = 0;
+        while(true)
+        {
+            if (counter == attack.targetNumber)
+                break;
+            if (Time.time - start > delay)
+            {
+                start = Time.time;
+                attackTarget(attack.targets[counter], attack);
+                ++counter;
+            }
+        }
+    }
+
+    void attackTarget(Target target, EnemyAttack attack)
     {
         switch(target)
         {
             case Target.Aria:
-                AriaObject.GetComponent<AriaScript>().takeDamage(phDamage, maDamage);
+                AriaObject.GetComponent<AriaScript>().takeDamage(attack.phDamage, attack.maDamage);
+                AriaObject.GetComponent<AriaScript>().statusEffect(attack.ailment, attack.ailChance);
                 return;
             case Target.Bayl:
-                BaylObject.GetComponent<BaylScript>().takeDamage(phDamage, maDamage);
+                BaylObject.GetComponent<BaylScript>().takeDamage(attack.phDamage, attack.maDamage);
+                BaylObject.GetComponent<BaylScript>().statusEffect(attack.ailment, attack.ailChance);
                 return;
             case Target.Xaine:
-                XaineObject.GetComponent<XaineScript>().takeDamage(phDamage, maDamage);
+                XaineObject.GetComponent<XaineScript>().takeDamage(attack.phDamage, attack.maDamage);
+                XaineObject.GetComponent<XaineScript>().statusEffect(attack.ailment, attack.ailChance);
                 return;
             case Target.Yazir:
-                YazirObject.GetComponent<YazirScript>().takeDamage(phDamage, maDamage);
+                YazirObject.GetComponent<YazirScript>().takeDamage(attack.phDamage, attack.maDamage);
+                YazirObject.GetComponent<YazirScript>().statusEffect(attack.ailment, attack.ailChance);
                 return;
             default:
                 return;

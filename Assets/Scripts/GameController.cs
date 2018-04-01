@@ -37,16 +37,8 @@ public class GameController : MonoBehaviour {
         }
         else
         {
-            if (AttackQueue.Count > 0)
-            {
-                Attack currentAttack = (Attack)AttackQueue.Dequeue();
-                Dragon.GetComponent<DragonScript>().takeDamage(currentAttack.phDamage, currentAttack.maDamage);
-            }
-            if (EnemyQueue.Count > 0)
-            {
-                EnemyAttack currentAttack = (EnemyAttack)EnemyQueue.Dequeue();
-                Player.GetComponent<PlayerController>().attackPlayer(currentAttack);
-            }
+            checkPlayerAttacks();
+            checkEnemyAttacks();
         }
 	}
 
@@ -59,5 +51,23 @@ public class GameController : MonoBehaviour {
     void killAll()
     {
         Player.GetComponent<PlayerController>().killAll();
+    }
+
+    void checkPlayerAttacks()
+    {
+        if (AttackQueue.Count > 0)
+        {
+            Attack currentAttack = (Attack)AttackQueue.Dequeue();
+            Dragon.GetComponent<DragonScript>().takeDamage(currentAttack.phDamage, currentAttack.maDamage);
+        }
+    }
+
+    void checkEnemyAttacks()
+    {
+        if (EnemyQueue.Count > 0)
+        {
+            EnemyAttack currentAttack = (EnemyAttack)EnemyQueue.Dequeue();
+            Player.GetComponent<PlayerController>().attackPlayer(currentAttack);
+        }
     }
 }

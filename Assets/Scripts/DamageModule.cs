@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Attribute {PhysicalAttack, MagicalAttack, PhysicalDefense, MagicalDefense, Resistance, Speed };
-public enum Element {Wind, Water, Earth, Lightning };
+public enum Element {Wind, Water, Earth, Lightning, Fire, None };
 public enum Target {Aria, Bayl, Xaine, Yazir, None};
+public enum DragonAttack {TailSwipe, Fireball, Earthquake, SnotBomb };
 
 public struct Attack
 {
@@ -18,6 +19,9 @@ public struct EnemyAttack
     internal float maDamage;
     internal Target[] targets;
     internal int targetNumber;
+    internal DragonAttack attackName;
+    internal Ailment ailment;
+    internal float ailChance;
 }
 
 public class DamageModule
@@ -37,22 +41,28 @@ public class DamageModule
         switch (attribute)
         {
             case Attribute.PhysicalAttack:
-                PhAtk -= amount;
+                if (PhAtk - amount > 0)
+                    PhAtk -= amount;
                 return;
             case Attribute.MagicalAttack:
-                MaAtk -= amount;
+                if (MaAtk - amount > 0)
+                    MaAtk -= amount;
                 return;
             case Attribute.PhysicalDefense:
-                PhDef -= amount;
+                if (PhDef - amount > 0)
+                    PhDef -= amount;
                 return;
             case Attribute.MagicalDefense:
-                MaDef -= amount;
+                if (MaDef - amount > 0)
+                    MaDef -= amount;
                 return;
             case Attribute.Resistance:
-                Res -= amount;
+                if (Res - amount > 0)
+                    Res -= amount;
                 return;
             case Attribute.Speed:
-                Spd -= amount;
+                if (Spd - amount > 0)
+                    Spd -= amount;
                 return;
             default:
                 return;
