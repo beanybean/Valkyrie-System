@@ -152,12 +152,14 @@ public class HeroClass
         attackSpeed = myAttack.AtkSpd;
     }
 
-    public void attackCommand(GameObject GameController, Text myText, Text newText, string attackName, AttackAtt myAttack)
+    public void attackCommand(GameObject GameController, Text myText, Text newText, string attackName, AttackAtt myAttack, Action action, Hero hero)
     {
         newText.text = getName() + attackName;
         Attack attack;
         attack.phDamage = getDamageModule().phAttackDamage(myAttack, 1.0f);
         attack.maDamage = getDamageModule().maAttackDamage(myAttack, 1.0f);
+        attack.hero = hero;
+        attack.action = action;
         GameController.GetComponent<GameController>().AttackQueue.Enqueue(attack);
         setAttackSpeed(myAttack);
         getActionPoints().usePoints();

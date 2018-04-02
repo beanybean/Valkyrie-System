@@ -53,6 +53,8 @@ public class YazirScript : MonoBehaviour
     private AudioClip hitSound;
     private AudioSource audioSource;
 
+    private Hero hero = Hero.Yazir;
+
     public void Utility(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
@@ -67,7 +69,7 @@ public class YazirScript : MonoBehaviour
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
-            attackCommand(newText, " Ultimate", myUltimate);
+            attackCommand(newText, " Ultimate", myUltimate, Action.Ultimate);
             audioSource.PlayOneShot(ultimateSound);
         }
     }
@@ -76,7 +78,7 @@ public class YazirScript : MonoBehaviour
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
-            attackCommand(newText, " Normal", myNormal);
+            attackCommand(newText, " Normal", myNormal, Action.Normal);
             audioSource.PlayOneShot(normalSound);
         }
     }
@@ -85,7 +87,7 @@ public class YazirScript : MonoBehaviour
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
-            attackCommand(newText, " Special", mySpecial);
+            attackCommand(newText, " Special", mySpecial, Action.Special);
             audioSource.PlayOneShot(specialSound);
         }
     }
@@ -132,9 +134,9 @@ public class YazirScript : MonoBehaviour
         }
     }
 
-    void attackCommand(Text newText, string attackName, AttackAtt myAttack)
+    void attackCommand(Text newText, string attackName, AttackAtt myAttack, Action action)
     {
-        heroClass.attackCommand(GameController, myText, newText, attackName, myAttack);
+        heroClass.attackCommand(GameController, myText, newText, attackName, myAttack, action, hero);
     }
 
     public void takeDamage(float phDamage, float maDamage)

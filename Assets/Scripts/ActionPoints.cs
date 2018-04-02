@@ -67,6 +67,11 @@ public class ActionPoints
             actionPoints = 0;
     }
 
+    public void emptyMeter()
+    {
+        actionPoints = 0;
+    }
+
     public void KO(Image meter)
     {
         actionPoints = 0;

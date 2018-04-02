@@ -59,6 +59,7 @@ public class GameController : MonoBehaviour {
         {
             Attack currentAttack = (Attack)AttackQueue.Dequeue();
             Dragon.GetComponent<DragonScript>().takeDamage(currentAttack.phDamage, currentAttack.maDamage);
+            Dragon.GetComponent<DragonScript>().counterQueue.Enqueue(currentAttack);
         }
     }
 
@@ -74,5 +75,10 @@ public class GameController : MonoBehaviour {
     public DragonAttack getNextAttack()
     {
         return Dragon.GetComponent<DragonScript>().getNextAttack();
+    }
+
+    public void resetAttackTimerPos()
+    {
+        Dragon.GetComponent<DragonScript>().resetAttackTimerPos();
     }
 }

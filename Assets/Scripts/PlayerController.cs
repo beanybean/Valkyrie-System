@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum Hero { Hero0, Hero1, Hero2, Hero3, Null };
+public enum Hero { Aria, Bayl, Xaine, Yazir, Null };
 public enum Action { Utility, Ultimate, Normal, Special, Null };
 public enum Direction { DOWN, RIGHT, LEFT, UP, DESELECT, NONE };
 
@@ -68,13 +68,13 @@ public class PlayerController : MonoBehaviour{
         switch(direction)
         {
             case Direction.DOWN:
-                return Hero.Hero0;
+                return Hero.Aria;
             case Direction.RIGHT:
-                return Hero.Hero1;
+                return Hero.Bayl;
             case Direction.LEFT:
-                return Hero.Hero2;
+                return Hero.Xaine;
             case Direction.UP:
-                return Hero.Hero3;
+                return Hero.Yazir;
             default:
                 return Hero.Null;
         }
@@ -121,13 +121,13 @@ public class PlayerController : MonoBehaviour{
 
     void Test(Text text)
     {
-        if (heroSelector == Hero.Hero0)
+        if (heroSelector == Hero.Aria)
             hero0Action(text);
-        else if (heroSelector == Hero.Hero1)
+        else if (heroSelector == Hero.Bayl)
             hero1Action(text);
-        else if (heroSelector == Hero.Hero2)
+        else if (heroSelector == Hero.Xaine)
             hero2Action(text);
-        else if (heroSelector == Hero.Hero3)
+        else if (heroSelector == Hero.Yazir)
             hero3Action(text);
         else return;
     }

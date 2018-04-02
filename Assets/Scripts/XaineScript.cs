@@ -55,6 +55,8 @@ public class XaineScript : MonoBehaviour
     private AudioClip hitSound;
     private AudioSource audioSource;
 
+    private Hero hero = Hero.Xaine;
+
     public void Utility(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
@@ -69,7 +71,7 @@ public class XaineScript : MonoBehaviour
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
-            attackCommand(newText, " Ultimate", myUltimate);
+            attackCommand(newText, " Ultimate", myUltimate, Action.Ultimate);
             audioSource.PlayOneShot(ultimateSound);
         }
     }
@@ -78,7 +80,7 @@ public class XaineScript : MonoBehaviour
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
-            attackCommand(newText, " Normal", myNormal);
+            attackCommand(newText, " Normal", myNormal, Action.Normal);
             audioSource.PlayOneShot(normalSound);
         }
     }
@@ -87,7 +89,7 @@ public class XaineScript : MonoBehaviour
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
-            attackCommand(newText, " Special", mySpecial);
+            attackCommand(newText, " Special", mySpecial, Action.Special);
             audioSource.PlayOneShot(specialSound);
         }
     }
@@ -106,7 +108,6 @@ public class XaineScript : MonoBehaviour
         heroClass.setAtkAtt(ref myNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
         heroClass.setAtkAtt(ref mySpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
         GameController = GameObject.Find("GameController");
-        clearNextAttack();
 
         Self = GameObject.Find("Xaine");
         heroClass.setUIPosition(Self, actionMeter, ref myText, health);
@@ -139,9 +140,9 @@ public class XaineScript : MonoBehaviour
         }
     }
 
-    void attackCommand(Text newText, string attackName, AttackAtt myAttack)
+    void attackCommand(Text newText, string attackName, AttackAtt myAttack, Action action)
     {
-        heroClass.attackCommand(GameController, myText, newText, attackName, myAttack);
+        heroClass.attackCommand(GameController, myText, newText, attackName, myAttack, action, hero);
     }
 
     public void takeDamage(float phDamage, float maDamage)
@@ -193,6 +194,7 @@ public class XaineScript : MonoBehaviour
 
     void clearNextAttack()
     {
+        GameController.GetComponent<GameController>().resetAttackTimerPos();
         nextAttack.text = "";
     }
 
@@ -221,6 +223,7 @@ public class XaineScript : MonoBehaviour
                 nextAttack.text = "Snot Bomb:\nCounter with Wind";
                 return;
             default:
+                nextAttack.text = "Attack Countered!";
                 return;
         }
     }

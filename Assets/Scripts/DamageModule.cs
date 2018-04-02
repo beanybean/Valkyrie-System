@@ -10,6 +10,8 @@ public struct Attack
 {
     internal float phDamage;
     internal float maDamage;
+    internal Hero hero;
+    internal Action action;
 }
 
 public struct EnemyAttack

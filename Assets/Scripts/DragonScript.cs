@@ -64,6 +64,10 @@ public class DragonScript : MonoBehaviour {
     private AudioClip hitSound;
     private AudioSource audioSource;
 
+    public Queue counterQueue = new Queue();
+    private bool counterBool = false;
+    private float counterWindow = 0.8f;
+
     public void takeDamage(float phDamage, float maDamage)
     {
         float totalDamage = 0;
@@ -100,6 +104,10 @@ public class DragonScript : MonoBehaviour {
     void Update() {
         dragonText.text = healthBar.getHealthString();
         addPoints();
+        counterBool = setCounterBool();
+        setCounterColor();
+        if (counter())
+            cancelAttack();
         if (actionPoints2.isReady() && !gameOver())
         {
             doRandomAttack(nextAttack);
@@ -123,6 +131,8 @@ public class DragonScript : MonoBehaviour {
     {
         Self.transform.position = new Vector2(-5f, -1.7f);
         health.transform.position = new Vector2(Self.transform.position.x + 0f, Self.transform.position.y - 2.4f);
+        attackTimer.rectTransform.sizeDelta = new Vector2(0.5f, 2f);
+        //attackTimer.transform.position = new Vector2(Self.transform.position.x - 5f, Self.transform.position.y - 0f);
     }
 
     void addPoints()
@@ -343,6 +353,68 @@ public class DragonScript : MonoBehaviour {
 
     public DragonAttack getNextAttack()
     {
+        attackTimer.transform.position = new Vector2(Self.transform.position.x - 5f, Self.transform.position.y - 0f);
         return nextAttack;
+    }
+
+    bool counter()
+    {
+        if (counterQueue.Count > 0)
+        {
+            float meterPercent = 0.8f;
+            Attack playerAttack = (Attack)counterQueue.Dequeue();
+            if (nextAttack == DragonAttack.TailSwipe && playerAttack.hero == Hero.Yazir &&
+                playerAttack.action == Action.Special && counterBool)
+            {
+                return true;
+            }
+            else if (nextAttack == DragonAttack.Fireball && playerAttack.hero == Hero.Bayl &&
+                playerAttack.action == Action.Special && counterBool)
+            {
+                return true;
+            }
+            else if (nextAttack == DragonAttack.Earthquake && playerAttack.hero == Hero.Xaine &&
+                playerAttack.action == Action.Special && counterBool)
+            {
+                return true;
+            }
+            else if (nextAttack == DragonAttack.SnotBomb && playerAttack.hero == Hero.Aria &&
+                playerAttack.action == Action.Special && counterBool)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+
+    void cancelAttack()
+    {
+        actionPoints2.emptyMeter();
+        nextAttack = getRandomAttack();
+    }
+
+    bool setCounterBool()
+    {
+        return actionPoints2.getMeter() > counterWindow;
+    }
+
+    void setCounterColor()
+    {
+        if (counterBool)
+        {
+            attackTimer.color = new Color(255, 0, 0, 255);
+        }
+        else
+        {
+            attackTimer.color = new Color(255, 132, 0, 255);
+        }
+    }
+
+    public void resetAttackTimerPos()
+    {
+        attackTimer.transform.position = new Vector2(-100, -100);
     }
 }
