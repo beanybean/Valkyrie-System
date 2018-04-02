@@ -107,8 +107,8 @@ public class DragonScript : MonoBehaviour {
 
     void setPositions()
     {
-        Self.transform.position = new Vector2(-5f, -2f);
-        health.transform.position = new Vector2(Self.transform.position.x + 0f, Self.transform.position.y - 1.2f);
+        Self.transform.position = new Vector2(-5f, -1.7f);
+        health.transform.position = new Vector2(Self.transform.position.x + 0f, Self.transform.position.y - 2.4f);
     }
 
     void addPoints()

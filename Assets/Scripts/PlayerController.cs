@@ -24,9 +24,9 @@ public class PlayerController : MonoBehaviour{
         BaylObject = GameObject.Find("Bayl");
         XaineObject = GameObject.Find("Xaine");
         YazirObject = GameObject.Find("Yazir");
-        Vector2 centerPosition = new Vector2(4f, -1f);
+        Vector2 centerPosition = new Vector2(4f, -1.3f);
         float xOffset = 2.8f;
-        float yOffset = 1.8f;
+        float yOffset = 1.3f;
         AriaObject.transform.position = new Vector2(centerPosition.x, centerPosition.y - yOffset);
         BaylObject.transform.position = new Vector2(centerPosition.x + xOffset, centerPosition.y);
         XaineObject.transform.position = new Vector2(centerPosition.x - xOffset, centerPosition.y);
