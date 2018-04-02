@@ -52,12 +52,25 @@ public class DragonScript : MonoBehaviour {
 
     DragonAttack nextAttack;
 
+    [SerializeField]
+    private AudioClip fireballSound;
+    [SerializeField]
+    private AudioClip earthquakeSound;
+    [SerializeField]
+    private AudioClip tailswipeSound;
+    [SerializeField]
+    private AudioClip snotbombSound;
+    [SerializeField]
+    private AudioClip hitSound;
+    private AudioSource audioSource;
+
     public void takeDamage(float phDamage, float maDamage)
     {
         float totalDamage = 0;
         totalDamage += damageModule.phDamageReduction(phDamage, damageModule.getAttribute(Attribute.PhysicalDefense));
         totalDamage += damageModule.maDamageReduction(maDamage, damageModule.getAttribute(Attribute.MagicalDefense));
         healthBar.takeDamage(totalDamage, health);
+        audioSource.PlayOneShot(hitSound);
     }
 
 	// Use this for initialization
@@ -80,6 +93,7 @@ public class DragonScript : MonoBehaviour {
         setHealthBar(Self, health);
         nextAttack = getRandomAttack();
         setPositions();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -151,6 +165,7 @@ public class DragonScript : MonoBehaviour {
         for (int i = 0; i < targetNumber; ++i)
             targets[i] = getRandomTarget();
         attackCommand(myTailSwipe, targets, targetNumber, DragonAttack.TailSwipe);
+        audioSource.PlayOneShot(tailswipeSound);
     }
 
     void fireball()
@@ -180,6 +195,7 @@ public class DragonScript : MonoBehaviour {
                 break;
         }
         attackCommand(myFireball, targets, targetNumber, DragonAttack.Fireball);
+        audioSource.PlayOneShot(fireballSound);
     }
 
     void earthquake()
@@ -191,6 +207,8 @@ public class DragonScript : MonoBehaviour {
             targets[i] = getRandomTarget();
         }
         attackCommand(myEarthquake, targets, targetNumber, DragonAttack.Earthquake);
+        for (int i = 0; i < targetNumber; ++i)
+            audioSource.PlayOneShot(earthquakeSound);
     }
 
     void snotbomb()
@@ -200,6 +218,7 @@ public class DragonScript : MonoBehaviour {
         for (int i = 0; i < targetNumber; ++i)
             targets[i] = getRandomTarget();
         attackCommand(mySnotbomb, targets, targetNumber, DragonAttack.SnotBomb);
+        audioSource.PlayOneShot(snotbombSound);
     }
 
     void attackCommand(AttackAtt myAttack, Target[] targets, int targetNumber, DragonAttack attackName)

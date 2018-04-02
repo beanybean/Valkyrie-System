@@ -43,29 +43,53 @@ public class XaineScript : MonoBehaviour
 
     bool utility = false;
 
+    [SerializeField]
+    private AudioClip utilitySound;
+    [SerializeField]
+    private AudioClip normalSound;
+    [SerializeField]
+    private AudioClip specialSound;
+    [SerializeField]
+    private AudioClip ultimateSound;
+    [SerializeField]
+    private AudioClip hitSound;
+    private AudioSource audioSource;
+
     public void Utility(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
+        {
             scryingShield();
+            audioSource.PlayOneShot(utilitySound);
             //attackCommand(newText, " Utility", myUtility);
+        }
     }
 
     public void Ultimate(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
+        {
             attackCommand(newText, " Ultimate", myUltimate);
+            audioSource.PlayOneShot(ultimateSound);
+        }
     }
 
     public void Normal(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
+        {
             attackCommand(newText, " Normal", myNormal);
+            audioSource.PlayOneShot(normalSound);
+        }
     }
 
     public void Special(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
+        {
             attackCommand(newText, " Special", mySpecial);
+            audioSource.PlayOneShot(specialSound);
+        }
     }
 
     // Use this for initialization
@@ -87,6 +111,7 @@ public class XaineScript : MonoBehaviour
         Self = GameObject.Find("Xaine");
         heroClass.setUIPosition(Self, actionMeter, ref myText, health);
         PlayerController = GameObject.Find("PlayerController");
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -121,7 +146,11 @@ public class XaineScript : MonoBehaviour
 
     public void takeDamage(float phDamage, float maDamage)
     {
-        heroClass.takeDamage(actionMeter, phDamage, maDamage, health);
+        if (heroClass.isAlive())
+        {
+            heroClass.takeDamage(actionMeter, phDamage, maDamage, health);
+            audioSource.PlayOneShot(hitSound);
+        }
     }
 
     public void statusEffect(Ailment ailment, float ailmentChance)
