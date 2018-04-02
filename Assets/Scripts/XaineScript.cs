@@ -108,6 +108,7 @@ public class XaineScript : MonoBehaviour
         heroClass.setAtkAtt(ref myNormal, 1.0f, 0.85f, 0.15f, 0.6f, 0, 0.0f, Ailment.NONE);
         heroClass.setAtkAtt(ref mySpecial, 0.9f, 0.1f, 0.9f, 1.0f, 0, 0.0f, Ailment.NONE);
         GameController = GameObject.Find("GameController");
+        nextAttack.text = "";
 
         Self = GameObject.Find("Xaine");
         heroClass.setUIPosition(Self, actionMeter, ref myText, health);
