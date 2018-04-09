@@ -97,6 +97,7 @@ public class DragonScript : MonoBehaviour {
         setHealthBar(Self, health);
         nextAttack = getRandomAttack();
         setPositions();
+        resetAttackTimerPos();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -108,11 +109,16 @@ public class DragonScript : MonoBehaviour {
         setCounterColor();
         if (counter())
             cancelAttack();
+        if (actionPoints2.getMeter() > counterWindow)
+        {
+            makeTimerVisible();
+        }
         if (actionPoints2.isReady() && !gameOver())
         {
             doRandomAttack(nextAttack);
             actionPoints2.usePoints();
             nextAttack = getRandomAttack();
+            resetAttackTimerPos();
         }
         if (timerCount == TIMER_MAX)
             GameController.GetComponent<GameController>().gameOver();
@@ -353,7 +359,7 @@ public class DragonScript : MonoBehaviour {
 
     public DragonAttack getNextAttack()
     {
-        attackTimer.transform.position = new Vector2(Self.transform.position.x - 5f, Self.transform.position.y - 0f);
+        makeTimerVisible();
         return nextAttack;
     }
 
@@ -361,7 +367,6 @@ public class DragonScript : MonoBehaviour {
     {
         if (counterQueue.Count > 0)
         {
-            float meterPercent = 0.8f;
             Attack playerAttack = (Attack)counterQueue.Dequeue();
             if (nextAttack == DragonAttack.TailSwipe && playerAttack.hero == Hero.Yazir &&
                 playerAttack.action == Action.Special && counterBool)
@@ -416,5 +421,10 @@ public class DragonScript : MonoBehaviour {
     public void resetAttackTimerPos()
     {
         attackTimer.transform.position = new Vector2(-100, -100);
+    }
+
+    void makeTimerVisible()
+    {
+        attackTimer.transform.position = new Vector2(Self.transform.position.x - 5f, Self.transform.position.y - 0f);
     }
 }
