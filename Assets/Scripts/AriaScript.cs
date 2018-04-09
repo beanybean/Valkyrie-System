@@ -54,13 +54,16 @@ public class AriaScript : MonoBehaviour
 
     private Hero hero = Hero.Aria;
 
+    Animator anim;
+    int attackHash = Animator.StringToHash("Trigger_Attack");
+
     public void Utility(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
-            hastingWind();
+            anim.SetTrigger(attackHash);
             audioSource.PlayOneShot(utilitySound);
-            //attackCommand(newText, " Utility", myUtility);
+            hastingWind();
         }
     }
 
@@ -68,8 +71,9 @@ public class AriaScript : MonoBehaviour
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
-            attackCommand(newText, " Ultimate", myUltimate, Action.Ultimate);
+            anim.SetTrigger(attackHash);
             audioSource.PlayOneShot(ultimateSound);
+            attackCommand(newText, " Ultimate", myUltimate, Action.Ultimate);
         }
     }
 
@@ -77,8 +81,9 @@ public class AriaScript : MonoBehaviour
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
-            attackCommand(newText, " Normal", myNormal, Action.Normal);
+            anim.SetTrigger(attackHash);
             audioSource.PlayOneShot(normalSound);
+            attackCommand(newText, " Normal", myNormal, Action.Normal);
         }
     }
 
@@ -86,8 +91,9 @@ public class AriaScript : MonoBehaviour
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
-            attackCommand(newText, " Special", mySpecial, Action.Special);
+            anim.SetTrigger(attackHash);
             audioSource.PlayOneShot(specialSound);
+            attackCommand(newText, " Special", mySpecial, Action.Special);
         }
     }
 
@@ -106,6 +112,7 @@ public class AriaScript : MonoBehaviour
         heroClass.setUIPosition(Self, actionMeter, ref myText, health);
         PlayerController = GameObject.Find("PlayerController");
         audioSource = GetComponent<AudioSource>();
+        anim = GetComponentInChildren<Animator>();
     }
 	
 	// Update is called once per frame

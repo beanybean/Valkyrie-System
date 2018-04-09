@@ -767,7 +767,7 @@ GameObject:
   - component: {fileID: 238532964}
   - component: {fileID: 238532963}
   m_Layer: 0
-  m_Name: Idle_Aria
+  m_Name: AnimController_Aria
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1233,7 +1233,7 @@ GameObject:
   - component: {fileID: 705953218}
   - component: {fileID: 705953217}
   m_Layer: 0
-  m_Name: Idle_Bayl
+  m_Name: AnimController_Bayl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1466,7 +1466,7 @@ GameObject:
   - component: {fileID: 951353196}
   - component: {fileID: 951353195}
   m_Layer: 0
-  m_Name: Idle_Xaine
+  m_Name: AnimController_Xaine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1891,7 +1891,7 @@ GameObject:
   - component: {fileID: 1186641147}
   - component: {fileID: 1186641146}
   m_Layer: 0
-  m_Name: Idle_Yazir
+  m_Name: AnimController_Yazir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
