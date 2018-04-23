@@ -57,11 +57,30 @@ public class AriaScript : MonoBehaviour
     Animator anim;
     int attackHash = Animator.StringToHash("Trigger_Attack");
 
+    [SerializeField]
+    GameObject utilityPrefab;
+    GameObject ultimatePrefab;
+    GameObject normalPrefab;
+    [SerializeField]
+    GameObject specialPrefab;
+
+    GameObject instantiatedUtility;
+
     public void Utility(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
+            //Vector3 enemyPosition = GameController.GetComponent<GameController>().getDragonPosition();
+            //enemyPosition.z = -1;
+            //Vector3 centerPosition = PlayerController.GetComponent<PlayerController>().getCenterPosition();
+            //centerPosition.z = -1;
+            //Vector3 iconPosition = heroClass.getPosition();
+            //iconPosition.x += 1;
+            //iconPosition.y += 1;
+            //iconPosition.z = -1;
             anim.SetTrigger(attackHash);
+            //instantiatedUtility = Instantiate(utilityPrefab, iconPosition, Quaternion.identity);
+            PlayerController.GetComponent<PlayerController>().hastingWind(utilityPrefab);
             audioSource.PlayOneShot(utilitySound);
             hastingWind();
         }
@@ -92,6 +111,11 @@ public class AriaScript : MonoBehaviour
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
             anim.SetTrigger(attackHash);
+            Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonPosition();
+            iconPosition.x += 1;
+            iconPosition.z = -1;
+            GameObject Special = Instantiate(specialPrefab, iconPosition, Quaternion.identity);
+            Destroy(Special, 1);
             audioSource.PlayOneShot(specialSound);
             attackCommand(newText, " Special", mySpecial, Action.Special);
         }
@@ -136,6 +160,8 @@ public class AriaScript : MonoBehaviour
         {
             utility = false;
             PlayerController.GetComponent<PlayerController>().restoreSpeed();
+            //Destroy(instantiatedUtility);
+            PlayerController.GetComponent<PlayerController>().destroyHastingWind();
         }
     }
 

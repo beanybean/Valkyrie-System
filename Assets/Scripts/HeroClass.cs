@@ -28,6 +28,17 @@ public class HeroClass
 
     string CharacterName;
 
+    Vector2 position;
+    public void setPosition(Vector2 newPosition)
+    {
+        position = newPosition;
+    }
+
+    public Vector2 getPosition()
+    {
+        return position;
+    }
+
     public HeroClass ()
     {
         damageModule.setAttribute(Attribute.PhysicalAttack, defaultPhAtk);

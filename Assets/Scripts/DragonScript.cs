@@ -68,6 +68,8 @@ public class DragonScript : MonoBehaviour {
     private bool counterBool = false;
     private float counterWindow = 0.8f;
 
+    private Vector2 myPosition;
+
     public void takeDamage(float phDamage, float maDamage)
     {
         float totalDamage = 0;
@@ -135,7 +137,8 @@ public class DragonScript : MonoBehaviour {
 
     void setPositions()
     {
-        Self.transform.position = new Vector2(-5f, -1.7f);
+        myPosition = new Vector2(-5f, -1.7f);
+        Self.transform.position = myPosition;
         health.transform.position = new Vector2(Self.transform.position.x + 0f, Self.transform.position.y - 2.4f);
         attackTimer.rectTransform.sizeDelta = new Vector2(0.5f, 2f);
         //attackTimer.transform.position = new Vector2(Self.transform.position.x - 5f, Self.transform.position.y - 0f);
@@ -426,5 +429,10 @@ public class DragonScript : MonoBehaviour {
     void makeTimerVisible()
     {
         attackTimer.transform.position = new Vector2(Self.transform.position.x - 5f, Self.transform.position.y - 0f);
+    }
+
+    public Vector2 getPosition()
+    {
+        return myPosition;
     }
 }

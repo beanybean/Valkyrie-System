@@ -81,4 +81,9 @@ public class GameController : MonoBehaviour {
     {
         Dragon.GetComponent<DragonScript>().resetAttackTimerPos();
     }
+
+    public Vector2 getDragonPosition()
+    {
+        return Dragon.GetComponent<DragonScript>().getPosition();
+    }
 }

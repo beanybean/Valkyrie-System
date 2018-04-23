@@ -18,19 +18,34 @@ public class PlayerController : MonoBehaviour{
     GameObject XaineObject;
     GameObject YazirObject;
 
+    Vector2 centerPosition;
+
+    GameObject AriaHaste;
+    GameObject BaylHaste;
+    GameObject XaineHaste;
+    GameObject YazirHaste;
+
     void Awake()
     {
         AriaObject = GameObject.Find("Aria");
         BaylObject = GameObject.Find("Bayl");
         XaineObject = GameObject.Find("Xaine");
         YazirObject = GameObject.Find("Yazir");
-        Vector2 centerPosition = new Vector2(4f, -1.3f);
+        centerPosition = new Vector2(4f, -1.3f);
         float xOffset = 2.8f;
         float yOffset = 1.3f;
-        AriaObject.transform.position = new Vector2(centerPosition.x, centerPosition.y - yOffset);
-        BaylObject.transform.position = new Vector2(centerPosition.x + xOffset, centerPosition.y);
-        XaineObject.transform.position = new Vector2(centerPosition.x - xOffset, centerPosition.y);
-        YazirObject.transform.position = new Vector2(centerPosition.x, centerPosition.y + yOffset);
+        Vector2 AriaPosition = new Vector2(centerPosition.x, centerPosition.y - yOffset);
+        Vector2 BaylPosition = new Vector2(centerPosition.x + xOffset, centerPosition.y);
+        Vector2 XainePosition = new Vector2(centerPosition.x - xOffset, centerPosition.y);
+        Vector2 YazirPosition = new Vector2(centerPosition.x, centerPosition.y + yOffset);
+        AriaObject.GetComponent<AriaScript>().getHeroClass().setPosition(AriaPosition);
+        BaylObject.GetComponent<BaylScript>().getHeroClass().setPosition(BaylPosition);
+        XaineObject.GetComponent<XaineScript>().getHeroClass().setPosition(XainePosition);
+        YazirObject.GetComponent<YazirScript>().getHeroClass().setPosition(YazirPosition);
+        AriaObject.transform.position = AriaPosition;
+        BaylObject.transform.position = BaylPosition;
+        XaineObject.transform.position = XainePosition;
+        YazirObject.transform.position = YazirPosition;
     }
 
     void Start()
@@ -323,5 +338,40 @@ public class PlayerController : MonoBehaviour{
         BaylObject.GetComponent<BaylScript>().getHeroClass().restoreStrength();
         XaineObject.GetComponent<XaineScript>().getHeroClass().restoreStrength();
         YazirObject.GetComponent<YazirScript>().getHeroClass().restoreStrength();
+    }
+
+    public Vector2 getCenterPosition()
+    {
+        return centerPosition;
+    }
+
+    public void hastingWind(GameObject prefab)
+    {
+        Vector3 ariaPosition = getIconPosition(AriaObject.GetComponent<AriaScript>().getHeroClass().getPosition());
+        Vector3 baylPosition = getIconPosition(BaylObject.GetComponent<BaylScript>().getHeroClass().getPosition());
+        Vector3 xainePosition = getIconPosition(XaineObject.GetComponent<XaineScript>().getHeroClass().getPosition());
+        Vector3 yazirPosition = getIconPosition(YazirObject.GetComponent<YazirScript>().getHeroClass().getPosition());
+        AriaHaste = Instantiate(prefab, ariaPosition, Quaternion.identity);
+        BaylHaste = Instantiate(prefab, baylPosition, Quaternion.identity);
+        XaineHaste = Instantiate(prefab, xainePosition, Quaternion.identity);
+        YazirHaste = Instantiate(prefab, yazirPosition, Quaternion.identity);
+
+    }
+
+    Vector3 getIconPosition(Vector2 heroPosition)
+    {
+        Vector3 position;
+        position.x = heroPosition.x + 1;
+        position.y = heroPosition.y + 1;
+        position.z = -1;
+        return position;
+    }
+
+    public void destroyHastingWind()
+    {
+        Destroy(AriaHaste);
+        Destroy(BaylHaste);
+        Destroy(XaineHaste);
+        Destroy(YazirHaste);
     }
 }

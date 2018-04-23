@@ -3067,6 +3067,10 @@ MonoBehaviour:
   specialSound: {fileID: 8300000, guid: 762fa61af5e4f42f5bdbe716dce2be76, type: 3}
   ultimateSound: {fileID: 8300000, guid: 32a02b5e107db45e39c57eccf2ec4bf4, type: 3}
   hitSound: {fileID: 8300000, guid: f3aebff15a2971c49bac005a7bc5bc9b, type: 3}
+  utilityPrefab: {fileID: 1378232914763890, guid: c529dc74f512ec94f8944b8461d0b0e7,
+    type: 2}
+  specialPrefab: {fileID: 1352829731032956, guid: dcc85ebcd5cb2cc418ff16b6570df6df,
+    type: 2}
 --- !u!4 &2117242109
 Transform:
   m_ObjectHideFlags: 0
