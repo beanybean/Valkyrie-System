@@ -60,6 +60,15 @@ public class XaineScript : MonoBehaviour
     Animator anim;
     int attackHash = Animator.StringToHash("Trigger_Attack");
 
+    [SerializeField]
+    GameObject utilityPrefab;
+    [SerializeField]
+    GameObject ultimatePrefab;
+    [SerializeField]
+    GameObject normalPrefab;
+    [SerializeField]
+    GameObject specialPrefab;
+
     public void Utility(Text newText)
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
@@ -75,6 +84,9 @@ public class XaineScript : MonoBehaviour
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
             anim.SetTrigger(attackHash);
+            Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
+            GameObject icon = Instantiate(ultimatePrefab, iconPosition, Quaternion.identity);
+            Destroy(icon, 1);
             audioSource.PlayOneShot(ultimateSound);
             attackCommand(newText, " Ultimate", myUltimate, Action.Ultimate);
         }
@@ -85,6 +97,9 @@ public class XaineScript : MonoBehaviour
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
             anim.SetTrigger(attackHash);
+            Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
+            GameObject icon = Instantiate(normalPrefab, iconPosition, Quaternion.identity);
+            Destroy(icon, 1);
             audioSource.PlayOneShot(normalSound);
             attackCommand(newText, " Normal", myNormal, Action.Normal);
         }
@@ -95,6 +110,9 @@ public class XaineScript : MonoBehaviour
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
             anim.SetTrigger(attackHash);
+            Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
+            GameObject icon = Instantiate(specialPrefab, iconPosition, Quaternion.identity);
+            Destroy(icon, 1);
             audioSource.PlayOneShot(specialSound);
             attackCommand(newText, " Special", mySpecial, Action.Special);
         }

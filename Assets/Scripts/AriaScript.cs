@@ -59,7 +59,9 @@ public class AriaScript : MonoBehaviour
 
     [SerializeField]
     GameObject utilityPrefab;
+    [SerializeField]
     GameObject ultimatePrefab;
+    [SerializeField]
     GameObject normalPrefab;
     [SerializeField]
     GameObject specialPrefab;
@@ -91,6 +93,9 @@ public class AriaScript : MonoBehaviour
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
             anim.SetTrigger(attackHash);
+            Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
+            GameObject icon = Instantiate(ultimatePrefab, iconPosition, Quaternion.identity);
+            Destroy(icon, 1);
             audioSource.PlayOneShot(ultimateSound);
             attackCommand(newText, " Ultimate", myUltimate, Action.Ultimate);
         }
@@ -101,6 +106,9 @@ public class AriaScript : MonoBehaviour
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
             anim.SetTrigger(attackHash);
+            Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
+            GameObject icon = Instantiate(normalPrefab, iconPosition, Quaternion.identity);
+            Destroy(icon, 1);
             audioSource.PlayOneShot(normalSound);
             attackCommand(newText, " Normal", myNormal, Action.Normal);
         }
@@ -111,11 +119,9 @@ public class AriaScript : MonoBehaviour
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
             anim.SetTrigger(attackHash);
-            Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonPosition();
-            iconPosition.x += 1;
-            iconPosition.z = -1;
-            GameObject Special = Instantiate(specialPrefab, iconPosition, Quaternion.identity);
-            Destroy(Special, 1);
+            Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
+            GameObject icon = Instantiate(specialPrefab, iconPosition, Quaternion.identity);
+            Destroy(icon, 1);
             audioSource.PlayOneShot(specialSound);
             attackCommand(newText, " Special", mySpecial, Action.Special);
         }

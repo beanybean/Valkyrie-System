@@ -86,4 +86,12 @@ public class GameController : MonoBehaviour {
     {
         return Dragon.GetComponent<DragonScript>().getPosition();
     }
+
+    public Vector3 getDragonOffset()
+    {
+        Vector3 position = getDragonPosition();
+        position.x += 1;
+        position.z = -1;
+        return position;
+    }
 }

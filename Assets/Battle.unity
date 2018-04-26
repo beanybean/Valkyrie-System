@@ -662,6 +662,14 @@ MonoBehaviour:
   specialSound: {fileID: 8300000, guid: e46b2a39f3c875f4fae503aa55c430d5, type: 3}
   ultimateSound: {fileID: 8300000, guid: e46b2a39f3c875f4fae503aa55c430d5, type: 3}
   hitSound: {fileID: 8300000, guid: f3aebff15a2971c49bac005a7bc5bc9b, type: 3}
+  utilityPrefab: {fileID: 1505677291998486, guid: d11d8e2fecb41f54393363a90ba2c49e,
+    type: 2}
+  ultimatePrefab: {fileID: 1415599173273098, guid: e4b0b4b19ee6e8449ab4f4edbc42ebc8,
+    type: 2}
+  normalPrefab: {fileID: 1442771706102948, guid: 4fcc1613d4d49ec45b07f356bc0854e5,
+    type: 2}
+  specialPrefab: {fileID: 1761419359244488, guid: 7d028f57b056b1149bf94db6a49b6b67,
+    type: 2}
 --- !u!4 &213704322
 Transform:
   m_ObjectHideFlags: 0
@@ -1718,6 +1726,14 @@ MonoBehaviour:
   specialSound: {fileID: 8300000, guid: e46b2a39f3c875f4fae503aa55c430d5, type: 3}
   ultimateSound: {fileID: 8300000, guid: e46b2a39f3c875f4fae503aa55c430d5, type: 3}
   hitSound: {fileID: 8300000, guid: f3aebff15a2971c49bac005a7bc5bc9b, type: 3}
+  utilityPrefab: {fileID: 1189346366615732, guid: e24e93b8057d01d4a80521344c3b38da,
+    type: 2}
+  ultimatePrefab: {fileID: 1762753535443226, guid: 06a1d3fb0b0bd30409f7341887d43d40,
+    type: 2}
+  normalPrefab: {fileID: 1354341653273718, guid: b365330ad69b13d4a9771e5c7afc6842,
+    type: 2}
+  specialPrefab: {fileID: 1951023593384388, guid: aff9c90043931614b9b0b0fbf4e3f1c4,
+    type: 2}
 --- !u!4 &1036540672
 Transform:
   m_ObjectHideFlags: 0
@@ -2511,6 +2527,14 @@ MonoBehaviour:
   specialSound: {fileID: 8300000, guid: e46b2a39f3c875f4fae503aa55c430d5, type: 3}
   ultimateSound: {fileID: 8300000, guid: e46b2a39f3c875f4fae503aa55c430d5, type: 3}
   hitSound: {fileID: 8300000, guid: f3aebff15a2971c49bac005a7bc5bc9b, type: 3}
+  utilityPrefab: {fileID: 1244324841856718, guid: 01aec91101f8e3c49b5ec053e9f140c1,
+    type: 2}
+  ultimatePrefab: {fileID: 1546878381745876, guid: 065cc831f0cfeb445ad9d267f4266bb3,
+    type: 2}
+  normalPrefab: {fileID: 1957748480340316, guid: f34143a94e2a20f4db1abb04507f8bad,
+    type: 2}
+  specialPrefab: {fileID: 1979700821981202, guid: f125c838b5d26d444a736912ec6b98ad,
+    type: 2}
 --- !u!4 &1602030129
 Transform:
   m_ObjectHideFlags: 0
@@ -3068,6 +3092,10 @@ MonoBehaviour:
   ultimateSound: {fileID: 8300000, guid: 32a02b5e107db45e39c57eccf2ec4bf4, type: 3}
   hitSound: {fileID: 8300000, guid: f3aebff15a2971c49bac005a7bc5bc9b, type: 3}
   utilityPrefab: {fileID: 1378232914763890, guid: c529dc74f512ec94f8944b8461d0b0e7,
+    type: 2}
+  ultimatePrefab: {fileID: 1810284467659060, guid: e1cae9d348dc7d04592012fac4febdc7,
+    type: 2}
+  normalPrefab: {fileID: 1984295241418192, guid: 5815a15d6ca68824497f48f3561c524e,
     type: 2}
   specialPrefab: {fileID: 1352829731032956, guid: dcc85ebcd5cb2cc418ff16b6570df6df,
     type: 2}
