@@ -41,8 +41,8 @@ public class PlayerController : MonoBehaviour{
         XaineObject = GameObject.Find("Xaine");
         YazirObject = GameObject.Find("Yazir");
         GameController = GameObject.Find("GameController");
-        centerPosition = new Vector2(4f, -1.3f);
-        float xOffset = 2.8f;
+        centerPosition = new Vector2(3.5f, -1.3f);
+        float xOffset = 3f;
         float yOffset = 1.3f;
         Vector2 AriaPosition = new Vector2(centerPosition.x, centerPosition.y - yOffset);
         Vector2 BaylPosition = new Vector2(centerPosition.x + xOffset, centerPosition.y);
@@ -422,31 +422,33 @@ public class PlayerController : MonoBehaviour{
 
     Vector3 getIconOffset(Icon type)
     {
-        float x = 1;
+        float x = 1.8f;
+        float ySpacing = 0.7f;
+        float z = -1;
         Vector3 offset = new Vector3(0, 0, 0);
         if (type == Icon.HastingWind)
         {
             offset.x = x;
-            offset.y = 1;
-            offset.z = -1;
+            offset.y += ySpacing;
+            offset.z = z;
         }
         else if (type == Icon.HealingWaters)
         {
             offset.x = x;
-            offset.y = -1;
-            offset.z = -1;
+            offset.y -= ySpacing;
+            offset.z = z;
         }
         else if (type == Icon.ScryingShield)
         {
-            offset.x = 1;
+            offset.x = x;
             offset.y = 3;
-            offset.z = -1;
+            offset.z = z;
         }
         else if (type == Icon.BerserkerRoar)
         {
             offset.x = x;
             offset.y = 0;
-            offset.z = -1;
+            offset.z = z;
         }
         return offset;
     }
