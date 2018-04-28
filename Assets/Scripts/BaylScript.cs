@@ -69,6 +69,7 @@ public class BaylScript : MonoBehaviour
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
             anim.SetTrigger(attackHash);
+            PlayerController.GetComponent<PlayerController>().createIcon(utilityPrefab, Icon.HealingWaters);
             audioSource.PlayOneShot(utilitySound);
             healingRain();
         }

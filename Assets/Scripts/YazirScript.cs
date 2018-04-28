@@ -72,6 +72,7 @@ public class YazirScript : MonoBehaviour
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
             anim.SetTrigger(attackHash);
+            PlayerController.GetComponent<PlayerController>().createIcon(utilityPrefab, Icon.BerserkerRoar);
             audioSource.PlayOneShot(utilitySound);
             strength();
         }
@@ -156,6 +157,7 @@ public class YazirScript : MonoBehaviour
         {
             utility = false;
             PlayerController.GetComponent<PlayerController>().restoreStrength();
+            PlayerController.GetComponent<PlayerController>().destroyBerserkerRoar();
         }
     }
 
@@ -215,5 +217,6 @@ public class YazirScript : MonoBehaviour
     {
         PlayerController.GetComponent<PlayerController>().raiseStrength();
         heroClass.getActionPoints().usePoints();
+        utility = true;
     }
 }

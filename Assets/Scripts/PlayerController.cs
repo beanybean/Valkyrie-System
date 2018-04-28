@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public enum Hero { Aria, Bayl, Xaine, Yazir, Null };
 public enum Action { Utility, Ultimate, Normal, Special, Null };
 public enum Direction { DOWN, RIGHT, LEFT, UP, DESELECT, NONE };
+public enum Icon { HastingWind, HealingWaters, ScryingShield, BerserkerRoar};
 
 public class PlayerController : MonoBehaviour{
     private Hero heroSelector;
     private Action actionSelector;
     public Text HeroText;
     public CharacterAttributes characterAttributes;
+    GameObject GameController;
 
     GameObject AriaObject;
     GameObject BaylObject;
@@ -25,12 +27,20 @@ public class PlayerController : MonoBehaviour{
     GameObject XaineHaste;
     GameObject YazirHaste;
 
+    GameObject AriaRoar;
+    GameObject BaylRoar;
+    GameObject XaineRoar;
+    GameObject YazirRoar;
+
+
+
     void Awake()
     {
         AriaObject = GameObject.Find("Aria");
         BaylObject = GameObject.Find("Bayl");
         XaineObject = GameObject.Find("Xaine");
         YazirObject = GameObject.Find("Yazir");
+        GameController = GameObject.Find("GameController");
         centerPosition = new Vector2(4f, -1.3f);
         float xOffset = 2.8f;
         float yOffset = 1.3f;
@@ -345,26 +355,100 @@ public class PlayerController : MonoBehaviour{
         return centerPosition;
     }
 
-    public void hastingWind(GameObject prefab)
+    public void createIcon(GameObject prefab, Icon type)
     {
-        Vector3 ariaPosition = getIconPosition(AriaObject.GetComponent<AriaScript>().getHeroClass().getPosition());
-        Vector3 baylPosition = getIconPosition(BaylObject.GetComponent<BaylScript>().getHeroClass().getPosition());
-        Vector3 xainePosition = getIconPosition(XaineObject.GetComponent<XaineScript>().getHeroClass().getPosition());
-        Vector3 yazirPosition = getIconPosition(YazirObject.GetComponent<YazirScript>().getHeroClass().getPosition());
-        AriaHaste = Instantiate(prefab, ariaPosition, Quaternion.identity);
-        BaylHaste = Instantiate(prefab, baylPosition, Quaternion.identity);
-        XaineHaste = Instantiate(prefab, xainePosition, Quaternion.identity);
-        YazirHaste = Instantiate(prefab, yazirPosition, Quaternion.identity);
-
+        Vector3 offset = getIconOffset(type);
+        if (type == Icon.HastingWind)
+        {
+            hastingWind(prefab, offset);
+        }
+        else if (type == Icon.HealingWaters)
+        {
+            healingWaters(prefab, offset);
+        }
+        else if (type == Icon.ScryingShield)
+        {
+            scryingShield(prefab, offset);
+        }
+        else if (type == Icon.BerserkerRoar)
+        {
+            berserkerRoar(prefab, offset);
+        }
     }
 
-    Vector3 getIconPosition(Vector2 heroPosition)
+    void hastingWind(GameObject prefab, Vector3 offset)
     {
-        Vector3 position;
-        position.x = heroPosition.x + 1;
-        position.y = heroPosition.y + 1;
-        position.z = -1;
-        return position;
+        Vector3 ariaPosition = AriaObject.GetComponent<AriaScript>().getHeroClass().getPosition();
+        Vector3 baylPosition = BaylObject.GetComponent<BaylScript>().getHeroClass().getPosition();
+        Vector3 xainePosition = XaineObject.GetComponent<XaineScript>().getHeroClass().getPosition();
+        Vector3 yazirPosition = YazirObject.GetComponent<YazirScript>().getHeroClass().getPosition();
+        AriaHaste = instantiate(prefab, ariaPosition + offset);
+        BaylHaste = instantiate(prefab, baylPosition + offset);
+        XaineHaste = instantiate(prefab, xainePosition + offset);
+        YazirHaste = instantiate(prefab, yazirPosition + offset);
+    }
+
+    void healingWaters(GameObject prefab, Vector3 offset)
+    {
+        float time = 2f;
+        Vector3 ariaPosition = AriaObject.GetComponent<AriaScript>().getHeroClass().getPosition();
+        Vector3 baylPosition = BaylObject.GetComponent<BaylScript>().getHeroClass().getPosition();
+        Vector3 xainePosition = XaineObject.GetComponent<XaineScript>().getHeroClass().getPosition();
+        Vector3 yazirPosition = YazirObject.GetComponent<YazirScript>().getHeroClass().getPosition();
+        playEffect(prefab, ariaPosition + offset, time);
+        playEffect(prefab, baylPosition + offset, time);
+        playEffect(prefab, xainePosition + offset, time);
+        playEffect(prefab, yazirPosition + offset, time);
+    }
+
+    void scryingShield(GameObject prefab, Vector3 offset)
+    {
+        float time = 3.667f;
+        Vector3 dragonPosition = GameController.GetComponent<GameController>().getDragonPosition();
+        playEffect(prefab, dragonPosition + offset, time);
+    }
+
+    void berserkerRoar(GameObject prefab, Vector3 offset)
+    {
+        Vector3 ariaPosition = AriaObject.GetComponent<AriaScript>().getHeroClass().getPosition();
+        Vector3 baylPosition = BaylObject.GetComponent<BaylScript>().getHeroClass().getPosition();
+        Vector3 xainePosition = XaineObject.GetComponent<XaineScript>().getHeroClass().getPosition();
+        Vector3 yazirPosition = YazirObject.GetComponent<YazirScript>().getHeroClass().getPosition();
+        AriaRoar = instantiate(prefab, ariaPosition + offset);
+        BaylRoar = instantiate(prefab, baylPosition + offset);
+        XaineRoar = instantiate(prefab, xainePosition + offset);
+        YazirRoar = instantiate(prefab, yazirPosition + offset);
+    }
+
+    Vector3 getIconOffset(Icon type)
+    {
+        float x = 1;
+        Vector3 offset = new Vector3(0, 0, 0);
+        if (type == Icon.HastingWind)
+        {
+            offset.x = x;
+            offset.y = 1;
+            offset.z = -1;
+        }
+        else if (type == Icon.HealingWaters)
+        {
+            offset.x = x;
+            offset.y = -1;
+            offset.z = -1;
+        }
+        else if (type == Icon.ScryingShield)
+        {
+            offset.x = 1;
+            offset.y = 3;
+            offset.z = -1;
+        }
+        else if (type == Icon.BerserkerRoar)
+        {
+            offset.x = x;
+            offset.y = 0;
+            offset.z = -1;
+        }
+        return offset;
     }
 
     public void destroyHastingWind()
@@ -373,5 +457,24 @@ public class PlayerController : MonoBehaviour{
         Destroy(BaylHaste);
         Destroy(XaineHaste);
         Destroy(YazirHaste);
+    }
+
+    public void destroyBerserkerRoar()
+    {
+        Destroy(AriaRoar);
+        Destroy(BaylRoar);
+        Destroy(XaineRoar);
+        Destroy(YazirRoar);
+    }
+
+    public GameObject instantiate(GameObject prefab, Vector3 position)
+    {
+        return Instantiate(prefab, position, Quaternion.identity);
+    }
+
+    public void playEffect(GameObject prefab, Vector3 position, float time)
+    {
+        GameObject myObject = Instantiate(prefab, position, Quaternion.identity);
+        Destroy(myObject, time);
     }
 }

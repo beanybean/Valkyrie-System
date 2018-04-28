@@ -72,17 +72,8 @@ public class AriaScript : MonoBehaviour
     {
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
-            //Vector3 enemyPosition = GameController.GetComponent<GameController>().getDragonPosition();
-            //enemyPosition.z = -1;
-            //Vector3 centerPosition = PlayerController.GetComponent<PlayerController>().getCenterPosition();
-            //centerPosition.z = -1;
-            //Vector3 iconPosition = heroClass.getPosition();
-            //iconPosition.x += 1;
-            //iconPosition.y += 1;
-            //iconPosition.z = -1;
             anim.SetTrigger(attackHash);
-            //instantiatedUtility = Instantiate(utilityPrefab, iconPosition, Quaternion.identity);
-            PlayerController.GetComponent<PlayerController>().hastingWind(utilityPrefab);
+            PlayerController.GetComponent<PlayerController>().createIcon(utilityPrefab, Icon.HastingWind);
             audioSource.PlayOneShot(utilitySound);
             hastingWind();
         }
@@ -94,8 +85,8 @@ public class AriaScript : MonoBehaviour
         {
             anim.SetTrigger(attackHash);
             Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
-            GameObject icon = Instantiate(ultimatePrefab, iconPosition, Quaternion.identity);
-            Destroy(icon, 1);
+            float destroyTime = 1f;
+            PlayerController.GetComponent<PlayerController>().playEffect(ultimatePrefab, iconPosition, destroyTime);
             audioSource.PlayOneShot(ultimateSound);
             attackCommand(newText, " Ultimate", myUltimate, Action.Ultimate);
         }
@@ -107,8 +98,8 @@ public class AriaScript : MonoBehaviour
         {
             anim.SetTrigger(attackHash);
             Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
-            GameObject icon = Instantiate(normalPrefab, iconPosition, Quaternion.identity);
-            Destroy(icon, 1);
+            float destroyTime = 1f;
+            PlayerController.GetComponent<PlayerController>().playEffect(normalPrefab, iconPosition, destroyTime);
             audioSource.PlayOneShot(normalSound);
             attackCommand(newText, " Normal", myNormal, Action.Normal);
         }
@@ -119,9 +110,9 @@ public class AriaScript : MonoBehaviour
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
             anim.SetTrigger(attackHash);
+            float destroyTime = 1f;
             Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
-            GameObject icon = Instantiate(specialPrefab, iconPosition, Quaternion.identity);
-            Destroy(icon, 1);
+            PlayerController.GetComponent<PlayerController>().playEffect(specialPrefab, iconPosition, destroyTime);
             audioSource.PlayOneShot(specialSound);
             attackCommand(newText, " Special", mySpecial, Action.Special);
         }
@@ -166,7 +157,6 @@ public class AriaScript : MonoBehaviour
         {
             utility = false;
             PlayerController.GetComponent<PlayerController>().restoreSpeed();
-            //Destroy(instantiatedUtility);
             PlayerController.GetComponent<PlayerController>().destroyHastingWind();
         }
     }

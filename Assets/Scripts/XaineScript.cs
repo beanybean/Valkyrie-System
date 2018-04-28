@@ -74,6 +74,7 @@ public class XaineScript : MonoBehaviour
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
             anim.SetTrigger(attackHash);
+            PlayerController.GetComponent<PlayerController>().createIcon(utilityPrefab, Icon.ScryingShield);
             audioSource.PlayOneShot(utilitySound);
             scryingShield();
         }
