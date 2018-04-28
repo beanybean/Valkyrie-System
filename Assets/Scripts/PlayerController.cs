@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public enum Hero { Aria, Bayl, Xaine, Yazir, Null };
 public enum Action { Utility, Ultimate, Normal, Special, Null };
 public enum Direction { DOWN, RIGHT, LEFT, UP, DESELECT, NONE };
-public enum Icon { HastingWind, HealingWaters, ScryingShield, BerserkerRoar};
+public enum Icon { HastingWind, HealingWaters, ScryingShield, BerserkerRoar, Selector};
 
-public class PlayerController : MonoBehaviour{
+public class PlayerController : MonoBehaviour {
     private Hero heroSelector;
     private Action actionSelector;
     public Text HeroText;
@@ -32,7 +32,9 @@ public class PlayerController : MonoBehaviour{
     GameObject XaineRoar;
     GameObject YazirRoar;
 
-
+    [SerializeField]
+    GameObject arrowPrefab;
+    GameObject arrow;
 
     void Awake()
     {
@@ -78,7 +80,10 @@ public class PlayerController : MonoBehaviour{
             return;
         }
         if (heroSelector == Hero.Null)
+        {
             heroSelector = selectHero(direction);
+            createIcon(arrowPrefab, heroSelector);
+        }
         else if (actionSelector == Action.Null)
             actionSelector = selectAction(direction);
         if (heroSelector != Hero.Null && actionSelector != Action.Null)
@@ -126,6 +131,7 @@ public class PlayerController : MonoBehaviour{
     {
         heroSelector = Hero.Null;
         actionSelector = Action.Null;
+        destroyArrow();
     }
 
     Direction getDirection()
@@ -376,12 +382,43 @@ public class PlayerController : MonoBehaviour{
         }
     }
 
+    void createIcon(GameObject prefab, Hero hero)
+    {
+        if (hero == Hero.Null)
+            return;
+        Vector3 position = heroPosition(hero);
+        Vector3 offset = getIconOffset(Icon.Selector);
+        arrow = instantiate(prefab, position + offset);
+    }
+
+    void destroyArrow()
+    {
+        Destroy(arrow);
+    }
+
+    Vector3 heroPosition(Hero hero)
+    {
+        switch(hero)
+        {
+            case Hero.Aria:
+                return AriaObject.GetComponent<AriaScript>().getHeroClass().getPosition();
+            case Hero.Bayl:
+                return BaylObject.GetComponent<BaylScript>().getHeroClass().getPosition();
+            case Hero.Xaine:
+                return XaineObject.GetComponent<XaineScript>().getHeroClass().getPosition();
+            case Hero.Yazir:
+                return YazirObject.GetComponent<YazirScript>().getHeroClass().getPosition();
+            default:
+                return new Vector3(0, 0, 0);
+        }
+    }
+
     void hastingWind(GameObject prefab, Vector3 offset)
     {
-        Vector3 ariaPosition = AriaObject.GetComponent<AriaScript>().getHeroClass().getPosition();
-        Vector3 baylPosition = BaylObject.GetComponent<BaylScript>().getHeroClass().getPosition();
-        Vector3 xainePosition = XaineObject.GetComponent<XaineScript>().getHeroClass().getPosition();
-        Vector3 yazirPosition = YazirObject.GetComponent<YazirScript>().getHeroClass().getPosition();
+        Vector3 ariaPosition = heroPosition(Hero.Aria);
+        Vector3 baylPosition = heroPosition(Hero.Bayl);
+        Vector3 xainePosition = heroPosition(Hero.Xaine);
+        Vector3 yazirPosition = heroPosition(Hero.Yazir);
         AriaHaste = instantiate(prefab, ariaPosition + offset);
         BaylHaste = instantiate(prefab, baylPosition + offset);
         XaineHaste = instantiate(prefab, xainePosition + offset);
@@ -391,10 +428,10 @@ public class PlayerController : MonoBehaviour{
     void healingWaters(GameObject prefab, Vector3 offset)
     {
         float time = 2f;
-        Vector3 ariaPosition = AriaObject.GetComponent<AriaScript>().getHeroClass().getPosition();
-        Vector3 baylPosition = BaylObject.GetComponent<BaylScript>().getHeroClass().getPosition();
-        Vector3 xainePosition = XaineObject.GetComponent<XaineScript>().getHeroClass().getPosition();
-        Vector3 yazirPosition = YazirObject.GetComponent<YazirScript>().getHeroClass().getPosition();
+        Vector3 ariaPosition = heroPosition(Hero.Aria);
+        Vector3 baylPosition = heroPosition(Hero.Bayl);
+        Vector3 xainePosition = heroPosition(Hero.Xaine);
+        Vector3 yazirPosition = heroPosition(Hero.Yazir);
         playEffect(prefab, ariaPosition + offset, time);
         playEffect(prefab, baylPosition + offset, time);
         playEffect(prefab, xainePosition + offset, time);
@@ -410,10 +447,10 @@ public class PlayerController : MonoBehaviour{
 
     void berserkerRoar(GameObject prefab, Vector3 offset)
     {
-        Vector3 ariaPosition = AriaObject.GetComponent<AriaScript>().getHeroClass().getPosition();
-        Vector3 baylPosition = BaylObject.GetComponent<BaylScript>().getHeroClass().getPosition();
-        Vector3 xainePosition = XaineObject.GetComponent<XaineScript>().getHeroClass().getPosition();
-        Vector3 yazirPosition = YazirObject.GetComponent<YazirScript>().getHeroClass().getPosition();
+        Vector3 ariaPosition = heroPosition(Hero.Aria);
+        Vector3 baylPosition = heroPosition(Hero.Bayl);
+        Vector3 xainePosition = heroPosition(Hero.Xaine);
+        Vector3 yazirPosition = heroPosition(Hero.Yazir);
         AriaRoar = instantiate(prefab, ariaPosition + offset);
         BaylRoar = instantiate(prefab, baylPosition + offset);
         XaineRoar = instantiate(prefab, xainePosition + offset);
@@ -448,6 +485,12 @@ public class PlayerController : MonoBehaviour{
         {
             offset.x = x;
             offset.y = 0;
+            offset.z = z;
+        }
+        else if (type == Icon.Selector)
+        {
+            offset.x = 0;
+            offset.y = 1.5f;
             offset.z = z;
         }
         return offset;

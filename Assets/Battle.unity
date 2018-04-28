@@ -1217,6 +1217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HeroText: {fileID: 169047213}
   characterAttributes: {fileID: 0}
+  arrowPrefab: {fileID: 1428217646758230, guid: ff205ab76b715c64295b35abb2d5b4b0,
+    type: 2}
 --- !u!4 &667876280
 Transform:
   m_ObjectHideFlags: 0
