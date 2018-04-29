@@ -28,6 +28,13 @@ public class HeroClass
 
     string CharacterName;
 
+    float attackTime = 2f;
+
+    public float getAttackTime()
+    {
+        return attackTime;
+    }
+
     Vector2 position;
     public void setPosition(Vector2 newPosition)
     {

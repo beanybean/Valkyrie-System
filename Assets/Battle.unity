@@ -2832,10 +2832,17 @@ MonoBehaviour:
   attackTimer: {fileID: 746054976}
   health: {fileID: 1382999830}
   fireballSound: {fileID: 8300000, guid: 89e0f69e3ad999a4aa99111f0765d6b7, type: 3}
-  earthquakeSound: {fileID: 8300000, guid: 6531e4f5d902f48a7bab3d8fc8b02c24, type: 3}
+  earthquakeSound: {fileID: 8300000, guid: 61f1c1a6ae8668144ac74a4a0390ab20, type: 3}
   tailswipeSound: {fileID: 8300000, guid: 61f1c1a6ae8668144ac74a4a0390ab20, type: 3}
   snotbombSound: {fileID: 8300000, guid: 132f502e03330844293c60b2ea839b8b, type: 3}
   hitSound: {fileID: 8300000, guid: 7dce1f609bdef7945966079ed8deb866, type: 3}
+  bitePrefab: {fileID: 1189231958158810, guid: 19c91906d2322704f9f44f2f1c8200a8, type: 2}
+  earthquakePrefab: {fileID: 1783367056572036, guid: b712b98afd76c574db75e2b531776b09,
+    type: 2}
+  fireballPrefab: {fileID: 1414179776692606, guid: 55d1474702d8a024f9e67260ab3d6384,
+    type: 2}
+  snotbombPrefab: {fileID: 1355236592694150, guid: 74ae1e82fd2ce4a41b79c1b39ad80e1d,
+    type: 2}
 --- !u!82 &1862922886
 AudioSource:
   m_ObjectHideFlags: 0

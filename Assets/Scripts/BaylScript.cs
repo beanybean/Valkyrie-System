@@ -81,8 +81,7 @@ public class BaylScript : MonoBehaviour
         {
             anim.SetTrigger(attackHash);
             Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
-            GameObject icon = Instantiate(ultimatePrefab, iconPosition, Quaternion.identity);
-            Destroy(icon, 1);
+            PlayerController.GetComponent<PlayerController>().playEffect(ultimatePrefab, iconPosition, heroClass.getAttackTime());
             audioSource.PlayOneShot(ultimateSound);
             attackCommand(newText, " Ultimate", myUltimate, Action.Ultimate);
         }
@@ -94,8 +93,7 @@ public class BaylScript : MonoBehaviour
         {
             anim.SetTrigger(attackHash);
             Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
-            GameObject icon = Instantiate(normalPrefab, iconPosition, Quaternion.identity);
-            Destroy(icon, 1);
+            PlayerController.GetComponent<PlayerController>().playEffect(normalPrefab, iconPosition, heroClass.getAttackTime());
             audioSource.PlayOneShot(normalSound);
             attackCommand(newText, " Normal", myNormal, Action.Normal);
         }
@@ -107,8 +105,7 @@ public class BaylScript : MonoBehaviour
         {
             anim.SetTrigger(attackHash);
             Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
-            GameObject icon = Instantiate(specialPrefab, iconPosition, Quaternion.identity);
-            Destroy(icon, 1);
+            PlayerController.GetComponent<PlayerController>().playEffect(specialPrefab, iconPosition, heroClass.getAttackTime());
             audioSource.PlayOneShot(specialSound);
             attackCommand(newText, " Special", mySpecial, Action.Special);
         }

@@ -70,6 +70,15 @@ public class DragonScript : MonoBehaviour {
 
     private Vector2 myPosition;
 
+    [SerializeField]
+    GameObject bitePrefab;
+    [SerializeField]
+    GameObject earthquakePrefab;
+    [SerializeField]
+    GameObject fireballPrefab;
+    [SerializeField]
+    GameObject snotbombPrefab;
+
     public void takeDamage(float phDamage, float maDamage)
     {
         float totalDamage = 0;
@@ -183,7 +192,7 @@ public class DragonScript : MonoBehaviour {
         Target[] targets = new Target[targetNumber];
         for (int i = 0; i < targetNumber; ++i)
             targets[i] = getRandomTarget();
-        attackCommand(myTailSwipe, targets, targetNumber, DragonAttack.TailSwipe);
+        attackCommand(myTailSwipe, targets, targetNumber, DragonAttack.TailSwipe, bitePrefab);
         audioSource.PlayOneShot(tailswipeSound);
     }
 
@@ -213,7 +222,7 @@ public class DragonScript : MonoBehaviour {
             default:
                 break;
         }
-        attackCommand(myFireball, targets, targetNumber, DragonAttack.Fireball);
+        attackCommand(myFireball, targets, targetNumber, DragonAttack.Fireball, fireballPrefab);
         audioSource.PlayOneShot(fireballSound);
     }
 
@@ -225,7 +234,7 @@ public class DragonScript : MonoBehaviour {
         {
             targets[i] = getRandomTarget();
         }
-        attackCommand(myEarthquake, targets, targetNumber, DragonAttack.Earthquake);
+        attackCommand(myEarthquake, targets, targetNumber, DragonAttack.Earthquake, earthquakePrefab);
         for (int i = 0; i < targetNumber; ++i)
             audioSource.PlayOneShot(earthquakeSound);
     }
@@ -236,11 +245,11 @@ public class DragonScript : MonoBehaviour {
         Target[] targets = new Target[targetNumber];
         for (int i = 0; i < targetNumber; ++i)
             targets[i] = getRandomTarget();
-        attackCommand(mySnotbomb, targets, targetNumber, DragonAttack.SnotBomb);
+        attackCommand(mySnotbomb, targets, targetNumber, DragonAttack.SnotBomb, snotbombPrefab);
         audioSource.PlayOneShot(snotbombSound);
     }
 
-    void attackCommand(AttackAtt myAttack, Target[] targets, int targetNumber, DragonAttack attackName)
+    void attackCommand(AttackAtt myAttack, Target[] targets, int targetNumber, DragonAttack attackName, GameObject prefab)
     {
         EnemyAttack attack;
         attack.phDamage = damageModule.phAttackDamage(myAttack, 1.0f);
@@ -252,6 +261,7 @@ public class DragonScript : MonoBehaviour {
         attack.ailChance = myAttack.chance;
         for (int i = 0; i < targetNumber; ++i)
             attack.targets[i] = targets[i];
+        attack.prefab = prefab;
         GameController.GetComponent<GameController>().EnemyQueue.Enqueue(attack);
     }
 

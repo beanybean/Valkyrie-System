@@ -23,6 +23,7 @@ public struct EnemyAttack
     internal DragonAttack attackName;
     internal Ailment ailment;
     internal float ailChance;
+    internal GameObject prefab;
 }
 
 public class DamageModule

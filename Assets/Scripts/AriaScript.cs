@@ -85,8 +85,7 @@ public class AriaScript : MonoBehaviour
         {
             anim.SetTrigger(attackHash);
             Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
-            float destroyTime = 1f;
-            PlayerController.GetComponent<PlayerController>().playEffect(ultimatePrefab, iconPosition, destroyTime);
+            PlayerController.GetComponent<PlayerController>().playEffect(ultimatePrefab, iconPosition, heroClass.getAttackTime());
             audioSource.PlayOneShot(ultimateSound);
             attackCommand(newText, " Ultimate", myUltimate, Action.Ultimate);
         }
@@ -98,8 +97,7 @@ public class AriaScript : MonoBehaviour
         {
             anim.SetTrigger(attackHash);
             Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
-            float destroyTime = 1f;
-            PlayerController.GetComponent<PlayerController>().playEffect(normalPrefab, iconPosition, destroyTime);
+            PlayerController.GetComponent<PlayerController>().playEffect(normalPrefab, iconPosition, heroClass.getAttackTime());
             audioSource.PlayOneShot(normalSound);
             attackCommand(newText, " Normal", myNormal, Action.Normal);
         }
@@ -110,9 +108,8 @@ public class AriaScript : MonoBehaviour
         if (heroClass.getActionPoints().isReady() && heroClass.isAlive())
         {
             anim.SetTrigger(attackHash);
-            float destroyTime = 1f;
             Vector3 iconPosition = GameController.GetComponent<GameController>().getDragonOffset();
-            PlayerController.GetComponent<PlayerController>().playEffect(specialPrefab, iconPosition, destroyTime);
+            PlayerController.GetComponent<PlayerController>().playEffect(specialPrefab, iconPosition, heroClass.getAttackTime());
             audioSource.PlayOneShot(specialSound);
             attackCommand(newText, " Special", mySpecial, Action.Special);
         }

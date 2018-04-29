@@ -257,8 +257,11 @@ public class PlayerController : MonoBehaviour {
 
     public void attackPlayer(EnemyAttack attack)
     {
+        float time = 2f;
         for (int i = 0; i < attack.targetNumber; ++i)
         {
+            Vector3 iconPosition = getHeroPosition(attack.targets[i]);
+            playEffect(attack.prefab, iconPosition, time);
             attackTarget(attack.targets[i], attack);
         }
     }
@@ -396,7 +399,24 @@ public class PlayerController : MonoBehaviour {
         Destroy(arrow);
     }
 
-    Vector3 heroPosition(Hero hero)
+    Vector3 getHeroPosition(Target target)
+    {
+        switch (target)
+        {
+            case Target.Aria:
+                return heroPosition(Hero.Aria);
+            case Target.Bayl:
+                return heroPosition(Hero.Bayl);
+            case Target.Xaine:
+                return heroPosition(Hero.Xaine);
+            case Target.Yazir:
+                return heroPosition(Hero.Yazir);
+            default:
+                return new Vector3(0, 0, 0);
+        }
+    }
+
+    public Vector3 heroPosition(Hero hero)
     {
         switch(hero)
         {
