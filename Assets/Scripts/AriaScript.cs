@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class AriaScript : MonoBehaviour
 {
     const float defaultPhAtk = 50f;
-    const float defaultMaAtk = 50f;
+    const float defaultMaAtk = 60f;
     const float defaultPhDef = 50f;
     const float defaultMaDef = 50f;
     const float defaultRes = 50f;

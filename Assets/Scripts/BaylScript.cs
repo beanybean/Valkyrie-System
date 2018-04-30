@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BaylScript : MonoBehaviour
 {
     const float defaultPhAtk = 50f;
-    const float defaultMaAtk = 50f;
+    const float defaultMaAtk = 80f;
     const float defaultPhDef = 50f;
     const float defaultMaDef = 50f;
     const float defaultRes = 50f;

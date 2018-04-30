@@ -13,8 +13,8 @@ public class DragonScript : MonoBehaviour {
     const float ATTACK_SPEED = 1.0f;
     const float DRAGON_HEALTH = 4000.0f;
     const float DOOMSDAY_SPEED = 10.0f;
-    const float defaultPhAtk = 80.0f;
-    const float defaultMaAtk = 80.0f;
+    const float defaultPhAtk = 90.0f;
+    const float defaultMaAtk = 90.0f;
     const float defaultPhDef = 80.0f;
     const float defaultMaDef = 80.0f;
     const float defaultRes = 50.0f;
