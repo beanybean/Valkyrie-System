@@ -261,6 +261,7 @@ public class PlayerController : MonoBehaviour {
         for (int i = 0; i < attack.targetNumber; ++i)
         {
             Vector3 iconPosition = getHeroPosition(attack.targets[i]);
+            iconPosition.z = -1;
             playEffect(attack.prefab, iconPosition, time);
             attackTarget(attack.targets[i], attack);
         }

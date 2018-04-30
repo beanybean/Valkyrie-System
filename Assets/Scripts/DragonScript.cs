@@ -66,7 +66,7 @@ public class DragonScript : MonoBehaviour {
 
     public Queue counterQueue = new Queue();
     private bool counterBool = false;
-    private float counterWindow = 0.8f;
+    private float counterWindow = 0.5f;
 
     private Vector2 myPosition;
 
@@ -78,6 +78,15 @@ public class DragonScript : MonoBehaviour {
     GameObject fireballPrefab;
     [SerializeField]
     GameObject snotbombPrefab;
+
+    Animator anim;
+    int biteHash = Animator.StringToHash("biteTrigger");
+    int fireballHash = Animator.StringToHash("fireballTrigger");
+    int earthquakeHash = Animator.StringToHash("earthquakeTrigger");
+    int snotbombHash = Animator.StringToHash("snotbombTrigger");
+    int hurtHash = Animator.StringToHash("hurtTrigger");
+    int attackHash = Animator.StringToHash("attackTrigger");
+    bool triggerSet;
 
     public void takeDamage(float phDamage, float maDamage)
     {
@@ -110,6 +119,7 @@ public class DragonScript : MonoBehaviour {
         setPositions();
         resetAttackTimerPos();
         audioSource = GetComponent<AudioSource>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -119,9 +129,12 @@ public class DragonScript : MonoBehaviour {
         counterBool = setCounterBool();
         setCounterColor();
         if (counter())
+        {
             cancelAttack();
+        }
         if (actionPoints2.getMeter() > counterWindow)
         {
+            setAnimationTrigger();
             makeTimerVisible();
         }
         if (actionPoints2.isReady() && !gameOver())
@@ -336,6 +349,8 @@ public class DragonScript : MonoBehaviour {
 
     void doRandomAttack(DragonAttack attack)
     {
+        anim.SetTrigger(attackHash);
+        triggerSet = false;
         switch(attack)
         {
             case DragonAttack.TailSwipe:
@@ -410,6 +425,8 @@ public class DragonScript : MonoBehaviour {
 
     void cancelAttack()
     {
+        anim.SetTrigger(hurtHash);
+        triggerSet = false;
         actionPoints2.emptyMeter();
         nextAttack = getRandomAttack();
     }
@@ -444,5 +461,32 @@ public class DragonScript : MonoBehaviour {
     public Vector2 getPosition()
     {
         return myPosition;
+    }
+
+    void setAnimationTrigger()
+    {
+        if (triggerSet)
+            return;
+        switch(nextAttack)
+        {
+            case DragonAttack.Earthquake:
+                triggerSet = true;
+                anim.SetTrigger(earthquakeHash);
+                return;
+            case DragonAttack.Fireball:
+                triggerSet = true;
+                anim.SetTrigger(fireballHash);
+                return;
+            case DragonAttack.SnotBomb:
+                triggerSet = true;
+                anim.SetTrigger(snotbombHash);
+                return;
+            case DragonAttack.TailSwipe:
+                triggerSet = true;
+                anim.SetTrigger(biteHash);
+                return;
+            default:
+                return;
+        }
     }
 }
