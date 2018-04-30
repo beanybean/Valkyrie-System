@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOver : MonoBehaviour {
+
+public class Credits : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -15,6 +16,6 @@ public class GameOver : MonoBehaviour {
         if (Input.GetButtonUp("Deselect"))
             SceneManager.LoadScene("Battle");
         else if (Input.GetButtonUp("Credits"))
-            SceneManager.LoadScene("Credits");
+            SceneManager.LoadScene("Instructions");
     }
 }

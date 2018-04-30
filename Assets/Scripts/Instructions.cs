@@ -59,6 +59,8 @@ public class Instructions : MonoBehaviour {
 	void Update () {
         if (Input.GetButtonUp("Deselect"))
             SceneManager.LoadScene("Battle");
+        else if (Input.GetButtonUp("Credits"))
+            SceneManager.LoadScene("Credits");
     }
 
     void setText()
