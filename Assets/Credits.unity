@@ -639,8 +639,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -108.9}
-  m_SizeDelta: {x: 300, y: 30}
+  m_AnchoredPosition: {x: 49.1, y: -108.9}
+  m_SizeDelta: {x: 400, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &956150883
 MonoBehaviour:
@@ -674,7 +674,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Music: Shady Cicada'
+  m_Text: 'Music: Fighting Spirit (Alternate Version) by Shady Cicada'
 --- !u!222 &956150884
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1002,8 +1002,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1853023928}
   - component: {fileID: 1853023927}
-  - component: {fileID: 1853023926}
-  - component: {fileID: 1853023925}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1011,20 +1009,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1853023925
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1853023924}
-  m_Enabled: 1
---- !u!124 &1853023926
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1853023924}
-  m_Enabled: 1
 --- !u!20 &1853023927
 Camera:
   m_ObjectHideFlags: 0
